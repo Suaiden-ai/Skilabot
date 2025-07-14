@@ -27,6 +27,8 @@ import AdminDashboard from "./components/dashboard/admin/AdminDashboard";
 import AdminUsers from "./pages/admin-users";
 import AdminSettings from "./pages/AdminSettings";
 import AdminPayments from "./pages/AdminPayments";
+import ConfirmPlan from "./pages/ConfirmPlan";
+import Success from "./pages/Success";
 
 const App = () => (
   <AuthProvider>
@@ -39,6 +41,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/register" element={<Register />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/confirm-plan" element={<ConfirmPlan />} />
+          <Route path="/success" element={<Success />} />
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<KnowledgeBase />} />
             <Route path="/agents" element={<Agents />} />

@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useRef } from "react";
 import { Bell } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -39,7 +40,6 @@ export default function AdminNotificationsDropdown() {
       .limit(20);
     if (profile?.role !== "admin") {
       // Para usuários comuns, mostrar apenas notificações para todos ou para user
-      // @ts-expect-error
       query = query.in("target", ["all", "user"]);
     }
     const { data, error } = await query;
@@ -105,4 +105,4 @@ export default function AdminNotificationsDropdown() {
       )}
     </div>
   );
-} 
+}

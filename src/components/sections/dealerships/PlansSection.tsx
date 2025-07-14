@@ -1,5 +1,7 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const plans = [
   {
@@ -39,6 +41,22 @@ const plans = [
 ];
 
 const DealershipsPlansSection = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleChoosePlan = (plan: "basic" | "medium" | "custom") => {
+    if (plan === "custom") {
+      navigate("/contact-sales");
+      return;
+    }
+    localStorage.setItem("pendingPlan", plan);
+    if (!user) {
+      navigate("/auth?redirect=/confirm-plan");
+    } else {
+      navigate("/confirm-plan");
+    }
+  };
+
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 to-green-50">
       <div className="max-w-7xl mx-auto px-6">
@@ -64,7 +82,10 @@ const DealershipsPlansSection = () => {
                   </li>
                 ))}
               </ul>
-              <Button className={`w-full py-3 rounded-full font-semibold ${plan.highlight ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-white text-blue-600 border border-blue-600 hover:bg-blue-50'}`}>
+              <Button
+                className={`w-full py-3 rounded-full font-semibold ${plan.highlight ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-white text-blue-600 border border-blue-600 hover:bg-blue-50'}`}
+                onClick={() => handleChoosePlan(idx === 0 ? "basic" : idx === 1 ? "medium" : "custom")}
+              >
                 {plan.price === 'Custom' ? 'Contact Sales' : 'Choose Plan'}
               </Button>
             </div>
@@ -145,4 +166,4 @@ const DealershipsPlansSection = () => {
   );
 };
 
-export default DealershipsPlansSection; 
+export default DealershipsPlansSection;

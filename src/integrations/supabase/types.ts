@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          read_by: string[] | null
+          target: string | null
+          title: string
+          type: string | null
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          read_by?: string[] | null
+          target?: string | null
+          title: string
+          type?: string | null
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          read_by?: string[] | null
+          target?: string | null
+          title?: string
+          type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_notifications_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_configurations: {
         Row: {
           agent_type: string | null
@@ -52,6 +93,45 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      banned_users: {
+        Row: {
+          banned_at: string
+          banned_by: string
+          id: string
+          reason: string | null
+          user_id: string
+        }
+        Insert: {
+          banned_at?: string
+          banned_by: string
+          id?: string
+          reason?: string | null
+          user_id: string
+        }
+        Update: {
+          banned_at?: string
+          banned_by?: string
+          id?: string
+          reason?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "banned_users_banned_by_fkey"
+            columns: ["banned_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "banned_users_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       chatbot_test_data: {
         Row: {
@@ -185,32 +265,47 @@ export type Database = {
       }
       chatwoot_leads: {
         Row: {
+          account_id: string | null
           chatwoot_inbox_id: string | null
           created_at: string
+          data_e_hora: string | null
           id: string
+          id_conversa: string | null
           inbox_id: string
           name_lead: string
+          nameinbox: string | null
           phone_lead: string
+          status: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
+          account_id?: string | null
           chatwoot_inbox_id?: string | null
           created_at?: string
+          data_e_hora?: string | null
           id?: string
+          id_conversa?: string | null
           inbox_id: string
           name_lead: string
+          nameinbox?: string | null
           phone_lead: string
+          status?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
+          account_id?: string | null
           chatwoot_inbox_id?: string | null
           created_at?: string
+          data_e_hora?: string | null
           id?: string
+          id_conversa?: string | null
           inbox_id?: string
           name_lead?: string
+          nameinbox?: string | null
           phone_lead?: string
+          status?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -300,6 +395,8 @@ export type Database = {
           name: string | null
           plan: string | null
           role: Database["public"]["Enums"]["user_role"] | null
+          status: string | null
+          stripe_customer_id: string | null
           updated_at: string | null
         }
         Insert: {
@@ -311,6 +408,8 @@ export type Database = {
           name?: string | null
           plan?: string | null
           role?: Database["public"]["Enums"]["user_role"] | null
+          status?: string | null
+          stripe_customer_id?: string | null
           updated_at?: string | null
         }
         Update: {
@@ -322,6 +421,8 @@ export type Database = {
           name?: string | null
           plan?: string | null
           role?: Database["public"]["Enums"]["user_role"] | null
+          status?: string | null
+          stripe_customer_id?: string | null
           updated_at?: string | null
         }
         Relationships: []
@@ -363,6 +464,63 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      subscriptions: {
+        Row: {
+          created_at: string | null
+          id: string
+          plan_type: string
+          status: string
+          stripe_customer_id: string
+          stripe_subscription_id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          plan_type: string
+          status?: string
+          stripe_customer_id: string
+          stripe_subscription_id: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          plan_type?: string
+          status?: string
+          stripe_customer_id?: string
+          stripe_subscription_id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      system_settings: {
+        Row: {
+          description: string | null
+          id: string
+          key: string
+          updated_at: string | null
+          value: string
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          key: string
+          updated_at?: string | null
+          value: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          key?: string
+          updated_at?: string | null
+          value?: string
+        }
+        Relationships: []
       }
       user_activity_logs: {
         Row: {
@@ -424,6 +582,36 @@ export type Database = {
         }
         Relationships: []
       }
+      webhooks: {
+        Row: {
+          created_at: string | null
+          events: string[]
+          headers: Json | null
+          id: string
+          status: string
+          updated_at: string | null
+          url: string
+        }
+        Insert: {
+          created_at?: string | null
+          events: string[]
+          headers?: Json | null
+          id?: string
+          status?: string
+          updated_at?: string | null
+          url: string
+        }
+        Update: {
+          created_at?: string | null
+          events?: string[]
+          headers?: Json | null
+          id?: string
+          status?: string
+          updated_at?: string | null
+          url?: string
+        }
+        Relationships: []
+      }
       whatsapp_connections: {
         Row: {
           ai_configuration_id: string
@@ -482,6 +670,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      bytea_to_text: {
+        Args: { data: string }
+        Returns: string
+      }
       has_role: {
         Args: {
           _user_id: string
@@ -489,12 +681,96 @@ export type Database = {
         }
         Returns: boolean
       }
+      http: {
+        Args: { request: Database["public"]["CompositeTypes"]["http_request"] }
+        Returns: Database["public"]["CompositeTypes"]["http_response"]
+      }
+      http_delete: {
+        Args:
+          | { uri: string }
+          | { uri: string; content: string; content_type: string }
+        Returns: Database["public"]["CompositeTypes"]["http_response"]
+      }
+      http_get: {
+        Args: { uri: string } | { uri: string; data: Json }
+        Returns: Database["public"]["CompositeTypes"]["http_response"]
+      }
+      http_head: {
+        Args: { uri: string }
+        Returns: Database["public"]["CompositeTypes"]["http_response"]
+      }
+      http_header: {
+        Args: { field: string; value: string }
+        Returns: Database["public"]["CompositeTypes"]["http_header"]
+      }
+      http_list_curlopt: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          curlopt: string
+          value: string
+        }[]
+      }
+      http_patch: {
+        Args: { uri: string; content: string; content_type: string }
+        Returns: Database["public"]["CompositeTypes"]["http_response"]
+      }
+      http_post: {
+        Args:
+          | { uri: string; content: string; content_type: string }
+          | { uri: string; data: Json }
+        Returns: Database["public"]["CompositeTypes"]["http_response"]
+      }
+      http_put: {
+        Args: { uri: string; content: string; content_type: string }
+        Returns: Database["public"]["CompositeTypes"]["http_response"]
+      }
+      http_reset_curlopt: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      http_set_curlopt: {
+        Args: { curlopt: string; value: string }
+        Returns: boolean
+      }
+      log_admin_activity: {
+        Args: {
+          _activity_type: string
+          _description: string
+          _target_user_id?: string
+          _metadata?: Json
+        }
+        Returns: string
+      }
+      text_to_bytea: {
+        Args: { data: string }
+        Returns: string
+      }
+      urlencode: {
+        Args: { data: Json } | { string: string } | { string: string }
+        Returns: string
+      }
     }
     Enums: {
       user_role: "user" | "admin"
     }
     CompositeTypes: {
-      [_ in never]: never
+      http_header: {
+        field: string | null
+        value: string | null
+      }
+      http_request: {
+        method: unknown | null
+        uri: string | null
+        headers: Database["public"]["CompositeTypes"]["http_header"][] | null
+        content_type: string | null
+        content: string | null
+      }
+      http_response: {
+        status: number | null
+        content_type: string | null
+        headers: Database["public"]["CompositeTypes"]["http_header"][] | null
+        content: string | null
+      }
     }
   }
 }

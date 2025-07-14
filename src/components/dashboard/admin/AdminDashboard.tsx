@@ -1,11 +1,8 @@
+
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, UserPlus, Activity, TrendingUp } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-// Remover importação do recharts
-// import {
-//   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, Legend
-// } from "recharts";
 import UserTable from "./UserTable";
 import SidebarMenu from "../../SidebarMenu";
 import { motion } from "framer-motion";
@@ -15,18 +12,16 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { TablesInsert } from "@/integrations/supabase/types";
 
-// Colors for charts
-const COLORS = ["#6366f1", "#f472b6", "#fb923c", "#60a5fa", "#34d399", "#a78bfa"];
-
-const mockUsers = [
-  // Add mock data as needed
-];
-
 const AdminDashboard = () => {
   // Métricas reais
   const [totalUsers, setTotalUsers] = useState(0);
   const [basicUsers, setBasicUsers] = useState(0);
   const [interUsers, setInterUsers] = useState(0);
+
+  // Estados para os gráficos
+  const [timelineData, setTimelineData] = useState([]);
+  const [planData, setPlanData] = useState([]);
+  const [activeByWeek, setActiveByWeek] = useState([]);
 
   const { profile } = useAuth();
   const [notifOpen, setNotifOpen] = useState(false);
@@ -38,6 +33,9 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchUserReports();
+    fetchTimeline();
+    fetchPlanDistribution();
+    fetchActiveByWeek();
   }, []);
 
   const fetchUserReports = async () => {
@@ -65,7 +63,7 @@ const AdminDashboard = () => {
       return;
     }
     setNotifLoading(true);
-    const { error } = await (supabase as any)
+    const { error } = await supabase
       .from("admin_notifications")
       .insert([
         {
@@ -246,14 +244,7 @@ const AdminDashboard = () => {
           </CardContent>
         </Card>
       </div>
-      {/* 2. User List with Advanced Filters */}
       <UserTable />
-      {/* 3. User Details Modal/Page */}
-      {/* Implement a UserDetails component to display and edit user details */}
-      {/* 4. Permissions and Roles Management */}
-      {/* Implement a RolesManager component to manage roles and permissions */}
-      {/* 5. Activity Logs */}
-      {/* Implement an ActivityLogs component to display and filter logs */}
     </div>
   );
 };

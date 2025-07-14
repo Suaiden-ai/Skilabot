@@ -25,6 +25,15 @@ const Auth = () => {
   useEffect(() => {
     console.log('Auth useEffect:', { loading, user, profile });
     if (!loading && user && profile) {
+      if (profile.plan === "basic" || profile.plan === "medium") {
+        navigate("/dashboard", { replace: true });
+        return;
+      }
+      const pendingPlan = localStorage.getItem("pendingPlan");
+      if (pendingPlan === "basic" || pendingPlan === "medium") {
+        navigate("/confirm-plan", { replace: true });
+        return;
+      }
       if (profile.role === 'admin') {
         navigate('/admin-dashboard', { replace: true });
       } else {
