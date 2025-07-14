@@ -1,0 +1,11 @@
+{
+  "dashboard": {
+    "welcome": "Welcome",
+    "plan": "Plan",
+    "dashboard": "Dashboard",
+    "my_agents": "My Agents",
+    "connections": "Connections",
+    "conversations": "Conversations",
+    "logout": "Logout"
+  }
+}

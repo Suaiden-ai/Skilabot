@@ -1,0 +1,8 @@
+
+project_id = "dawqhytdogagnwwhndjt"
+
+[functions.chatwoot-conversation-webhook]
+verify_jwt = false
+
+[functions.whatsapp-inbox-syncts]
+verify_jwt = false
