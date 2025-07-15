@@ -35,7 +35,7 @@ const TestimonialsSection = () => {
               aesthetic clinics
             </span>
             <br />
-            say about Smart Chat
+            say about Skilabot
           </h2>
         </div>
 

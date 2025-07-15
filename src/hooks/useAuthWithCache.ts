@@ -270,6 +270,7 @@ export const useAuthWithCache = () => {
     initialized,
     isAdmin,
     loadProfile,
-    clearCache
+    clearCache,
+    setProfile,
   };
 };

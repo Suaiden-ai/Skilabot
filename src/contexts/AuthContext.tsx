@@ -22,6 +22,8 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signUp: (email: string, password: string, name: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
+  loadProfile: (userId: string) => Promise<void>;
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,7 +37,8 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, session, profile, loading, initialized, isAdmin, clearCache } = useAuthWithCache();
+  // Remover isAdmin do destructuring para evitar conflito
+  const { user, session, profile, loading, initialized, clearCache, setProfile } = useAuthWithCache();
 
   // Sincroniza sessão entre abas: recarrega se a sessão do Supabase mudar
   useEffect(() => {
@@ -96,6 +99,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setProfile(null);
   };
 
+  const isAdmin = profile?.role === 'admin';
+
   const value = {
     user,
     session,
@@ -104,6 +109,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     signIn,
     signUp,
     signOut,
+    loadProfile,
+    isAdmin, // Expor isAdmin para uso externo
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

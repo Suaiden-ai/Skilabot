@@ -45,11 +45,7 @@ const HeroSection = () => {
               <Button className="h-14 px-8 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105">
                 Try Free
               </Button>
-              
-              <Button variant="outline" className="h-14 px-8 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105">
-                <Play className="w-5 h-5 mr-2" />
-                Watch Video
-              </Button>
+              {/* Botão Watch Video removido */}
             </div>
           </div>
 
@@ -57,9 +53,10 @@ const HeroSection = () => {
           <div className="relative">
             <div className="relative bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop"
+                src="/lovable-uploads/314f3aa9-779d-407f-b32e-e30fc554bbaa.png"
                 alt="Professional car salesperson"
                 className="w-full h-80 object-cover rounded-2xl"
+                style={{ objectPosition: 'center top' }}
               />
               
               {/* Floating Elements */}

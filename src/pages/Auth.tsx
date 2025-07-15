@@ -18,22 +18,33 @@ const Auth = () => {
   const [formLoading, setFormLoading] = useState(false);
   const [message, setMessage] = useState("");
   
-  const { signIn, signUp, user, profile, loading } = useAuth();
+  const { signIn, signUp, signOut, user, profile, loading } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
     console.log('Auth useEffect:', { loading, user, profile });
     if (!loading && user && profile) {
-      if (profile.plan === "basic" || profile.plan === "medium") {
-        navigate("/dashboard", { replace: true });
+      if (profile.status === "suspended") {
+        toast({
+          title: "Account Suspended",
+          description: "Your account has been suspended. Please contact support.",
+          variant: "destructive",
+        });
+        signOut();
         return;
       }
+      // NOVO: Se existe pendingPlan, vai para /confirm-plan
       const pendingPlan = localStorage.getItem("pendingPlan");
-      if (pendingPlan === "basic" || pendingPlan === "medium") {
-        navigate("/confirm-plan", { replace: true });
+      if (!profile.plan || profile.plan === 'No plan' || profile.plan === null) {
+        if (pendingPlan) {
+          navigate('/confirm-plan', { replace: true });
+        } else {
+          navigate('/plans', { replace: true });
+        }
         return;
       }
+      // Se for admin, dashboard admin
       if (profile.role === 'admin') {
         navigate('/admin-dashboard', { replace: true });
       } else {

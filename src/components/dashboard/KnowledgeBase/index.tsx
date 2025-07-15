@@ -8,6 +8,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { useKnowledgeBaseChat, useWhatsappConnection } from "./hooks";
 import { QrCodeDialog } from "./QrCodeDialog";
 import { useAuth } from "@/contexts/AuthContext";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 export default function KnowledgeBase() {
   const steps = [
@@ -32,8 +35,26 @@ export default function KnowledgeBase() {
   const [qrLoading, setQrLoading] = useState(false);
   const [qrError, setQrError] = useState<string | null>(null);
   const { whatsappConnection, isCheckingConnection, checkWhatsAppConnection } = useWhatsappConnection(agentId || '');
-  const { user, profile } = useAuth();
+  const { user, profile, loadProfile } = useAuth();
   const [instanceName, setInstanceName] = useState<string | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState('basic');
+  const [termsOpen, setTermsOpen] = useState(false);
+
+  useEffect(() => {
+    if (profile && !profile.accepted_terms_at) {
+      setTermsOpen(true);
+    }
+  }, [profile]);
+
+  const handleAcceptTerms = async () => {
+    if (!user) return;
+    await supabase
+      .from("profiles")
+      .update({ accepted_terms_at: new Date().toISOString() })
+      .eq("id", user.id);
+    await loadProfile(user.id);
+    setTermsOpen(false);
+  };
 
   const handleNext = () => {
     setCurrentStepIndex(prev => prev + 1);
@@ -403,23 +424,68 @@ ${customPromptSection}
   };
 
   return (
-    <div className="space-y-8">
-      <div className="mt-8">
-        <ProcessStepper currentStep={currentStep} steps={steps} />
+    <div className="relative min-h-screen">
+      {/* Modal de aceite de termos de uso */}
+      <Dialog open={termsOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Terms of Service</DialogTitle>
+          </DialogHeader>
+          <div className="max-h-60 overflow-y-auto text-sm text-gray-700 mb-4">
+            <p>
+              Welcome! Before using our platform, you must agree to the following terms of service. By clicking "I Agree", you confirm that you have read and accepted all the terms and conditions for using this platform, including our privacy policy and acceptable use policy. If you do not agree, you will not be able to use the service.
+            </p>
+            <ul className="list-disc ml-5 mt-2">
+              <li>You agree to use the platform responsibly and not for illegal activities.</li>
+              <li>Your data will be processed according to our privacy policy.</li>
+              <li>Violation of the terms may result in suspension or cancellation of your account.</li>
+              <li>For questions, contact our support team.</li>
+            </ul>
+          </div>
+          <Button onClick={handleAcceptTerms} className="w-full">
+            I Agree
+          </Button>
+        </DialogContent>
+      </Dialog>
+      {/* BLOQUEIO E AVISO DE PAGAMENTO VENCIDO */}
+      {profile?.status === "inactive" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-xl shadow-xl p-8 max-w-md w-full flex flex-col items-center">
+            <span className="text-2xl font-bold text-red-600 mb-4">Subscription Expired</span>
+            <p className="text-gray-700 mb-6 text-center">
+              Your subscription has expired. To continue using the platform, please renew your payment.
+            </p>
+            <button
+              className="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-3 rounded font-semibold hover:from-pink-600 hover:to-orange-600 transition text-lg w-full"
+              onClick={() => {
+                localStorage.setItem('pendingPlan', 'basic');
+                window.location.href = "/confirm-plan";
+              }}
+            >
+              Renew Subscription
+            </button>
+          </div>
+        </div>
+      )}
+      {/* Conteúdo do dashboard (continua visível mas bloqueado pelo overlay) */}
+      <div className="space-y-8">
+        <div className="mt-8">
+          <ProcessStepper currentStep={currentStep} steps={steps} />
+        </div>
+        {renderCurrentStep()}
+        <QrCodeDialog
+          showQrModal={showQrModal}
+          setShowQrModal={setShowQrModal}
+          qrCodeUrl={qrCodeUrl}
+          setQrCodeUrl={setQrCodeUrl}
+          qrLoading={qrLoading}
+          qrError={qrError}
+          onRefreshQrCode={handleRefreshQrCode}
+          configId={agentId || ""}
+          onConnectionSuccess={handleConnectionSuccess}
+          instanceName={instanceName}
+        />
       </div>
-      {renderCurrentStep()}
-      <QrCodeDialog
-        showQrModal={showQrModal}
-        setShowQrModal={setShowQrModal}
-        qrCodeUrl={qrCodeUrl}
-        setQrCodeUrl={setQrCodeUrl}
-        qrLoading={qrLoading}
-        qrError={qrError}
-        onRefreshQrCode={handleRefreshQrCode}
-        configId={agentId || ""}
-        onConnectionSuccess={handleConnectionSuccess}
-        instanceName={instanceName}
-      />
     </div>
   );
 }

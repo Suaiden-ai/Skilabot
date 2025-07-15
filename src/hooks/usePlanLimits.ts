@@ -19,15 +19,9 @@ export const usePlanLimits = () => {
     const fetchPlanLimits = async () => {
       const plan = profile?.plan || 'Basic';
       console.log('Buscando limites para o plano:', plan);
+      const searchPlan = plan === 'Intermediate' ? 'Intermediate' : plan;
       
       try {
-        // Normalize the plan name to handle accent variations
-        let searchPlan = plan;
-        if (plan === 'Intermediario') {
-          searchPlan = 'Intermediário';
-          console.log('Convertendo plano para busca:', searchPlan);
-        }
-        
         const { data, error } = await supabase
           .from('plan_limits')
           .select('*')
@@ -54,6 +48,11 @@ export const usePlanLimits = () => {
         }
 
         if (!data) {
+          if (plan === 'Intermediate') {
+            console.error('Plan Intermediate not found in plan_limits!');
+            setPlanLimits(null);
+            return;
+          }
           console.warn('Plano não encontrado, usando limites do Basic como fallback');
           // Fallback para Basic se não encontrar o plano
           const fallbackResult = await supabase
@@ -61,7 +60,6 @@ export const usePlanLimits = () => {
             .select('*')
             .eq('plan_name', 'Basic')
             .maybeSingle();
-          
           setPlanLimits(fallbackResult.data as PlanLimits);
           return;
         }

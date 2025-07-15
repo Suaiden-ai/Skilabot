@@ -18,7 +18,11 @@ export const usePlanValidation = () => {
     const usage = await getCurrentUsage();
     
     if (usage.agents >= planLimits.max_agents) {
-      toast.error(`Você atingiu o limite de ${planLimits.max_agents} agents do seu plano ${planLimits.plan_name}.`);
+      let planLabel = planLimits.plan_name;
+      if (planLabel === 'Intermediate') planLabel = 'Intermediate';
+      if (planLabel === 'Basic') planLabel = 'Basic';
+      if (planLabel === 'Premium') planLabel = 'Premium';
+      toast.error(`You have reached the limit of ${planLimits.max_agents} agents for your ${planLabel} plan.`);
       return false;
     }
 

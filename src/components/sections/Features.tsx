@@ -23,7 +23,7 @@ const Features = () => {
           {/* Right Card */}
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-gray-900">
-              Connect, chat, and explore with Smart Chat
+              Connect, chat, and explore with Skilabot
             </h3>
             <div className="bg-gray-100 rounded-2xl p-8 flex items-center justify-center h-80">
               <img 

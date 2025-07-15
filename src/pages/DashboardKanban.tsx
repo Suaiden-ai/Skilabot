@@ -78,40 +78,10 @@ function KanbanCard({ title, nameinbox, value, data_e_hora, status, isDragging, 
   };
   console.log('KanbanCard:', { account_id, inbox_id, id_conversa });
   // Nova função para SSO
-  const handleGoToConversation = async () => {
-    if (canOpen) {
-      setLoadingSSO(true);
-      try {
-        // Buscar o user_id_chatwoot na tabela chatwoot_accounts
-        const { data, error } = await supabase
-          .from('chatwoot_accounts')
-          .select('user_id_chatwoot')
-          .eq('id_chatwoot', String(account_id))
-          .maybeSingle();
-        if (error) throw new Error('Erro ao buscar user_id_chatwoot: ' + error.message);
-        const userIdChatwoot = data?.user_id_chatwoot;
-        if (!userIdChatwoot) {
-          alert('user_id_chatwoot não encontrado para esta conta.');
-          setLoadingSSO(false);
-          return;
-        }
-        const response = await fetch('https://nwh.suaiden.com/webhook/sso_link_chatwoot', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user_id_chatwoot: userIdChatwoot })
-        });
-        if (!response.ok) throw new Error('Erro ao gerar link SSO');
-        const respData = await response.json();
-        if (respData.url) {
-          window.open(respData.url, '_blank');
-        } else {
-          alert('SSO link não retornado pelo servidor');
-        }
-      } catch (err) {
-        alert('Erro ao gerar SSO Link: ' + (err?.message || err));
-      } finally {
-        setLoadingSSO(false);
-      }
+  const handleGoToConversation = () => {
+    if (account_id && inbox_id && id_conversa) {
+      const url = `https://smartchat.suaiden.com/app/accounts/${account_id}/inbox/${inbox_id}/conversations/${id_conversa}`;
+      window.open(url, '_blank');
     } else {
       alert('Missing data to open the conversation!');
     }
@@ -232,17 +202,19 @@ export default function DashboardKanban() {
         ) as unknown) as Lead[];
         setColumns(cols => cols.map(col =>
           col.name === "Lead"
-            ? { ...col, cards: leads.filter(lead => !lead.status || lead.status === "Lead").map(lead => ({
-                id: `lead-${lead.id}`,
-                title: lead.name_lead,
-                value: lead.phone_lead,
-                status: lead.status || "New Lead",
-                nameinbox: (lead as any).nameinbox,
-                data_e_hora: (lead as any).data_e_hora,
-                account_id: (lead as any).account_id,
-                inbox_id: (lead as any).inbox_id,
-                id_conversa: (lead as any).id_conversa
-              })) }
+            ? { ...col, cards: leads
+                .filter(lead => (!lead.status || lead.status === "Lead") && lead.phone_lead !== "+123456")
+                .map(lead => ({
+                  id: `lead-${lead.id}`,
+                  title: lead.name_lead,
+                  value: lead.phone_lead,
+                  status: lead.status || "New Lead",
+                  nameinbox: (lead as any).nameinbox,
+                  data_e_hora: (lead as any).data_e_hora,
+                  account_id: (lead as any).account_id,
+                  inbox_id: (lead as any).inbox_id,
+                  id_conversa: (lead as any).id_conversa
+                })) }
             : col
         ));
       }

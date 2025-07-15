@@ -111,9 +111,11 @@ export default function SidebarMenu() {
               'Administrator'
             ) : (
               (() => {
-                if (profile?.plan === 'Intermediario' || profile?.plan === 'Medium') return 'Plan Medium';
-                if (profile?.plan === 'Premium') return 'Plan Premium';
-                return 'Plan Basic';
+                const plan = (profile?.plan || '').toLowerCase();
+                if (plan === 'intermediate') return 'Plan Intermediate';
+                if (plan === 'premium') return 'Plan Premium';
+                if (plan === 'basic') return 'Plan Basic';
+                return 'No plan';
               })()
             )}
           </Badge>

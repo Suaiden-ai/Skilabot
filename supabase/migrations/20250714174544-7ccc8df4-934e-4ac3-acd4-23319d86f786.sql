@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.subscriptions (
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
   stripe_subscription_id TEXT UNIQUE NOT NULL,
   stripe_customer_id TEXT NOT NULL,
-  plan_type TEXT NOT NULL CHECK (plan_type IN ('basic', 'medium', 'custom')),
+  plan_type TEXT NOT NULL CHECK (plan_type IN ('basic', 'Intermediate', 'custom')),
   status TEXT NOT NULL DEFAULT 'active',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()

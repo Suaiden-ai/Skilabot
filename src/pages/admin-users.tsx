@@ -132,14 +132,18 @@ const AdminUsers = () => {
     if (!editingUser) return;
 
     try {
+      const updateData: any = {
+        name: editForm.name || null,
+        plan: editForm.plan || null,
+        status: editForm.status,
+        role: editForm.role
+      };
+      if (editForm.status === 'inactive') {
+        updateData.plan = null;
+      }
       const { error } = await supabase
         .from('profiles')
-        .update({
-          name: editForm.name || null,
-          plan: editForm.plan || null,
-          status: editForm.status,
-          role: editForm.role
-        })
+        .update(updateData)
         .eq('id', editingUser.id);
 
       if (error) throw error;
@@ -235,8 +239,8 @@ const AdminUsers = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="">No Plan</SelectItem>
-                    <SelectItem value="basic">Basic</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="Basic">Basic</SelectItem>
+                    <SelectItem value="Intermediate">Intermediate</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -310,8 +314,8 @@ const AdminUsers = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Plans</SelectItem>
-                <SelectItem value="basic">Basic</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="Basic">Basic</SelectItem>
+                <SelectItem value="Intermediate">Intermediate</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -407,14 +411,14 @@ const AdminUsers = () => {
             </div>
             <div>
               <Label htmlFor="edit-plan">Plan</Label>
-              <Select value={editForm.plan} onValueChange={(value) => setEditForm({ ...editForm, plan: value })}>
+              <Select value={editForm.plan || "no_plan"} onValueChange={value => setEditForm({ ...editForm, plan: value === "no_plan" ? "" : value })}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select plan" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">No Plan</SelectItem>
-                  <SelectItem value="basic">Basic</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="no_plan">No Plan</SelectItem>
+                  <SelectItem value="Basic">Basic</SelectItem>
+                  <SelectItem value="Intermediate">Intermediate</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -65,7 +65,7 @@ export default function UserTable() {
         ...u,
         avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(u.name || u.email || "U")}&background=random`,
         status: (u.status || "active").toLowerCase(),
-        plan: ["Intermediario", "Intermediário"].includes(u.plan) ? "Intermediate" : (u.plan || "Basic"),
+        plan: ['Intermediario', 'Intermediário', 'Medium', 'Intermediate'].includes(u.plan) ? 'Intermediate' : (u.plan ? u.plan : 'No plan'),
         name: u.name || u.email || "-",
         email: u.email || "-",
         created_at: u.created_at ? u.created_at.slice(0, 10) : "-",

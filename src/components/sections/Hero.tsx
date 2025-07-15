@@ -11,9 +11,9 @@ const Hero = () => {
 
   const handleStartFreeTrial = () => {
     if (email.trim()) {
-      navigate(`/register?email=${encodeURIComponent(email)}`);
+      navigate(`/auth?email=${encodeURIComponent(email)}`);
     } else {
-      navigate("/register");
+      navigate("/auth");
     }
   };
 
@@ -105,7 +105,7 @@ const Hero = () => {
               </div>
               
               <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-pink-500 to-orange-500 text-white p-4 rounded-2xl shadow-lg max-w-52 animate-bounce delay-1000">
-                <p className="text-sm">Hi Smart Chat! I need your help.</p>
+                <p className="text-sm">Hi Skilabot! I need your help.</p>
               </div>
             </div>
           </div>

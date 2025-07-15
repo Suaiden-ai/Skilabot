@@ -15,12 +15,12 @@ function corsHeaders(extra = {}) {
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, { apiVersion: "2023-10-16" });
 const priceIds = {
   basic: Deno.env.get("STRIPE_BASIC_PRICE_ID")!,
-  medium: Deno.env.get("STRIPE_MEDIUM_PRICE_ID")!,
+  Intermediate: Deno.env.get("STRIPE_INTERMEDIATE_PRICE_ID")!,
 };
 
 const planMap = {
   basic: "Basic",
-  medium: "Intermediate", // ou "Intermediario" se preferir em português
+  Intermediate: "Intermediate", // ou "Intermediario" se preferir em português
 };
 
 serve(async (req) => {
@@ -50,7 +50,7 @@ serve(async (req) => {
     } catch {
       return new Response("Invalid body", { status: 400, headers: corsHeaders() });
     }
-    if (!["basic", "medium"].includes(plan)) return new Response("Invalid plan", { status: 400, headers: corsHeaders() });
+    if (!["basic", "Intermediate"].includes(plan)) return new Response("Invalid plan", { status: 400, headers: corsHeaders() });
 
     // 3. Get or create Stripe customer
     let { data: profile } = await supabase
@@ -72,7 +72,15 @@ serve(async (req) => {
         .eq("id", user.id);
     }
 
-    // 4. Create Stripe Checkout Session
+    // 4. Verificar se é a primeira assinatura do usuário
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customerId,
+      status: 'all',
+      limit: 1
+    });
+    const isFirstSubscription = subscriptions.data.length === 0;
+
+    // 5. Create Stripe Checkout Session
     const planValue = planMap[plan];
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -82,6 +90,9 @@ serve(async (req) => {
       success_url: `${Deno.env.get("FRONTEND_URL")}/success`,
       cancel_url: `${Deno.env.get("FRONTEND_URL")}/plans`,
       metadata: { user_id: user.id, plan: planValue },
+      ...(isFirstSubscription && {
+        subscription_data: { trial_period_days: 7 }
+      })
     });
 
     return new Response(JSON.stringify({ url: session.url }), {

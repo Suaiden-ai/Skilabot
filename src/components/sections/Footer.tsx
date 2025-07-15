@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent">
-              Smart Chat
+              Skilabot
             </h3>
             <p className="text-gray-400 max-w-sm">
               Empowering businesses with intelligent AI conversations that transform customer experience.
@@ -64,21 +64,9 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-gray-400 text-sm">
-            © 2025 Smart Chat. All rights reserved. Created by Evonicmedia
+            © 2025 Skilabot. All rights reserved. Created by Suaiden
           </div>
-          
-          {/* Social Icons */}
-          <div className="flex gap-4">
-            {["LinkedIn", "Instagram", "Twitter", "Facebook"].map((social, index) => (
-              <a 
-                key={index}
-                href="#" 
-                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-pink-500 hover:to-orange-500 transition-all duration-300"
-              >
-                <span className="text-sm font-medium">{social[0]}</span>
-              </a>
-            ))}
-          </div>
+          {/* Social Icons removidos */}
         </div>
       </div>
     </footer>

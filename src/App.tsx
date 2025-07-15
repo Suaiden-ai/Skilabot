@@ -2,11 +2,10 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Register from "./pages/Register";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import GymsPersonalTrainers from "./pages/GymsPersonalTrainers";
@@ -29,6 +28,7 @@ import AdminSettings from "./pages/AdminSettings";
 import AdminPayments from "./pages/AdminPayments";
 import ConfirmPlan from "./pages/ConfirmPlan";
 import Success from "./pages/Success";
+import Plans from "./pages/Plans";
 
 const App = () => (
   <AuthProvider>
@@ -39,9 +39,10 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Navigate to="/auth" replace />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/confirm-plan" element={<ConfirmPlan />} />
+          <Route path="/plans" element={<Plans />} />
           <Route path="/success" element={<Success />} />
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<KnowledgeBase />} />

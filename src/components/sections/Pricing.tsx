@@ -16,7 +16,7 @@ const Pricing = () => {
     <section className="py-20 px-6 bg-pink-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
-          <p className="text-pink-400 text-sm uppercase tracking-wider mb-4">Smart Chat PRICING</p>
+          <p className="text-pink-400 text-sm uppercase tracking-wider mb-4">Skilabot PRICING</p>
           <h2 className="text-5xl font-bold text-gray-900 mb-4">
             Empower your chatting
           </h2>

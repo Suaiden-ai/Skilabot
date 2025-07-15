@@ -46,8 +46,8 @@ const AdminDashboard = () => {
       // Usuários plano Basic
       const { count: basic } = await supabase.from("profiles").select("*", { count: "exact", head: true }).eq("plan", "Basic");
       setBasicUsers(basic || 0);
-      // Usuários plano Intermediário
-      const { count: inter } = await supabase.from("profiles").select("*", { count: "exact", head: true }).in("plan", ["Intermediario", "Intermediário"]);
+      // Usuários plano Intermediate
+      const { count: inter } = await supabase.from("profiles").select("*", { count: "exact", head: true }).eq("plan", "Intermediate");
       setInterUsers(inter || 0);
     } catch (error) {
       setTotalUsers(0);

@@ -14,7 +14,7 @@ const AboutUs = () => {
   ];
 
   const handleLetsChatClick = () => {
-    navigate("/register");
+    navigate("/auth");
   };
 
   return (
@@ -27,7 +27,7 @@ const AboutUs = () => {
               <p className="text-white/80 text-sm uppercase tracking-wider mb-4">••• ABOUT US</p>
               <h2 className="text-4xl font-bold mb-8">
                 Discover Our AI Chatbot<br />
-                Assistant - Smart Chat
+                Assistant - Skilabot
               </h2>
             </div>
             

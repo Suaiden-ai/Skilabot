@@ -4,7 +4,7 @@ import { Calendar, Rocket, Target } from "lucide-react";
 
 const planTabs = [
   { id: "basic", label: "Basic Plan", icon: Calendar },
-  { id: "medio", label: "Medium Plan", icon: Rocket },
+  { id: "medio", label: "Intermediate Plan", icon: Rocket },
   { id: "consultoria", label: "Specialized Consulting", icon: Target },
 ];
 

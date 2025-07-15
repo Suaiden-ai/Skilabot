@@ -50,16 +50,16 @@ export default function AdminNotificationsDropdown() {
     if (!profile) return;
     const notif = notifications.find((n: any) => n.id === id);
     if (!notif) return;
-    if (notif.read_by && notif.read_by.includes(profile.id)) return;
+    if (notif.read_by && notif.read_by.includes(profile?.id)) return;
     // Atualiza read_by no Supabase
     const { error } = await supabase
       .from("admin_notifications")
-      .update({ read_by: [...(notif.read_by || []), profile.id] })
+      .update({ read_by: [...(notif.read_by || []), profile?.id] })
       .eq("id", id);
     if (!error) fetchNotifications();
   };
 
-  const unreadCount = notifications.filter((n: any) => !(n.read_by || []).includes(profile.id)).length;
+  const unreadCount = notifications.filter((n: any) => !(n.read_by || []).includes(profile?.id)).length;
 
   if (!profile) return null;
 
@@ -87,7 +87,7 @@ export default function AdminNotificationsDropdown() {
               {notifications.map((n: any) => (
                 <li
                   key={n.id}
-                  className={`px-4 py-3 border-b last:border-b-0 cursor-pointer hover:bg-gray-50 ${!(n.read_by || []).includes(profile.id) ? "bg-blue-50" : ""}`}
+                  className={`px-4 py-3 border-b last:border-b-0 cursor-pointer hover:bg-gray-50 ${!(n.read_by || []).includes(profile?.id) ? "bg-blue-50" : ""}`}
                   onClick={() => handleMarkAsRead(n.id)}
                   title={n.body || n.title}
                 >

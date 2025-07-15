@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   const handleGetStartedClick = () => {
-    navigate("/register");
+    navigate("/auth");
   };
 
   return (

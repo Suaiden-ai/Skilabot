@@ -39,7 +39,7 @@ const Integrations = () => {
           {/* Large Background Text */}
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-9xl font-bold text-gray-200 select-none">
-              Smart Chat
+              Skilabot
             </span>
           </div>
 

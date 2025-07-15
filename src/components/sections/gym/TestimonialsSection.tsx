@@ -38,7 +38,7 @@ const TestimonialsSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
             What fitness professionals say about{" "}
             <span className="bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
-              Smart Chat
+              Skilabot
             </span>
           </h2>
         </div>

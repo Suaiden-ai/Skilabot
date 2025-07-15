@@ -41,7 +41,7 @@ const TestimonialsSection = () => {
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
-          What dealerships say about Smart Chat
+          What dealerships say about Skilabot
         </h2>
         <p className="text-xl text-gray-600 text-center mb-12">
           More than 1000 dealerships have already transformed their sales
