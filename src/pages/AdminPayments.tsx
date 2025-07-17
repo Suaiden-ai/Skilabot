@@ -6,12 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CreditCard, FileText, DollarSign, Filter } from 'lucide-react';
 import { Tooltip } from '@/components/ui/tooltip';
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const statusOptions = ['active', 'inactive', 'pending', 'failed', 'refunded'];
 const planOptions = ['Basic', 'Intermediate', 'Premium'];
 const methodOptions = ['pix', 'credit_card', 'boleto'];
 
 export default function AdminPayments() {
+  usePageTitle("Admin Payments | Skilabot");
   const { user, isAdmin, profile } = useAuth();
   console.log("user", user);
   console.log("profile", profile);

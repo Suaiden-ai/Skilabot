@@ -48,8 +48,8 @@ export const agentTypeOptions = [
 ];
 
 export const personalityOptions = [
-  { value: "Amigável", label: "Amigável", icon: "Heart", description: "Caloroso e acolhedor" },
-  { value: "Profissional", label: "Profissional", icon: "Briefcase", description: "Formal e confiável" },
-  { value: "Motivador", label: "Motivador", icon: "Zap", description: "Energético e inspirador" },
-  { value: "Educado", label: "Educado", icon: "GraduationCap", description: "Cortês e respeitoso" },
+  { value: "Friendly", label: "Friendly", icon: "Heart", description: "Warm and welcoming" },
+  { value: "Professional", label: "Professional", icon: "Briefcase", description: "Formal and reliable" },
+  { value: "Motivational", label: "Motivational", icon: "Zap", description: "Energetic and inspiring" },
+  { value: "Polite", label: "Polite", icon: "GraduationCap", description: "Courteous and respectful" },
 ]; 

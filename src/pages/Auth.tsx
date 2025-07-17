@@ -9,8 +9,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { useEffect } from "react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Auth = () => {
+  usePageTitle("Login | Skilabot");
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

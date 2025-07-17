@@ -47,12 +47,8 @@ const HeroSection = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="h-14 px-8 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105">
-                Try Free
-              </Button>
-              <Button variant="outline" className="h-14 px-6 border-2 border-blue-500 text-blue-500 hover:bg-blue-50 font-bold text-lg rounded-lg">
-                <Play className="mr-2 h-5 w-5" />
-                Watch Video
+              <Button className="h-14 px-8 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105">
+                Try Free for 7 Days
               </Button>
             </div>
           </div>

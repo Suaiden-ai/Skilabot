@@ -6,103 +6,103 @@ const BenefitsSection = () => {
   const [activeTab, setActiveTab] = useState("agendamento");
 
   const tabs = [
-    { id: "agendamento", label: "Agendamento", icon: Calendar },
-    { id: "tratamentos", label: "Tratamentos", icon: Heart },
-    { id: "gestao", label: "Gestão", icon: BarChart },
-    { id: "automacao", label: "Automação", icon: Zap }
+    { id: "agendamento", label: "Scheduling", icon: Calendar },
+    { id: "tratamentos", label: "Treatments", icon: Heart },
+    { id: "gestao", label: "Management", icon: BarChart },
+    { id: "automacao", label: "Automation", icon: Zap }
   ];
 
   const tabContent = {
     agendamento: [
       {
-        icon: "💆",
-        title: "Agendamento Inteligente",
-        description: "Clientes agendam consultas e tratamentos diretamente via WhatsApp com confirmação automática",
+        icon: "��",
+        title: "Smart Scheduling",
+        description: "Clients schedule consultations and treatments directly via WhatsApp with automatic confirmation",
         rating: 4.9,
-        benefits: ["Agendamento fácil", "Confirmação automática", "Lembretes"]
+        benefits: ["Easy scheduling", "Automatic confirmation", "Reminders"]
       },
       {
         icon: "⏰",
-        title: "Gestão de Filas",
-        description: "Sistema otimiza agenda considerando tempo de procedimentos e disponibilidade",
+        title: "Queue Management",
+        description: "System optimizes the agenda considering procedure time and availability",
         rating: 4.8,
-        benefits: ["Otimização automática", "Tempo preciso", "Eficiência máxima"]
+        benefits: ["Automatic optimization", "Precise timing", "Maximum efficiency"]
       },
       {
         icon: "📱",
-        title: "Confirmação por WhatsApp",
-        description: "Lembretes automáticos com opção de confirmação ou reagendamento instantâneo",
+        title: "WhatsApp Confirmation",
+        description: "Automatic reminders with option for instant confirmation or rescheduling",
         rating: 4.7,
-        benefits: ["Lembretes automáticos", "Reagendamento fácil", "Taxa de comparecimento"]
+        benefits: ["Automatic reminders", "Easy rescheduling", "Attendance rate"]
       }
     ],
     tratamentos: [
       {
         icon: "✨",
-        title: "Catálogo Interativo",
-        description: "Apresenta tratamentos com antes/depois, preços e durações via chatbot",
+        title: "Interactive Catalog",
+        description: "Showcases treatments with before/after, prices and durations via chatbot",
         rating: 4.9,
-        benefits: ["Antes/depois", "Preços claros", "Informações completas"]
+        benefits: ["Before/after", "Clear prices", "Complete information"]
       },
       {
         icon: "📊",
-        title: "Histórico de Tratamentos",
-        description: "Acompanha evolução do cliente com fotos, datas e resultados obtidos",
+        title: "Treatment History",
+        description: "Tracks client progress with photos, dates and achieved results",
         rating: 4.8,
-        benefits: ["Evolução visual", "Histórico completo", "Resultados medidos"]
+        benefits: ["Visual progress", "Complete history", "Measured results"]
       },
       {
         icon: "🎯",
-        title: "Recomendações Personalizadas",
-        description: "IA sugere tratamentos baseados no perfil, histórico e objetivos do cliente",
+        title: "Personalized Recommendations",
+        description: "AI suggests treatments based on client profile, history and goals",
         rating: 4.7,
-        benefits: ["IA personalizada", "Sugestões precisas", "Objetivos claros"]
+        benefits: ["Personalized AI", "Accurate suggestions", "Clear goals"]
       }
     ],
     gestao: [
       {
         icon: "📋",
-        title: "Dashboard Estética",
-        description: "Visão completa de agendamentos, receita e satisfação dos clientes",
+        title: "Aesthetic Dashboard",
+        description: "Complete view of appointments, revenue and client satisfaction",
         rating: 4.9,
-        benefits: ["Visão 360°", "Métricas importantes", "Satisfação medida"]
+        benefits: ["360° view", "Key metrics", "Measured satisfaction"]
       },
       {
         icon: "💰",
-        title: "Gestão Financeira",
-        description: "Controle de pagamentos, pacotes e promoções com relatórios automáticos",
+        title: "Financial Management",
+        description: "Control payments, packages and promotions with automatic reports",
         rating: 4.8,
-        benefits: ["Controle financeiro", "Pacotes gerenciados", "Relatórios automáticos"]
+        benefits: ["Financial control", "Managed packages", "Automatic reports"]
       },
       {
         icon: "👥",
-        title: "CRM Especializado",
-        description: "Perfil detalhado com preferências, alergias e histórico completo",
+        title: "Specialized CRM",
+        description: "Detailed profile with preferences, allergies and complete history",
         rating: 4.7,
-        benefits: ["Perfis detalhados", "Alergias registradas", "Histórico completo"]
+        benefits: ["Detailed profiles", "Registered allergies", "Complete history"]
       }
     ],
     automacao: [
       {
         icon: "🔗",
-        title: "Integração Equipamentos",
-        description: "Conecta com equipamentos estéticos para registros automáticos de sessões",
+        title: "Equipment Integration",
+        description: "Connects with aesthetic equipment for automatic session records",
         rating: 4.9,
-        benefits: ["Equipamentos integrados", "Registros automáticos", "Dados precisos"]
+        benefits: ["Integrated equipment", "Automatic records", "Accurate data"]
       },
       {
         icon: "📸",
-        title: "Fotodocumentação Automática",
-        description: "Organiza fotos antes/depois automaticamente por cliente e tratamento",
+        title: "Automatic Photo Documentation",
+        description: "Organizes before/after photos automatically by client and treatment",
         rating: 4.8,
-        benefits: ["Organização automática", "Antes/depois", "Portfólio visual"]
+        benefits: ["Automatic organization", "Before/after", "Visual portfolio"]
       },
       {
         icon: "🔔",
-        title: "Follow-up Inteligente",
-        description: "Acompanhamento pós-tratamento com pesquisas de satisfação automáticas",
+        title: "Smart Follow-up",
+        description: "Post-treatment follow-up with automatic satisfaction surveys",
         rating: 4.7,
-        benefits: ["Follow-up automático", "Satisfação medida", "Cuidado contínuo"]
+        benefits: ["Automatic follow-up", "Measured satisfaction", "Continuous care"]
       }
     ]
   };
@@ -111,7 +111,7 @@ const BenefitsSection = () => {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-          Benefícios para Clínicas Estéticas
+          Benefits for Aesthetic Clinics
         </h2>
 
         {/* Tabs */}

@@ -25,6 +25,7 @@ import {
 } from "../components/ui/select";
 import { agentTypeOptions, personalityOptions } from "../components/dashboard/KnowledgeBase/types";
 import { useNavigate } from "react-router-dom";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 interface AgentWithConnection {
   id: string;
@@ -38,6 +39,7 @@ interface AgentWithConnection {
 }
 
 export default function Agents() {
+  usePageTitle("Agents | Skilabot");
   const { user } = useAuth();
   const navigate = useNavigate();
   const [agents, setAgents] = useState<AgentWithConnection[]>([]);

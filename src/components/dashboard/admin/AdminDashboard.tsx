@@ -11,8 +11,10 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { TablesInsert } from "@/integrations/supabase/types";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const AdminDashboard = () => {
+  usePageTitle("Admin Dashboard | Skilabot");
   // Métricas reais
   const [totalUsers, setTotalUsers] = useState(0);
   const [basicUsers, setBasicUsers] = useState(0);

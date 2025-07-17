@@ -54,25 +54,9 @@ const HeroSection = () => {
               >
                 Try Free
               </Button>
-              <Button 
-                variant="outline"
-                className="h-14 px-6 border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold text-lg rounded-lg transition-all duration-300"
-              >
-                <Play className="mr-2 h-5 w-5" />
-                Watch Video
-              </Button>
             </div>
 
             {/* Email Signup */}
-            <div className="flex gap-3 max-w-md">
-              <Input 
-                type="email" 
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 h-12 text-lg border-2 border-gray-200 focus:border-green-500 transition-colors"
-              />
-            </div>
           </div>
 
           {/* Right Content */}

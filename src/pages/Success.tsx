@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Success = () => {
+  usePageTitle("Success | Skilabot");
   const navigate = useNavigate();
   const { user, loadProfile } = useAuth();
 

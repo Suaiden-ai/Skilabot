@@ -29,6 +29,20 @@ import AdminPayments from "./pages/AdminPayments";
 import ConfirmPlan from "./pages/ConfirmPlan";
 import Success from "./pages/Success";
 import Plans from "./pages/Plans";
+import Dentistry from "./pages/Dentistry";
+import LanguageCourses from "./pages/LanguageCourses";
+import SchoolsTechnicalCourses from "./pages/SchoolsTechnicalCourses";
+import InfoproducersOnlineCourses from "./pages/InfoproducersOnlineCourses";
+import OnlineFashionFootwear from "./pages/OnlineFashionFootwear";
+import PetShopsVetClinics from "./pages/PetShopsVetClinics";
+import HealthcareProfessionals from "./pages/HealthcareProfessionals";
+import PsychologistsTherapists from "./pages/PsychologistsTherapists";
+import RestaurantsDeliveries from "./pages/RestaurantsDeliveries";
+import BeautySalonsBarberShops from "./pages/BeautySalonsBarberShops";
+import AccountingMeiServices from "./pages/AccountingMeiServices";
+import ProfessionalServices from "./pages/ProfessionalServices";
+import CondominiumsAdministrators from "./pages/CondominiumsAdministrators";
+import CleaningPools from "./pages/CleaningPools";
 
 const App = () => (
   <AuthProvider>
@@ -44,6 +58,8 @@ const App = () => (
           <Route path="/confirm-plan" element={<ConfirmPlan />} />
           <Route path="/plans" element={<Plans />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/professional-services" element={<ProfessionalServices />} />
+          <Route path="/condominiums-administrators" element={<CondominiumsAdministrators />} />
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<KnowledgeBase />} />
             <Route path="/agents" element={<Agents />} />
@@ -62,6 +78,18 @@ const App = () => (
           <Route path="/aesthetic-clinics" element={<AestheticClinics />} />
           <Route path="/political-agents" element={<PoliticalAgents />} />
           <Route path="/dealerships-resellers" element={<DealershipsResellers />} />
+          <Route path="/dentistry" element={<Dentistry />} />
+          <Route path="/language-courses" element={<LanguageCourses />} />
+          <Route path="/schools-technical-courses" element={<SchoolsTechnicalCourses />} />
+          <Route path="/infoproducers-online-courses" element={<InfoproducersOnlineCourses />} />
+          <Route path="/online-fashion-footwear" element={<OnlineFashionFootwear />} />
+          <Route path="/pet-shops-vet-clinics" element={<PetShopsVetClinics />} />
+          <Route path="/healthcare-professionals" element={<HealthcareProfessionals />} />
+          <Route path="/psychologists-therapists" element={<PsychologistsTherapists />} />
+          <Route path="/restaurants-deliveries" element={<RestaurantsDeliveries />} />
+          <Route path="/beauty-salons-barber-shops" element={<BeautySalonsBarberShops />} />
+          <Route path="/accounting-mei-services" element={<AccountingMeiServices />} />
+          <Route path="/cleaning-pools" element={<CleaningPools />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

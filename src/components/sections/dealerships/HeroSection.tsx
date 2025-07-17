@@ -1,6 +1,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Check, Play } from "lucide-react";
+import { useRef } from "react";
+
+const scrollToPlans = () => {
+  const el = document.getElementById("plans-section");
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 const HeroSection = () => {
   return (
@@ -41,12 +49,13 @@ const HeroSection = () => {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="h-14 px-8 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105">
-                Try Free
-              </Button>
-              {/* Botão Watch Video removido */}
-            </div>
+            <Button
+              className="h-14 px-8 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105"
+              onClick={scrollToPlans}
+            >
+              Try Free
+            </Button>
+            {/* Botão Watch Video removido */}
           </div>
 
           {/* Right Visual */}

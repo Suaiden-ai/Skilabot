@@ -8,8 +8,10 @@ import { Trash2, WifiOff, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { QrCodeDialog } from "../components/dashboard/KnowledgeBase/QrCodeDialog";
 import { generateChatwootPassword } from "../utils/chatwootHelpers";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function WhatsappConnections() {
+  usePageTitle("WhatsApp Connections | Skilabot");
   const { user, profile } = useAuth();
   const [connections, setConnections] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

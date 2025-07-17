@@ -2,8 +2,10 @@
 import SpecializedConsulting from "@/components/dashboard/SpecializedConsulting";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Clock, Users, Zap } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function SpecializedConsultingPage() {
+  usePageTitle("Specialized Consulting | Skilabot");
   const benefits = [
     {
       icon: Users,

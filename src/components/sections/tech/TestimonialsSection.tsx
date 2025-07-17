@@ -65,14 +65,25 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Rating Card */}
-        <div className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg text-center mb-8">
-          <div className="flex justify-center gap-1 mb-4">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-8 h-8 text-yellow-400 fill-current" />
-            ))}
+        <div className="text-center mb-12">
+          <div className="inline-block p-8 bg-white shadow-xl border-0 rounded-2xl">
+            <div className="flex items-center justify-center gap-2 text-lg font-semibold text-gray-800 mb-2">
+              <span>Trustpilot</span>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.39 7.26H22l-6.19 4.5L17.82 22 12 17.27 6.18 22l1.99-8.24L2 9.26h7.61z" fill="#22c55e"/></svg>
+            </div>
+            <div className="flex items-center justify-center gap-2 mb-4">
+              {[1, 2, 3, 4].map((star) => (
+                <Star 
+                  key={star} 
+                  className="w-8 h-8 text-yellow-400 fill-current" 
+                />
+              ))}
+              <Star className="w-8 h-8 text-gray-300" />
+            </div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">4.7/5.0</div>
+            <div className="text-gray-600 mb-1">Based on 2,847 reviews</div>
+            <div className="text-xs text-gray-400">from verified <span className="font-semibold">Trustpilot</span> users</div>
           </div>
-          <div className="text-3xl font-bold text-gray-900 mb-2">4.7/5.0</div>
-          <p className="text-gray-600">Based on 2541 reviews</p>
         </div>
 
         <div className="text-center">

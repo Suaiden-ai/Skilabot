@@ -9,8 +9,10 @@ import ConversionSection from "@/components/sections/dealerships/ConversionSecti
 import TestimonialsSection from "@/components/sections/dealerships/TestimonialsSection";
 import DealershipsPlansSection from "@/components/sections/dealerships/PlansSection";
 import FAQSection from "@/components/sections/dealerships/FAQSection";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function DealershipsResellers() {
+  usePageTitle("Dealerships & Resellers | Skilabot");
   return (
     <>
       <Header />

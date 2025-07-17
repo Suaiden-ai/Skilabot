@@ -25,6 +25,21 @@ const Header = () => {
     navigate("/auth");
   };
 
+  const handleMenuClick = (item) => {
+    if (item.name === "Home") {
+      navigate("/");
+    } else if (item.name === "Pricing") {
+      const plansSection = document.getElementById("plans-section");
+      if (plansSection) {
+        plansSection.scrollIntoView({ behavior: "smooth" });
+      } else {
+        navigate("/#pricing");
+      }
+    } else {
+      navigate(`/${item.href}`);
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-6">
@@ -39,13 +54,14 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {menuItems.map((item) => (
-              <a
+              <button
                 key={item.name}
-                href={item.href}
-                className="text-gray-700 hover:text-pink-500 transition-colors duration-200 font-medium"
+                onClick={() => handleMenuClick(item)}
+                className="text-gray-700 hover:text-pink-500 transition-colors duration-200 font-medium bg-transparent border-none outline-none cursor-pointer"
+                type="button"
               >
                 {item.name}
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -80,14 +96,14 @@ const Header = () => {
           <div className="md:hidden border-t border-gray-200 py-4">
             <nav className="flex flex-col space-y-4">
               {menuItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-pink-500 transition-colors duration-200 font-medium"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => { handleMenuClick(item); setIsMenuOpen(false); }}
+                  className="text-gray-700 hover:text-pink-500 transition-colors duration-200 font-medium bg-transparent border-none outline-none text-left cursor-pointer"
+                  type="button"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
                 <Button 

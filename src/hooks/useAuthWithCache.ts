@@ -11,6 +11,7 @@ interface UserProfile {
   role: 'user' | 'admin';
   created_at: string | null;
   updated_at: string | null;
+  status?: string | null;
 }
 
 const CACHE_KEYS = {

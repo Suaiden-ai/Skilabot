@@ -45,30 +45,13 @@ const HeroSection = () => {
               </div>
             </div>
 
-            {/* Email Signup */}
-            <div className="flex gap-3 max-w-md">
-              <Input 
-                type="email" 
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 h-12 text-lg border-2 border-gray-200 focus:border-pink-500 transition-colors"
-              />
-              <Button className="h-12 px-6 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105">
+            {/* CTA Try Free */}
+            <div className="flex gap-4">
+              <Button className="h-12 px-8 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105">
                 Try Free
               </Button>
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-4">
-              <Button 
-                variant="outline" 
-                className="border-pink-500 text-pink-500 hover:bg-pink-50 h-12 px-6"
-              >
-                <Play className="mr-2 h-4 w-4" />
-                Watch Video
-              </Button>
-            </div>
           </div>
 
           {/* Right Content - Visual */}

@@ -11,8 +11,10 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import BusinessCards from "@/components/sections/BusinessCards";
 import FadeInUp from "@/components/FadeInUp";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function Index() {
+  usePageTitle("Home | Skilabot");
   return (
     <div className="min-h-screen bg-white">
       <Header />

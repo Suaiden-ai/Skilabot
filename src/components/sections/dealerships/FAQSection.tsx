@@ -65,6 +65,25 @@ const FAQSection = () => {
           ))}
         </div>
       </div>
+      <div className="text-center mt-12">
+        <p className="text-gray-600 mb-6">Still have questions? Contact us!</p>
+        <div className="flex gap-4 justify-center">
+          <a 
+            href="https://wa.me/5511999999999" 
+            className="inline-flex items-center px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors duration-300"
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
+          <a 
+            href="mailto:contact@smartchat.com" 
+            className="inline-flex items-center px-6 py-3 border-2 border-green-500 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-colors duration-300"
+          >
+            Email
+          </a>
+        </div>
+      </div>
     </section>
   );
 };

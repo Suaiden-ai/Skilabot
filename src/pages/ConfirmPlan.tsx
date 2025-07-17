@@ -4,8 +4,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Lock } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const ConfirmPlan = () => {
+  usePageTitle("Confirm Subscription | Skilabot");
   const [plan, setPlan] = useState<"basic" | "Intermediate" | null>(null);
   const { user, session, profile, loading } = useAuth();
   const navigate = useNavigate();

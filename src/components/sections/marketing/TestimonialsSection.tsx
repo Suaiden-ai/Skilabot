@@ -7,27 +7,27 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       name: "Ana Costa",
-      role: "Agência de Tráfego Local",
+      role: "Local Traffic Agency",
       photo: "https://images.unsplash.com/photo-1494790108755-2616b68e9413?w=100&h=100&fit=crop&crop=face",
-      quote: "Minha taxa de conversão subiu 30% depois que passei a responder leads em segundos."
+      quote: "My conversion rate increased by 30% after I started responding to leads in seconds."
     },
     {
       name: "Ricardo Mendes",
-      role: "Especialista em Performance",
+      role: "Performance Specialist",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-      quote: "A ferramenta integra todos os canais de captação e centraliza no mesmo painel."
+      quote: "The tool integrates all acquisition channels and centralizes them in the same dashboard."
     },
     {
       name: "Juliana Santos",
-      role: "Head de Growth Marketing",
+      role: "Head of Growth Marketing",
       photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-      quote: "O ROI das campanhas melhorou drasticamente com a nutrição automática de leads."
+      quote: "Campaign ROI improved drastically with automatic lead nurturing."
     },
     {
       name: "Paulo Ferreira",
-      role: "Gestor de Tráfego Pago",
+      role: "Paid Traffic Manager",
       photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-      quote: "Economia de 5 horas por dia no follow-up manual. Agora foco só na estratégia."
+      quote: "Saved 5 hours a day on manual follow-up. Now I focus only on strategy."
     }
   ];
 
@@ -36,9 +36,9 @@ const TestimonialsSection = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-            O que as agências de marketing dizem sobre o{" "}
+            What marketing agencies say about {" "}
             <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Chat Inteligente
+              Skilabot
             </span>
           </h2>
         </div>
@@ -47,16 +47,22 @@ const TestimonialsSection = () => {
         <div className="text-center mb-12">
           <Card className="inline-block p-8 bg-white shadow-xl border-0">
             <CardContent className="p-0">
+              <div className="flex items-center justify-center gap-2 text-lg font-semibold text-gray-800 mb-2">
+                <span>Trustpilot</span>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.39 7.26H22l-6.19 4.5L17.82 22 12 17.27 6.18 22l1.99-8.24L2 9.26h7.61z" fill="#22c55e"/></svg>
+              </div>
               <div className="flex items-center justify-center gap-2 mb-4">
-                {[1, 2, 3, 4, 5].map((star) => (
+                {[1, 2, 3, 4].map((star) => (
                   <Star 
                     key={star} 
-                    className={`w-6 h-6 ${star <= 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                    className="w-6 h-6 text-yellow-400 fill-current" 
                   />
                 ))}
+                <Star className="w-6 h-6 text-gray-300" />
               </div>
               <div className="text-4xl font-bold text-gray-900 mb-2">4.7/5.0</div>
-              <div className="text-gray-600">Baseado em 1824 avaliações</div>
+              <div className="text-gray-600 mb-1">Based on 2,847 reviews</div>
+              <div className="text-xs text-gray-400">from verified <span className="font-semibold">Trustpilot</span> users</div>
             </CardContent>
           </Card>
         </div>
@@ -93,11 +99,6 @@ const TestimonialsSection = () => {
           ))}
         </div>
 
-        <div className="text-center">
-          <Button className="h-12 px-8 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105">
-            Ver casos reais
-          </Button>
-        </div>
       </div>
     </section>
   );

@@ -2,6 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 
+const scrollToPlans = () => {
+  const el = document.getElementById("plans-section");
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
 const ConversionSection = () => {
   return (
     <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800">
@@ -53,7 +60,10 @@ const ConversionSection = () => {
               </ul>
             </div>
 
-            <Button className="h-14 px-8 bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 border-2 border-white">
+            <Button
+              className="h-14 px-8 bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 border-2 border-white"
+              onClick={scrollToPlans}
+            >
               Try Free
             </Button>
           </div>

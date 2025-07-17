@@ -80,22 +80,16 @@ const ExpertiseSection = () => {
           <div className="space-y-8">
             {/* Main Title */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                  15 Years Of Experience In
-                </span>
-                <br />
-                <span className="text-gray-900">
-                  Automotive AI Solutions
-                </span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 break-words leading-tight w-full max-w-full overflow-hidden text-left">
+                <span className="bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent w-full max-w-full block text-balance">Your Trusted Partner in Automotive AI for Over 15 Years</span>
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Our chatbot goes beyond AI — it was built in collaboration with industry experts, combining advanced technology with real-world automotive experience.
+              <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 break-words w-full max-w-full text-left">
+                From lead generation to customer engagement, our AI-driven platform is designed to accelerate your success in the automotive industry.
               </p>
             </div>
 
             {/* Feature List */}
-            <div className="space-y-4">
+            <div className="space-y-4 w-full text-left">
               {[
                 {
                   title: "Human Expert Collaboration",
@@ -110,15 +104,15 @@ const ExpertiseSection = () => {
                   description: "Tailored responses and integrations specific to automotive business requirements"
                 }
               ].map((feature, index) => (
-                <div key={index} className="flex items-start gap-4 p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-blue-100 hover:shadow-lg transition-all duration-300">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <div key={index} className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-blue-100 hover:shadow-lg transition-all duration-300 w-full break-words">
+                  <div className="w-7 h-7 md:w-8 md:h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1 break-words text-left">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-gray-600 text-xs md:text-sm leading-relaxed break-words text-left">
                       {feature.description}
                     </p>
                   </div>
@@ -127,16 +121,16 @@ const ExpertiseSection = () => {
             </div>
 
             {/* Highlight Box */}
-            <div className="p-6 bg-gradient-to-r from-blue-500/10 to-green-500/10 rounded-2xl border border-blue-200 backdrop-blur-sm">
+            <div className="p-4 md:p-6 bg-gradient-to-r from-blue-500/10 to-green-500/10 rounded-2xl border border-blue-200 backdrop-blur-sm w-full text-left">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-base md:text-xl font-bold text-gray-900 mb-2 break-words text-left">
                     You're not just hiring an AI
                   </h3>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-gray-700 text-xs md:text-base leading-relaxed break-words text-left">
                     You're getting a digital assistant trained with intelligence and perfected with humanity.
                   </p>
                 </div>

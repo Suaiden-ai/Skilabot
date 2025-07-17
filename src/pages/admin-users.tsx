@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, Edit, UserPlus, Search, Filter } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 interface User {
   id: string;
@@ -23,6 +24,7 @@ interface User {
 }
 
 const AdminUsers = () => {
+  usePageTitle("Admin Users | Skilabot");
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");

@@ -6,8 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { AlertCircle, ExternalLink, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function ChatwootPanel() {
+  usePageTitle("Chatwoot Panel | Skilabot");
   const { user } = useAuth();
   const [chatwootData, setChatwootData] = useState<any>(null);
   const [loading, setLoading] = useState(true);

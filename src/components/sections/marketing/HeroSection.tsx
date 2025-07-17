@@ -50,10 +50,6 @@ const HeroSection = () => {
               <Button className="h-14 px-8 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105">
                 Try Free for 7 Days
               </Button>
-              <Button variant="outline" className="h-14 px-6 border-2 border-purple-500 text-purple-500 hover:bg-purple-50 font-bold text-lg rounded-lg">
-                <Play className="mr-2 h-5 w-5" />
-                Watch Demo
-              </Button>
             </div>
           </div>
 

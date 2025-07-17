@@ -12,6 +12,8 @@ interface Profile {
   role: 'user' | 'admin';
   created_at: string | null;
   updated_at: string | null;
+  accepted_terms_at?: string | null;
+  status?: string | null;
 }
 
 interface AuthContextType {
