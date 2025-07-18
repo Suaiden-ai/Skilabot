@@ -38,8 +38,8 @@ const FAQSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-4xl mx-auto px-6">
+    <section id="faq-section" className="py-20 bg-white overflow-x-hidden">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Frequently Asked</span> Questions

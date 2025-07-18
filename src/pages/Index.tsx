@@ -12,46 +12,45 @@ import Footer from "@/components/sections/Footer";
 import BusinessCards from "@/components/sections/BusinessCards";
 import FadeInUp from "@/components/FadeInUp";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { useEffect, useState } from "react";
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+}
 
 export default function Index() {
   usePageTitle("Home | Skilabot");
+  const isMobile = useIsMobile();
   return (
     <div className="min-h-screen bg-white">
       <Header />
       <div className="pt-16"> {/* Add padding to account for fixed header */}
-        <FadeInUp>
-          <Hero />
-        </FadeInUp>
+        {isMobile ? <Hero /> : <FadeInUp><Hero /></FadeInUp>}
         {/* <TrustedCompanies /> */}
         {/* <Features /> */}
         <div id="about">
-          <FadeInUp>
-            <AboutUs />
-          </FadeInUp>
+          {isMobile ? <AboutUs /> : <FadeInUp><AboutUs /></FadeInUp>}
         </div>
-        <FadeInUp>
-          <BusinessCards />
-        </FadeInUp>
+        {isMobile ? <BusinessCards /> : <FadeInUp><BusinessCards /></FadeInUp>}
         <div id="features">
-          <FadeInUp>
-            <DetailedFeatures />
-          </FadeInUp>
+          {isMobile ? <DetailedFeatures /> : <FadeInUp><DetailedFeatures /></FadeInUp>}
         </div>
         <div id="pricing">
-          <FadeInUp>
-            <Pricing />
-          </FadeInUp>
+          {isMobile ? <Pricing /> : <FadeInUp><Pricing /></FadeInUp>}
         </div>
         <div id="integrations">
-          <FadeInUp>
-            <Integrations />
-          </FadeInUp>
+          {isMobile ? <Integrations /> : <FadeInUp><Integrations /></FadeInUp>}
         </div>
         {/* <News /> */}
         <div id="contact">
-          <FadeInUp>
-            <Contact />
-          </FadeInUp>
+          {isMobile ? <Contact /> : <FadeInUp><Contact /></FadeInUp>}
         </div>
         <Footer />
       </div>

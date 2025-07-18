@@ -63,7 +63,7 @@ export default function WhatsappConnections() {
           email: user!.email || ""
         };
 
-        const response = await fetch("https://nwh.suaiden.com/webhook/Desconectar", {
+        const response = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/Desconectar`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function WhatsappConnections() {
           email: user!.email || ""
         };
 
-        const response = await fetch("https://nwh.suaiden.com/webhook/Excluir-Instancia", {
+        const response = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/Excluir-Instancia`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -187,7 +187,7 @@ export default function WhatsappConnections() {
       
       console.log('Payload sent to chatwoot webhook:', chatwootPayload);
       
-      const chatwootResponse = await fetch("https://nwh.suaiden.com/webhook/chatwoot", {
+      const chatwootResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/chatwoot`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -229,7 +229,7 @@ export default function WhatsappConnections() {
         user_id_chatwoot
       };
       console.log('Payload FINAL enviado para validar-qrcode:', chatwootPayloadWithId);
-      const refreshResponse = await fetch("https://nwh.suaiden.com/webhook/validar-qrcode", {
+      const refreshResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/validar-qrcode`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -299,7 +299,7 @@ export default function WhatsappConnections() {
       
       console.log('Payload sent to update QR Code:', refreshPayload);
       
-      const refreshResponse = await fetch("https://nwh.suaiden.com/webhook/atualizar-qrcode", {
+      const refreshResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/atualizar-qrcode`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

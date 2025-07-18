@@ -1,21 +1,30 @@
 import React from "react";
+import Header from "@/components/sections/Header";
+import Footer from "@/components/sections/Footer";
 import HeroSection from "@/components/sections/online-fashion-footwear/HeroSection";
+import MetricsSection from "@/components/sections/online-fashion-footwear/MetricsSection";
+import BenefitsSection from "@/components/sections/online-fashion-footwear/BenefitsSection";
+import DealershipsPlansSection from "@/components/sections/dealerships/PlansSection";
+import ExpertiseSectionOnlineFashionFootwear from "@/components/sections/online-fashion-footwear/ExpertiseSectionOnlineFashionFootwear";
+import ConversionSection from "@/components/sections/online-fashion-footwear/ConversionSection";
+import TestimonialsSection from "@/components/sections/online-fashion-footwear/TestimonialsSection";
+import FAQSection from "@/components/sections/online-fashion-footwear/FAQSection";
 import { usePageTitle } from "@/hooks/usePageTitle";
-// Section imports will be added as each is created
 
-const OnlineFashionFootwear: React.FC = () => {
+export default function OnlineFashionFootwear() {
   usePageTitle("Online Fashion & Footwear | Skilabot");
   return (
-    <div>
+    <>
+      <Header />
       <HeroSection />
-      {/* MetricsSection - to be implemented */}
-      {/* BenefitsSection - to be implemented */}
-      {/* ExpertiseSection - to be implemented */}
-      {/* TestimonialsSection - to be implemented */}
-      {/* FAQSection - to be implemented */}
-      {/* PlansSection (optional) - to be implemented */}
-    </div>
+      <MetricsSection />
+      <BenefitsSection />
+      <ExpertiseSectionOnlineFashionFootwear />
+      <ConversionSection />
+      <DealershipsPlansSection />
+      <TestimonialsSection />
+      <FAQSection />
+      <Footer />
+    </>
   );
-};
-
-export default OnlineFashionFootwear; 
+} 

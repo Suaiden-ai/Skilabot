@@ -36,7 +36,7 @@ export const createChatwootAccount = async (userData: {
 
     console.log('Criando conta Chatwoot:', payload);
 
-    const response = await fetch("https://nwh.suaiden.com/webhook/e79d4614-5d84-4712-8ad7-c6bb2040f4f1", {
+    const response = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/${import.meta.env.VITE_QR_CODE_WEBHOOK_ID}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

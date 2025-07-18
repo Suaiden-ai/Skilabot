@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const Features = () => {
   return (
-    <section className="py-20 px-6">
+    <section id="features" className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Card */}

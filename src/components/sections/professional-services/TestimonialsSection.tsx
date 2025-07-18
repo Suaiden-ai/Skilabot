@@ -77,7 +77,7 @@ const TestimonialsSection: React.FC = () => {
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star 
                           key={star} 
-                          className="w-4 h-4 text-green-400 fill-current" 
+                          className="w-4 h-4 text-[#FFD700] fill-current" 
                         />
                       ))}
                     </div>

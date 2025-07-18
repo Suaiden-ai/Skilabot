@@ -40,7 +40,7 @@ export function QrCodeDialog({
   onConnectionSuccess,
   instanceName
 }: QrCodeDialogProps) {
-  const { user } = useAuth();
+  const { user, session } = useAuth();
   const [isCheckingConnection, setIsCheckingConnection] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'open' | 'connected' | 'failed' | null>(null);
   const [chatwootWebhookCalled, setChatwootWebhookCalled] = useState(false);
@@ -74,7 +74,7 @@ export function QrCodeDialog({
         };
 
         console.log('Payload enviado para validar-qrcode:', payload);
-        const response = await fetch("https://nwh.suaiden.com/webhook/validar-qrcode", {
+        const response = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/validar-qrcode`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -174,32 +174,40 @@ export function QrCodeDialog({
 
             // NOVO: Buscar e salvar dados do webhook /webhook/chatwoot via Edge Function
             try {
-              const chatwootResponse = await fetch("https://nwh.suaiden.com/webhook/chatwoot", {
+              const chatwootResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/chatwoot`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user_id: user.id })
               });
-              const chatwootData = await chatwootResponse.json();
-              console.log('Resposta do webhook /chatwoot:', chatwootData);
+              const text = await chatwootResponse.text();
+              let chatwootData = null;
+              try {
+                chatwootData = text ? JSON.parse(text) : null;
+              } catch (e) {
+                console.error('Resposta não é JSON válido:', text);
+              }
               if (chatwootData && chatwootData.user_id) {
                 // DEBUG: logar dados antes de enviar para Edge Function
                 console.log('Enviando dados para Edge Function:', chatwootData);
                 try {
-                  const edgeResponse = await fetch("https://dawqhytdogagnwwhndjt.supabase.co/functions/v1/save-chatwoot-account", {
+                  const edgeResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/save-chatwoot-account`, {
                     method: "POST",
                     headers: {
-                      "Content-Type": "application/json",
-                      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhd3FoeXRkb2dhZ253d2huZGp0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MDg2NTg3MSwiZXhwIjoyMDY2NDQxODcxfQ.sUfQQPwbBR_ihXqs06CbCulGwP3y_hRG8RX9eYa69Qo"
+                      "Content-Type": "application/json"
                     },
                     body: JSON.stringify(chatwootData)
                   });
-                  console.log('Status da resposta da Edge Function:', edgeResponse.status);
-                  const edgeResult = await edgeResponse.json();
-                  console.log('Resposta da Edge Function:', edgeResult);
-                  if (edgeResult.success) {
+                  let edgeResult = null;
+                  const text = await edgeResponse.text();
+                  try {
+                    edgeResult = text ? JSON.parse(text) : null;
+                  } catch (e) {
+                    console.error('Resposta não é JSON válido:', text);
+                  }
+                  if (edgeResult && edgeResult.success) {
                     console.log('Dados do chatwoot salvos com sucesso via Edge Function!');
                   } else {
-                    console.error('Erro ao salvar dados do chatwoot via Edge Function:', edgeResult.error);
+                    console.error('Erro ao salvar dados do chatwoot via Edge Function:', edgeResult?.error);
                   }
                 } catch (err) {
                   console.error('Erro de rede ao chamar Edge Function:', err);
@@ -212,24 +220,28 @@ export function QrCodeDialog({
             // Chamar função Edge para registrar inbox_id(s) após conexão bem-sucedida
             if (inboxPayloads.length > 0) {
               try {
-                const edgeResponse = await fetch("https://dawqhytdogagnwwhndjt.supabase.co/functions/v1/whatsapp-inbox-syncts", {
+                // Enviar sempre um array de payloads para a função Edge
+                const inboxResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/whatsapp-inbox-syncts`, {
                   method: "POST",
                   headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhd3FoeXRkb2dhZ253d2huZGp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjU4NzEsImV4cCI6MjA2NjQ0MTg3MX0.st3PJZJsLff63mOTETQYBWha4Nz4gAzeyIHHkrQrSa8"
+                    "Content-Type": "application/json"
                   },
-                  body: JSON.stringify(inboxPayloads),
+                  body: JSON.stringify(inboxPayloads)
                 });
-                
-                if (edgeResponse.ok) {
-                  const edgeResult = await edgeResponse.json();
-                  console.log('Resposta da função Edge whatsapp-inbox-syncts:', edgeResult);
+                const text = await inboxResponse.text();
+                let inboxResult = null;
+                try {
+                  inboxResult = text ? JSON.parse(text) : null;
+                } catch (e) {
+                  console.error('Resposta não é JSON válido:', text);
+                }
+                if (inboxResult && inboxResult.success) {
+                  // sucesso
                 } else {
-                  const errorText = await edgeResponse.text();
-                  console.error('Erro na função Edge whatsapp-inbox-syncts:', errorText);
+                  console.error('Erro na função Edge whatsapp-inbox-sync:', inboxResult);
                 }
               } catch (edgeErr) {
-                console.error('Erro ao chamar função Edge whatsapp-inbox-syncts:', edgeErr);
+                console.error('Erro ao chamar função Edge whatsapp-inbox-sync:', edgeErr);
               }
             }
 
@@ -241,7 +253,7 @@ export function QrCodeDialog({
       } catch (error) {
         console.error('Erro ao verificar conexão:', error);
       }
-    }, 3000);
+    }, 10000); // 10 segundos
 
     return intervalId;
   };

@@ -2,10 +2,10 @@ import { ShieldCheck, FileText, BarChart2, CalendarCheck2 } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 via-green-50 to-gray-50 py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+    <section className="relative bg-gradient-to-br from-blue-50 via-green-50 to-gray-50 py-20 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left: Content */}
-        <div className="space-y-8">
+        <div className="space-y-8 w-full max-w-md mx-auto">
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
             Simplify Your MEI Accounting with <span className="bg-gradient-to-r from-blue-400 via-green-400 to-gray-400 bg-clip-text text-transparent">Skilabot</span>
           </h1>

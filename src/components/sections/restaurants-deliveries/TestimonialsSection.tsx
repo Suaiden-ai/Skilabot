@@ -4,8 +4,8 @@ import React from "react";
 
 const TestimonialsSection: React.FC = () => {
   return (
-    <section className="py-20 bg-yellow-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-20 bg-yellow-50 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
             What restaurant & delivery owners say about {" "}

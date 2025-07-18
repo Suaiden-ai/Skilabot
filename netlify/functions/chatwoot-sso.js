@@ -7,7 +7,7 @@ exports.handler = async function(event) {
 
   const { userIdChatwoot } = JSON.parse(event.body || '{}');
   const api_access_token = process.env.CHATWOOT_API_TOKEN;
-  const ssoEndpoint = `https://smartchat.suaiden.com/platform/api/v1/users/${userIdChatwoot}/login`;
+  const ssoEndpoint = `${process.env.SMARTCHAT_BASE_URL || 'https://smartchat.suaiden.com'}/platform/api/v1/users/${userIdChatwoot}/login`;
 
   try {
     const response = await fetch(ssoEndpoint, {

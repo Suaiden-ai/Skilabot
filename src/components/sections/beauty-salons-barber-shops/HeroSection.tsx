@@ -2,10 +2,10 @@ import { Sparkles, Scissors, Smile, CalendarCheck2 } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative bg-gradient-to-br from-pink-100 via-purple-50 to-yellow-50 py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+    <section className="relative bg-gradient-to-br from-pink-100 via-purple-50 to-yellow-50 py-20 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left: Content */}
-        <div className="space-y-8">
+        <div className="space-y-8 w-full max-w-md mx-auto">
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
             Transform Your Beauty Salon or Barber Shop with <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-yellow-400 bg-clip-text text-transparent">Skilabot</span>
           </h1>

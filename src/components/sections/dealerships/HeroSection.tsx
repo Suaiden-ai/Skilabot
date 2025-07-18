@@ -12,11 +12,11 @@ const scrollToPlans = () => {
 
 const HeroSection = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-20 bg-gradient-to-br from-blue-50 to-gray-50 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 w-full max-w-md mx-auto">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Serve and Negotiate with Your Customers on WhatsApp{" "}

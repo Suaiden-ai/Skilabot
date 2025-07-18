@@ -6,11 +6,11 @@ const HeroSection = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-20 bg-gradient-to-br from-blue-50 to-green-50">
+    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-20 bg-gradient-to-br from-blue-50 to-green-50 overflow-x-hidden">
       <div className="max-w-7xl w-full mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8 animate-fade-in w-full max-w-md mx-auto">
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Automate your{" "}
@@ -53,7 +53,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right Content - Visual */}
-          <div className="relative animate-fade-in delay-300">
+          <div className="relative w-full max-w-md mx-auto mt-8 lg:mt-0 animate-fade-in delay-300">
             <div className="relative">
               <img 
                 src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&h=600&fit=crop&crop=center"

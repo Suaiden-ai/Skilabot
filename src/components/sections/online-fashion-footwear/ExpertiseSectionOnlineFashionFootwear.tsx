@@ -2,21 +2,21 @@ import { Users, Heart, Sparkles, TrendingUp, CheckCircle, ShoppingBag } from "lu
 
 const ExpertiseSectionOnlineFashionFootwear = () => {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section className="py-24 bg-white relative overflow-x-hidden overflow-y-visible">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Image with Floating Elements */}
-          <div className="relative">
+          <div className="relative w-full max-w-md mx-auto overflow-visible">
             <div className="relative">
-              <div className="w-96 h-96 mx-auto bg-gradient-to-br from-blue-100 to-green-100 rounded-full flex items-center justify-center relative overflow-hidden">
+              <div className="w-80 sm:w-96 h-80 sm:h-96 mx-auto bg-gradient-to-br from-pink-100 to-blue-100 rounded-full flex items-center justify-center relative overflow-hidden max-w-full">
                 <img 
-                  src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&h=600&fit=crop"
-                  alt="Fashion and footwear showcase"
-                  className="w-72 h-72 object-contain rounded-full mx-auto drop-shadow-lg"
+                  src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=600&fit=crop"
+                  alt="Online Fashion illustration"
+                  className="w-60 sm:w-72 h-60 sm:h-72 object-contain rounded-full mx-auto drop-shadow-lg max-w-full"
                 />
               </div>
               {/* Floating Metric Cards */}
-              <div className="absolute -top-4 -left-8 bg-white rounded-2xl p-4 shadow-xl border border-blue-100 animate-pulse">
+              <div className="absolute left-0 right-auto sm:-left-8 -top-4 bg-white rounded-2xl p-4 shadow-xl border border-pink-100 animate-pulse max-w-[160px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
                     <TrendingUp className="w-5 h-5 text-white" />

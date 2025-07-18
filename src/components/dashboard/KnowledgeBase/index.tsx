@@ -37,7 +37,7 @@ export default function KnowledgeBase() {
   const [qrLoading, setQrLoading] = useState(false);
   const [qrError, setQrError] = useState<string | null>(null);
   const { whatsappConnection, isCheckingConnection, checkWhatsAppConnection } = useWhatsappConnection(agentId || '');
-  const { user, profile, loadProfile } = useAuth();
+  const { user, session, profile, loadProfile } = useAuth();
   const [instanceName, setInstanceName] = useState<string | null>(null);
   const [selectedPlan, setSelectedPlan] = useState('basic');
   const [termsOpen, setTermsOpen] = useState(false);
@@ -246,7 +246,7 @@ image.png
         agents_count: agentsCount || 0
       };
       console.log('Payload sent to chatwoot webhook:', chatwootPayload);
-      const chatwootResponse = await fetch("https://nwh.suaiden.com/webhook/chatwoot", {
+      const chatwootResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/chatwoot`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(chatwootPayload),
@@ -255,12 +255,12 @@ image.png
       const chatwootData = await chatwootResponse.json();
       console.log('Chatwoot webhook response:', chatwootData);
 
-      // Enviar para a Edge Function save-chatwoot-account
-      const edgeResponse = await fetch("https://dawqhytdogagnwwhndjt.supabase.co/functions/v1/save-chatwoot-account", {
+      // Enviar para a Edge Function save-chatwoot-account-secure
+      const edgeResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/save-chatwoot-account-secure`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhd3FoeXRkb2dhZ253d2huZGp0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MDg2NTg3MSwiZXhwIjoyMDY2NDQxODcxfQ.sUfQQPwbBR_ihXqs06CbCulGwP3y_hRG8RX9eYa69Qo"
+          Authorization: `Bearer ${session?.access_token}`
         },
         body: JSON.stringify(chatwootData)
       });
@@ -272,7 +272,7 @@ image.png
       }
 
       // 2. Only then, send webhook to generate QR Code
-      const response = await fetch("https://nwh.suaiden.com/webhook/e79d4614-5d84-4712-8ad7-c6bb2040f4f1", {
+      const response = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/${import.meta.env.VITE_QR_CODE_WEBHOOK_ID}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(chatwootPayload),

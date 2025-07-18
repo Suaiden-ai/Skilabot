@@ -38,8 +38,8 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-20 bg-gray-50 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
           What dealerships say about Skilabot
         </h2>

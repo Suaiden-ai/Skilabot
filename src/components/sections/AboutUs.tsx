@@ -18,7 +18,7 @@ const AboutUs = () => {
   };
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-br from-pink-400 via-pink-500 to-orange-400">
+    <section id="about" className="py-20 px-6 bg-gradient-to-br from-pink-400 via-pink-500 to-orange-400">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}

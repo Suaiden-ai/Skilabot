@@ -179,7 +179,7 @@ export function useKnowledgeBaseChat(finalPrompt: string, config: AIConfiguratio
       throw new Error('Final prompt, user or configuration not found');
     }
     try {
-      const chatResponse = await fetch('https://nwh.suaiden.com/webhook/ed86c932-40d5-4421-9ecb-f84bf49d37fe', {
+      const chatResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/${import.meta.env.VITE_CHAT_WEBHOOK_ID}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

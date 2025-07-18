@@ -12,11 +12,11 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-20 bg-gradient-to-br from-white to-gray-50">
+    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-20 bg-gradient-to-br from-white to-gray-50 overflow-x-hidden">
       <div className="max-w-7xl w-full mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8 animate-fade-in w-full max-w-md mx-auto">
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Attract, Engage and{" "}
@@ -60,7 +60,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right Content */}
-          <div className="relative animate-fade-in delay-300">
+          <div className="relative w-full max-w-md mx-auto mt-8 lg:mt-0 animate-fade-in delay-300">
             <div className="relative">
               <img 
                 src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=600&fit=crop"

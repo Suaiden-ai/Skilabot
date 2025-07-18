@@ -55,7 +55,7 @@ export default function ChatwootPanel() {
         return;
       }
       // Enviar para o webhook customizado
-      const response = await fetch('https://nwh.suaiden.com/webhook/sso_link_chatwoot', {
+      const response = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/sso_link_chatwoot`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

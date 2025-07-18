@@ -2,11 +2,11 @@ import { CheckCircle } from "lucide-react";
 
 const ExpertiseSectionCondominiums = () => {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section className="py-24 bg-white relative overflow-x-hidden overflow-y-visible">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Image with Floating Elements */}
-          <div className="relative">
+          <div className="relative w-full max-w-md mx-auto overflow-visible">
             <div className="relative">
               <div className="w-96 h-96 mx-auto bg-gradient-to-br from-green-100 via-blue-100 to-gray-100 rounded-full flex items-center justify-center relative overflow-hidden">
                 <img 

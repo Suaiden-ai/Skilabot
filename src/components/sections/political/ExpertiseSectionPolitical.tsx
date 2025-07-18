@@ -2,21 +2,21 @@ import { Users, Megaphone, TrendingUp, CheckCircle, Heart } from "lucide-react";
 
 const ExpertiseSectionPolitical = () => {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section className="py-24 bg-white relative overflow-x-hidden overflow-y-visible">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Image with Floating Elements */}
-          <div className="relative">
+          <div className="relative w-full max-w-md mx-auto overflow-visible">
             <div className="relative">
-              <div className="w-96 h-96 mx-auto bg-gradient-to-br from-indigo-100 to-pink-100 rounded-full flex items-center justify-center relative overflow-hidden">
+              <div className="w-80 sm:w-96 h-80 sm:h-96 mx-auto bg-gradient-to-br from-indigo-100 to-pink-100 rounded-full flex items-center justify-center relative overflow-hidden max-w-full">
                 <img 
                   src="https://images.unsplash.com/photo-1515168833906-d2a3b82b302b?w=600&h=600&fit=crop"
                   alt="Political Campaign illustration"
-                  className="w-72 h-72 object-contain rounded-full mx-auto drop-shadow-lg"
+                  className="w-60 sm:w-72 h-60 sm:h-72 object-contain rounded-full mx-auto drop-shadow-lg max-w-full"
                 />
               </div>
               {/* Floating Metric Cards */}
-              <div className="absolute -top-4 -left-8 bg-white rounded-2xl p-4 shadow-xl border border-indigo-100 animate-pulse">
+              <div className="absolute left-0 right-auto sm:-left-8 -top-4 bg-white rounded-2xl p-4 shadow-xl border border-indigo-100 animate-pulse max-w-[160px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-indigo-500 rounded-lg flex items-center justify-center">
                     <TrendingUp className="w-5 h-5 text-white" />

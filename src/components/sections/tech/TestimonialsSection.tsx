@@ -25,8 +25,8 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-20 bg-gray-50 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             What <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">technical support services</span> say
@@ -86,11 +86,6 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        <div className="text-center">
-          <Button className="h-12 px-8 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold rounded-lg">
-            View real cases
-          </Button>
-        </div>
       </div>
     </section>
   );

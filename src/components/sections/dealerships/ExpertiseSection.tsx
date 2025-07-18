@@ -2,12 +2,12 @@ import { Users, Heart, Settings, Sparkles, TrendingUp, CheckCircle } from "lucid
 
 const ExpertiseSection = () => {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-x-hidden overflow-y-visible">
       {/* Background Effects */}
       {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(251,146,60,0.1),transparent_50%)]"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(245,158,11,0.1),transparent_50%)]"></div> */}
       
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header Badge */}
         {/* <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full border border-blue-200 mb-6">
@@ -19,7 +19,7 @@ const ExpertiseSection = () => {
         {/* Main Content Layout */}
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Image with Floating Elements */}
-          <div className="relative">
+          <div className="relative w-full max-w-md mx-auto overflow-visible">
             {/* Main Image Container */}
             <div className="relative">
               {/* Circular Background */}

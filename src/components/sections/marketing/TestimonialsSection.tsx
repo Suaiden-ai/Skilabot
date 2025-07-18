@@ -32,8 +32,8 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-20 bg-gray-50 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
             What marketing agencies say about {" "}
@@ -83,7 +83,7 @@ const TestimonialsSection = () => {
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star 
                           key={star} 
-                          className="w-4 h-4 text-yellow-400 fill-current" 
+                          className="w-4 h-4 text-[#FFD700] fill-current" 
                         />
                       ))}
                     </div>

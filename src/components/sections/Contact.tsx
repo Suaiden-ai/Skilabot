@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const Contact = () => {
   return (
-    <section className="py-20 px-6 bg-gradient-to-br from-teal-400 via-purple-500 to-pink-500">
+    <section id="contact" className="py-20 px-6 bg-gradient-to-br from-teal-400 via-purple-500 to-pink-500">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-4">
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -23,7 +23,7 @@ const Contact = () => {
             </h2>
             
             <p className="text-white/90 text-lg mb-12 leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              We’re here to help you automate, scale, and transform your customer service with AI. Reach out to our team and let’s build the future of your business together.
             </p>
             
             <div className="space-y-8">
@@ -40,7 +40,7 @@ const Contact = () => {
                   <div className="w-4 h-4 bg-white/60 rounded-full"></div>
                   <h4 className="font-semibold text-white/80 uppercase text-sm tracking-wider">EMAIL</h4>
                 </div>
-                <p className="text-white text-xl">smartchat.info@gmail.com</p>
+                <p className="text-white text-xl">admin@skilabot.com</p>
               </div>
               
               <div>
@@ -60,7 +60,7 @@ const Contact = () => {
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl">
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Get in Touch</h3>
             <p className="text-gray-600 mb-8">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Fill out the form and our team will get back to you as soon as possible. Let’s start your journey with Skilabot!
             </p>
             
             <form className="space-y-6">

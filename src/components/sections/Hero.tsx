@@ -35,23 +35,6 @@ const Hero = () => {
               </p>
             </div>
 
-            {/* Email Signup */}
-            <div className="flex gap-3 max-w-md">
-              <Input 
-                type="email" 
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 h-12 text-lg border-2 border-gray-200 focus:border-pink-500 transition-colors"
-              />
-              <Button 
-                onClick={handleStartFreeTrial}
-                className="h-12 px-6 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105"
-              >
-                Start Free Trial
-              </Button>
-            </div>
-
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-sm text-gray-600">
               <div className="flex items-center gap-2">
@@ -68,25 +51,14 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Social Proof */}
-            <div className="bg-white p-6 rounded-xl shadow-lg max-w-sm border">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-red-500 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                  G
-                </div>
-                <div>
-                  <div className="flex items-center gap-1 mb-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star 
-                        key={star} 
-                        className={`w-4 h-4 ${star <= 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
-                      />
-                    ))}
-                    <span className="text-sm text-gray-600 ml-1">4.5/5.0</span>
-                  </div>
-                  <p className="text-sm text-gray-500">(from 20k reviews)</p>
-                </div>
-              </div>
+            {/* Start Free Trial Button */}
+            <div className="flex justify-start mt-6">
+              <Button 
+                onClick={handleStartFreeTrial}
+                className="h-12 px-8 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg text-lg transition-all duration-300 hover:scale-105"
+              >
+                Start Free Trial
+              </Button>
             </div>
           </div>
 

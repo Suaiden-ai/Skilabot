@@ -17,7 +17,7 @@ const ChatbotSection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const WEBHOOK_URL = "https://n8n.murphbots.com/webhook/ed86c932-40d5-4421-9ecb-f84bf49d37fe";
+  const WEBHOOK_URL = `${import.meta.env.VITE_N8N_BASE_URL}/webhook/${import.meta.env.VITE_CHAT_WEBHOOK_ID}`;
 
   const sendToN8N = async (message: string): Promise<string> => {
     console.log('Enviando mensagem para N8N:', message);

@@ -3,11 +3,11 @@ import { Check } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-green-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-green-50 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 w-full max-w-md mx-auto">
             <div className="space-y-6">
               <h1 className="text-5xl md:text-6xl font-bold leading-tight">
                 <span className="bg-gradient-to-r from-purple-500 via-blue-400 to-green-400 bg-clip-text text-transparent">

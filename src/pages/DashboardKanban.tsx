@@ -85,7 +85,7 @@ function KanbanCard({ title, nameinbox, value, data_e_hora, status, isDragging, 
   // Nova função para SSO
   const handleGoToConversation = () => {
     if (account_id && inbox_id && id_conversa) {
-      const url = `https://smartchat.suaiden.com/app/accounts/${account_id}/inbox/${inbox_id}/conversations/${id_conversa}`;
+      const url = `${import.meta.env.VITE_SMARTCHAT_BASE_URL}/app/accounts/${account_id}/inbox/${inbox_id}/conversations/${id_conversa}`;
       window.open(url, '_blank');
     } else {
       alert('Missing data to open the conversation!');
@@ -113,7 +113,7 @@ function KanbanCard({ title, nameinbox, value, data_e_hora, status, isDragging, 
         return;
       }
       // POST para o webhook
-      const resp = await fetch('https://nwh.suaiden.com/webhook/sso_link_chatwoot', {
+      const resp = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/sso_link_chatwoot`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id_chatwoot: data.user_id_chatwoot })

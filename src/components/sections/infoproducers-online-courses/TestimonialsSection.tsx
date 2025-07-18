@@ -48,7 +48,7 @@ const TestimonialsSection = () => {
                 </div>
                 <div className="flex items-center gap-1 mb-4">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-4 h-4 text-yellow-400 fill-current" />
+                    <Star key={star} className="w-4 h-4 text-[#FFD700] fill-current" />
                   ))}
                 </div>
                 <p className="text-gray-700 leading-relaxed italic">

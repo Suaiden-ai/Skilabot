@@ -6,11 +6,11 @@ const HeroSection = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-20 bg-gradient-to-br from-blue-50 to-green-50">
-      <div className="max-w-7xl w-full mx-auto">
+    <section className="min-h-screen flex items-center justify-center px-6 py-20 bg-gradient-to-br from-blue-50 to-green-50 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8 w-full max-w-md mx-auto animate-fade-in">
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Automate your{" "}

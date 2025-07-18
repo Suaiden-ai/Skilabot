@@ -1,21 +1,31 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === "/" || location.pathname === "";
 
-  const menuItems = [
-    { name: "Home", href: "#" },
-    { name: "About", href: "#about" },
-    { name: "Features", href: "#features" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "Integrations", href: "#integrations" },
-    { name: "Contact", href: "#contact" }
-  ];
+  const menuItems = isHome
+    ? [
+        { name: "Home", href: "#" },
+        { name: "About", href: "#about" },
+        { name: "Products", href: "#business-solutions" },
+        { name: "Features", href: "#features" },
+        { name: "Pricing", href: "#pricing" },
+        { name: "Integrations", href: "#integrations" },
+        { name: "Contact", href: "#contact" }
+      ]
+    : [
+        { name: "Home", href: "/" },
+        { name: "Features", href: "#benefits-section" },
+        { name: "Pricing", href: "#plans-section" },
+        { name: "Contact", href: "#faq-section" }
+      ];
 
   const handleLoginClick = () => {
     navigate("/auth");
@@ -28,15 +38,26 @@ const Header = () => {
   const handleMenuClick = (item) => {
     if (item.name === "Home") {
       navigate("/");
-    } else if (item.name === "Pricing") {
-      const plansSection = document.getElementById("plans-section");
-      if (plansSection) {
-        plansSection.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    if (isHome) {
+      const sectionId = item.href.replace('#', '');
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
       } else {
-        navigate("/#pricing");
+        navigate(`/#${sectionId}`);
       }
     } else {
-      navigate(`/${item.href}`);
+      // Landing pages: Features -> benefits-section, Pricing -> plans-section, Contact -> faq-section
+      const sectionId = item.href.replace('#', '');
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      } else {
+        // fallback: navega para hash na mesma página
+        window.location.hash = `#${sectionId}`;
+      }
     }
   };
 
@@ -45,7 +66,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center cursor-pointer" onClick={() => navigate("/") }>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
               Skilabot
             </h1>

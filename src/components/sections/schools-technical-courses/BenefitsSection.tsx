@@ -107,7 +107,7 @@ const BenefitsSection = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section id="benefits-section" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
           Benefits for Technical Schools

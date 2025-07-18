@@ -23,8 +23,8 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => (
-  <section className="py-20 bg-gray-50">
-    <div className="max-w-7xl mx-auto px-6">
+  <section className="py-20 bg-gray-50 overflow-x-hidden">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
           What <span className="bg-gradient-to-r from-pink-500 to-indigo-500 bg-clip-text text-transparent">political agents</span> say about Skilabot
@@ -47,7 +47,7 @@ const TestimonialsSection = () => (
               </div>
               <div className="flex items-center gap-1 mb-4">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star key={star} className="w-4 h-4 text-[#FFD700] fill-current" />
                 ))}
               </div>
               <p className="text-gray-700 leading-relaxed italic">

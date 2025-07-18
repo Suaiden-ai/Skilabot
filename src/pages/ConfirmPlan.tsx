@@ -7,6 +7,7 @@ import { Lock } from "lucide-react";
 import { usePageTitle } from "@/hooks/usePageTitle";
 
 const ConfirmPlan = () => {
+  console.log("SUPABASE_URL:", import.meta.env.VITE_SUPABASE_URL); // <-- Adicionado para debug
   usePageTitle("Confirm Subscription | Skilabot");
   const [plan, setPlan] = useState<"basic" | "Intermediate" | null>(null);
   const { user, session, profile, loading } = useAuth();
@@ -64,7 +65,7 @@ const ConfirmPlan = () => {
     setLoadingBtn(true);
     setError(null);
     try {
-      const res = await fetch("https://dawqhytdogagnwwhndjt.functions.supabase.co/create-stripe-checkout", {
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-stripe-checkout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
