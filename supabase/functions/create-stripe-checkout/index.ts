@@ -128,14 +128,27 @@ serve(async (req) => {
       subscriptions = await stripe.subscriptions.list({
         customer: customerId,
         status: 'all',
-        limit: 1
+        limit: 10
       });
       console.log("Stripe subscriptions:", subscriptions);
     } catch (e) {
       console.log("Error fetching subscriptions:", e);
       throw e;
     }
-    const isFirstSubscription = subscriptions.data.length === 0;
+    
+    // Verifica se o usuário já teve alguma assinatura ativa (não apenas ativa agora)
+    const hasActiveSubscription = subscriptions.data.some(sub => 
+      sub.status === 'active' || sub.status === 'trialing'
+    );
+    const hasPastSubscription = subscriptions.data.some(sub => 
+      sub.status === 'canceled' || sub.status === 'unpaid' || sub.status === 'past_due'
+    );
+    
+    // Aplica trial apenas se nunca teve assinatura ativa
+    const isFirstSubscription = !hasActiveSubscription && !hasPastSubscription;
+    console.log("Is first subscription:", isFirstSubscription);
+    console.log("Has active subscription:", hasActiveSubscription);
+    console.log("Has past subscription:", hasPastSubscription);
 
     // 5. Obter a URL base correta
     const baseUrl = getBaseUrl(req);
@@ -145,18 +158,25 @@ serve(async (req) => {
     const planValue = planMap[plan];
     let session;
     try {
-      session = await stripe.checkout.sessions.create({
+      const sessionConfig: any = {
         mode: "subscription",
         payment_method_types: ["card"],
         customer: customerId,
         line_items: [{ price: priceIds[plan], quantity: 1 }],
         success_url: `${baseUrl}/success`,
         cancel_url: `${baseUrl}/plans`,
-        metadata: { user_id: user.id, plan: planValue },
-        ...(isFirstSubscription && {
-          subscription_data: { trial_period_days: 7 }
-        })
-      });
+        metadata: { user_id: user.id, plan: planValue }
+      };
+
+      // Adiciona trial period apenas para primeira assinatura
+      if (isFirstSubscription) {
+        sessionConfig.subscription_data = { trial_period_days: 7 };
+        console.log("Adding 7-day trial period for first subscription");
+      } else {
+        console.log("No trial period - user has previous subscriptions");
+      }
+
+      session = await stripe.checkout.sessions.create(sessionConfig);
       console.log("Stripe checkout session created:", session);
     } catch (e) {
       console.log("Error creating Stripe checkout session:", e);
