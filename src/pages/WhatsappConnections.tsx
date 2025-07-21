@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { QrCodeDialog } from "../components/dashboard/KnowledgeBase/QrCodeDialog";
 import { generateChatwootPassword } from "../utils/chatwootHelpers";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "../components/ui/alert-dialog";
 
 export default function WhatsappConnections() {
   usePageTitle("WhatsApp Connections | Skilabot");
@@ -22,6 +23,11 @@ export default function WhatsappConnections() {
   const [qrError, setQrError] = useState<string | null>(null);
   const [currentConnectionId, setCurrentConnectionId] = useState<string | null>(null);
   const [currentInstanceName, setCurrentInstanceName] = useState<string | null>(null);
+  const [deleteConnectionId, setDeleteConnectionId] = useState<string | null>(null);
+  const [deleteInstanceName, setDeleteInstanceName] = useState<string | null>(null);
+  // Adicionar estado para controle do modal de desconexão
+  const [disconnectConnectionId, setDisconnectConnectionId] = useState<string | null>(null);
+  const [disconnectInstanceName, setDisconnectInstanceName] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchConnections = async () => {
@@ -38,10 +44,14 @@ export default function WhatsappConnections() {
     fetchConnections();
   }, [user]);
 
-  const handleDisconnect = async (id: string, instanceName: string) => {
-    if (!window.confirm("Are you sure you want to disconnect this Agent from WhatsApp?")) return;
-    
-    setActionLoading(id);
+  const handleDisconnect = (id: string, instanceName: string) => {
+    setDisconnectConnectionId(id);
+    setDisconnectInstanceName(instanceName);
+  };
+
+  const confirmDisconnect = async () => {
+    if (!disconnectConnectionId || !disconnectInstanceName) return;
+    setActionLoading(disconnectConnectionId);
     try {
       // Atualizar status no banco
       const { error } = await supabase
@@ -50,14 +60,14 @@ export default function WhatsappConnections() {
           connection_status: "disconnected",
           disconnected_at: new Date().toISOString(),
         })
-        .eq("id", id);
+        .eq("id", disconnectConnectionId);
 
       if (error) throw error;
 
       // Chamar webhook para desconectar no Evolution API
       try {
         const payload = {
-          instance_name: instanceName,
+          instance_name: disconnectInstanceName,
           user_name: user!.user_metadata?.name || user!.email || "Unknown User",
           user_id: user!.id,
           email: user!.email || ""
@@ -84,7 +94,7 @@ export default function WhatsappConnections() {
       // Atualizar estado local
       setConnections((prev) =>
         prev.map((c) =>
-          c.id === id ? { ...c, connection_status: "disconnected", disconnected_at: new Date().toISOString() } : c
+          c.id === disconnectConnectionId ? { ...c, connection_status: "disconnected", disconnected_at: new Date().toISOString() } : c
         )
       );
     } catch (error) {
@@ -92,22 +102,28 @@ export default function WhatsappConnections() {
       toast.error("Disconnection failed. Please try again.");
     } finally {
       setActionLoading(null);
+      setDisconnectConnectionId(null);
+      setDisconnectInstanceName(null);
     }
   };
 
-  const handleDelete = async (id: string, instanceName: string) => {
-    if (!window.confirm("Are you sure you want to delete this connection? This action cannot be undone.")) return;
-    
-    setActionLoading(id);
+  const handleDelete = (id: string, instanceName: string) => {
+    setDeleteConnectionId(id);
+    setDeleteInstanceName(instanceName);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteConnectionId || !deleteInstanceName) return;
+    setActionLoading(deleteConnectionId);
     try {
       // Delete from database
-      const { error } = await supabase.from("whatsapp_connections").delete().eq("id", id);
+      const { error } = await supabase.from("whatsapp_connections").delete().eq("id", deleteConnectionId);
       if (error) throw error;
 
       // Call webhook to delete instance in Evolution API
       try {
         const payload = {
-          instance_name: instanceName,
+          instance_name: deleteInstanceName,
           user_name: user!.user_metadata?.name || user!.email || "Unknown User",
           user_id: user!.id,
           email: user!.email || ""
@@ -130,13 +146,14 @@ export default function WhatsappConnections() {
         console.error("Error deleting via webhook:", webhookError);
         // Continue even if webhook fails, since we already deleted from database
       }
-      
-      setConnections((prev) => prev.filter((c) => c.id !== id));
+      setConnections((prev) => prev.filter((c) => c.id !== deleteConnectionId));
     } catch (error) {
       console.error("Error deleting:", error);
       toast.error("Failed to delete connection. Please try again.");
     } finally {
       setActionLoading(null);
+      setDeleteConnectionId(null);
+      setDeleteInstanceName(null);
     }
   };
 
@@ -489,6 +506,35 @@ export default function WhatsappConnections() {
         onConnectionSuccess={handleWhatsAppConnectionSuccess}
         instanceName={currentInstanceName || undefined}
       />
+      <AlertDialog open={!!deleteConnectionId} onOpenChange={open => !open && setDeleteConnectionId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Connection</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this WhatsApp connection? This action cannot be undone and will completely remove the connection from your account.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      {/* Dialog de confirmação de desconexão */}
+      <AlertDialog open={!!disconnectConnectionId} onOpenChange={open => !open && setDisconnectConnectionId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Disconnect WhatsApp</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to disconnect this WhatsApp connection? The connection will be disconnected, but not deleted. You can reconnect later if needed.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDisconnect}>Disconnect</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

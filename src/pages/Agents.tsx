@@ -26,6 +26,7 @@ import {
 import { agentTypeOptions, personalityOptions } from "../components/dashboard/KnowledgeBase/types";
 import { useNavigate } from "react-router-dom";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "../components/ui/alert-dialog";
 
 interface AgentWithConnection {
   id: string;
@@ -46,6 +47,7 @@ export default function Agents() {
   const [loading, setLoading] = useState(true);
   const [editAgent, setEditAgent] = useState<any | null>(null);
   const [saving, setSaving] = useState(false);
+  const [deleteAgentId, setDeleteAgentId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -95,44 +97,51 @@ export default function Agents() {
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete this AGENT?")) {
-      // 1. Deleta whatsapp_connections
-      const { error: whatsappError } = await supabase
-        .from("whatsapp_connections")
-        .delete()
-        .eq("ai_configuration_id", id)
-        .eq("user_id", user?.id);
+    setDeleteAgentId(id);
+  };
 
-      if (whatsappError) {
-        alert("Error deleting WhatsApp connections: " + whatsappError.message);
-        return;
-      }
+  const confirmDelete = async () => {
+    if (!deleteAgentId) return;
+    // 1. Deleta whatsapp_connections
+    const { error: whatsappError } = await supabase
+      .from("whatsapp_connections")
+      .delete()
+      .eq("ai_configuration_id", deleteAgentId)
+      .eq("user_id", user?.id);
 
-      // 2. Deleta prompt_history
-      const { error: promptError } = await supabase
-        .from("prompt_history")
-        .delete()
-        .eq("ai_configuration_id", id)
-        .eq("user_id", user?.id);
-
-      if (promptError) {
-        alert("Error deleting prompt history: " + promptError.message);
-        return;
-      }
-
-      // 3. Deleta ai_configurations
-      const { error: agentError } = await supabase
-        .from("ai_configurations")
-        .delete()
-        .eq("id", id);
-
-      if (agentError) {
-        alert("Error deleting AGENT: " + agentError.message);
-        return;
-      }
-
-      setAgents((prev) => prev.filter((a) => a.id !== id));
+    if (whatsappError) {
+      alert("Error deleting WhatsApp connections: " + whatsappError.message);
+      setDeleteAgentId(null);
+      return;
     }
+
+    // 2. Deleta prompt_history
+    const { error: promptError } = await supabase
+      .from("prompt_history")
+      .delete()
+      .eq("ai_configuration_id", deleteAgentId)
+      .eq("user_id", user?.id);
+
+    if (promptError) {
+      alert("Error deleting prompt history: " + promptError.message);
+      setDeleteAgentId(null);
+      return;
+    }
+
+    // 3. Deleta ai_configurations
+    const { error: agentError } = await supabase
+      .from("ai_configurations")
+      .delete()
+      .eq("id", deleteAgentId);
+
+    if (agentError) {
+      alert("Error deleting AGENT: " + agentError.message);
+      setDeleteAgentId(null);
+      return;
+    }
+
+    setAgents((prev) => prev.filter((a) => a.id !== deleteAgentId));
+    setDeleteAgentId(null);
   };
 
   const handleCreate = () => {
@@ -388,6 +397,22 @@ export default function Agents() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Dialog de confirmação de exclusão */}
+      <AlertDialog open={!!deleteAgentId} onOpenChange={open => !open && setDeleteAgentId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete AGENT</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this AGENT? This action cannot be undone and will remove all related WhatsApp connections and prompt history.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

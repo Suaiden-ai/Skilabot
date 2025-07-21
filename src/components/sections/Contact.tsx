@@ -1,9 +1,49 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const Contact = () => {
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess("");
+    setError("");
+    try {
+      const res = await fetch("/.netlify/functions/send-contact-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.subject ? `${form.subject}\n\n${form.message}` : form.message
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSuccess("Message sent successfully! We'll get back to you soon.");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setError(data.error || "Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      setError("Unexpected error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-20 px-6 bg-gradient-to-br from-teal-400 via-purple-500 to-pink-500">
       <div className="max-w-7xl mx-auto">
@@ -62,41 +102,65 @@ const Contact = () => {
             <p className="text-gray-600 mb-8">
               Fill out the form and our team will get back to you as soon as possible. Let’s start your journey with Skilabot!
             </p>
-            
-            <form className="space-y-6">
+            {success && (
+              <Alert className="mb-4">
+                <AlertDescription>{success}</AlertDescription>
+              </Alert>
+            )}
+            {error && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Input 
+                    name="name"
                     placeholder="Your Name"
                     className="h-12 border-0 border-b-2 border-gray-300 rounded-none bg-transparent focus:border-purple-500 focus-visible:ring-0 px-0"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
                 <div>
                   <Input 
                     type="email"
+                    name="email"
                     placeholder="Your Email"
                     className="h-12 border-0 border-b-2 border-gray-300 rounded-none bg-transparent focus:border-purple-500 focus-visible:ring-0 px-0"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
               </div>
               
               <div>
                 <Input 
+                  name="subject"
                   placeholder="Subject"
                   className="h-12 border-0 border-b-2 border-gray-300 rounded-none bg-transparent focus:border-purple-500 focus-visible:ring-0 px-0"
+                  value={form.subject}
+                  onChange={handleChange}
                 />
               </div>
               
               <div>
                 <Textarea 
+                  name="message"
                   placeholder="Write here message"
                   rows={4}
                   className="border-0 border-b-2 border-gray-300 rounded-none bg-transparent focus:border-purple-500 focus-visible:ring-0 px-0 resize-none"
+                  value={form.message}
+                  onChange={handleChange}
+                  required
                 />
               </div>
               
-              <Button className="w-full h-12 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-xl mt-8">
-                Send Message
+              <Button className="w-full h-12 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-xl mt-8" type="submit" disabled={loading}>
+                {loading ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </div>

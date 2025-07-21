@@ -40,10 +40,6 @@ const ConversionSection = () => {
               <ul className="space-y-3 text-blue-100">
                 <li className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-white rounded-full"></div>
-                  <span>No credit card required</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
                   <span>Setup in less than 5 minutes</span>
                 </li>
                 <li className="flex items-center gap-3">

@@ -10,6 +10,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { useEffect } from "react";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { supabase } from '@/integrations/supabase/client';
 
 const Auth = () => {
   usePageTitle("Login | Skilabot");
@@ -19,6 +21,10 @@ const Auth = () => {
   const [name, setName] = useState("");
   const [formLoading, setFormLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [showResetDialog, setShowResetDialog] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetMessage, setResetMessage] = useState("");
   
   const { signIn, signUp, signOut, user, profile, loading } = useAuth();
   const { toast } = useToast();
@@ -131,6 +137,26 @@ const Auth = () => {
     }
   };
 
+  const handlePasswordReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setResetLoading(true);
+    setResetMessage("");
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: window.location.origin + "/resetpassword"
+      });
+      if (error) {
+        setResetMessage("Error sending recovery email: " + error.message);
+      } else {
+        setResetMessage("Recovery email sent! Check your inbox.");
+      }
+    } catch (err) {
+      setResetMessage("Unexpected error requesting password recovery.");
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-orange-50 px-6">
       <Card className="w-full max-w-md">
@@ -186,6 +212,17 @@ const Auth = () => {
                 minLength={6}
               />
             </div>
+            {isLogin && (
+              <div className="text-right">
+                <button
+                  type="button"
+                  className="text-sm text-pink-500 hover:underline"
+                  onClick={() => setShowResetDialog(true)}
+                >
+                  Forgot your password?
+                </button>
+              </div>
+            )}
             <Button
               type="submit"
               className="w-full bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600"
@@ -219,6 +256,31 @@ const Auth = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Modal de recuperação de senha */}
+      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Password recovery</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handlePasswordReset} className="space-y-4">
+            <div>
+              <Label htmlFor="reset-email">Email</Label>
+              <Input
+                id="reset-email"
+                type="email"
+                value={resetEmail}
+                onChange={e => setResetEmail(e.target.value)}
+                required
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={resetLoading}>
+              {resetLoading ? "Sending..." : "Send recovery link"}
+            </Button>
+            {resetMessage && <div className="text-sm text-center mt-2 text-gray-600">{resetMessage}</div>}
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

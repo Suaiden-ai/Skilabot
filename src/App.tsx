@@ -43,6 +43,7 @@ import AccountingMeiServices from "./pages/AccountingMeiServices";
 import ProfessionalServices from "./pages/ProfessionalServices";
 import CondominiumsAdministrators from "./pages/CondominiumsAdministrators";
 import CleaningPools from "./pages/CleaningPools";
+import ResetPassword from "./pages/ResetPassword";
 
 const App = () => (
   <AuthProvider>
@@ -60,6 +61,7 @@ const App = () => (
           <Route path="/success" element={<Success />} />
           <Route path="/professional-services" element={<ProfessionalServices />} />
           <Route path="/condominiums-administrators" element={<CondominiumsAdministrators />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<KnowledgeBase />} />
             <Route path="/agents" element={<Agents />} />

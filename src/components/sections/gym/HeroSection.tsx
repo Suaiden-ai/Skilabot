@@ -63,7 +63,7 @@ const HeroSection = () => {
           <div className="relative w-full max-w-md mx-auto mt-8 lg:mt-0 animate-fade-in delay-300">
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=600&fit=crop"
+                src="/Imagens/freepik__a-smiling-woman-in-her-30s-with-curly-hair-and-gla__9125.png"
                 alt="Personal Trainer with Smartphone"
                 className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
               />

@@ -4,13 +4,27 @@ export const generateChatwootPassword = (email: string, phone?: string): string 
   const base64String = btoa(baseString);
   let password = base64String.substring(0, 10);
 
-  // Lista de caracteres especiais permitidos
   const specialChars = "!@#$%&*";
-  // Verifica se já contém algum caractere especial
+  const numbers = "0123456789";
+
+  // Garante pelo menos um número
+  if (!/[0-9]/.test(password)) {
+    const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
+    // Insere o número em uma posição aleatória
+    const pos = Math.floor(Math.random() * password.length);
+    password = password.slice(0, pos) + randomNumber + password.slice(pos + 1);
+  }
+
+  // Garante pelo menos um caractere especial
   if (!/[!@#$%&*]/.test(password)) {
-    // Substitui o último caractere por um especial aleatório
     const randomSpecial = specialChars[Math.floor(Math.random() * specialChars.length)];
-    password = password.substring(0, 9) + randomSpecial;
+    // Insere o especial em uma posição aleatória diferente da do número
+    let pos = Math.floor(Math.random() * password.length);
+    // Se a posição for igual à do número, muda para a próxima
+    if (password.length > 1 && password[pos].match(/[0-9]/)) {
+      pos = (pos + 1) % password.length;
+    }
+    password = password.slice(0, pos) + randomSpecial + password.slice(pos + 1);
   }
 
   return password;

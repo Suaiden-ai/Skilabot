@@ -12,6 +12,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { generateChatwootPassword } from '@/utils/chatwootHelpers';
 
 export default function KnowledgeBase() {
   usePageTitle("Dashboard | Skilabot");
@@ -223,10 +224,10 @@ image.png
         }
       }
 
-      // Generate password: email+phone in base64 (first 10 characters)
+      // Generate password: email+phone em base64 (primeiros 10 caracteres)
       const userEmail = user.email || "";
       const userPhone = user.phone || "";
-      const passwordBase = btoa(`${userEmail}${userPhone}`).substring(0, 10);
+      const passwordBase = generateChatwootPassword(userEmail, userPhone);
 
       // Get user's agent count
       const { count: agentsCount } = await supabase
