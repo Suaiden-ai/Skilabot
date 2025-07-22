@@ -10,9 +10,9 @@ const ExpertiseSectionMarketing = () => {
             <div className="relative">
               <div className="w-80 sm:w-96 h-80 sm:h-96 mx-auto bg-gradient-to-br from-pink-100 to-purple-100 rounded-full flex items-center justify-center relative overflow-hidden max-w-full">
                 <img 
-                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=600&fit=crop"
-                  alt="Marketing illustration"
-                  className="w-60 sm:w-72 h-60 sm:h-72 object-contain rounded-full mx-auto drop-shadow-lg max-w-full"
+                  src="/Imagens/marketing-partner.jpg"
+                  alt="Equipe de marketing colaborando"
+                  className="w-60 sm:w-72 h-60 sm:h-72 object-cover rounded-full mx-auto drop-shadow-lg max-w-full"
                 />
               </div>
               {/* Floating Metric Cards */}

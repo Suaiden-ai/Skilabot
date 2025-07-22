@@ -27,6 +27,13 @@ const BenefitsSection = () => {
         description: "AI handles customer inquiries and organizes calls even outside business hours.",
         rating: 4.8,
         benefits: ["24/7 AI", "No missed calls", "Always available"]
+      },
+      {
+        icon: "🔔",
+        title: "Proactive Alerts",
+        description: "Send proactive alerts for maintenance, updates, and important events directly to your customers.",
+        rating: 4.7,
+        benefits: ["Proactive alerts", "Event reminders", "Customer engagement"]
       }
     ],
     triage: [
@@ -43,6 +50,13 @@ const BenefitsSection = () => {
         description: "AI suggests optimal order for service based on urgency, SLA, and parts availability.",
         rating: 4.8,
         benefits: ["SLA-based", "Urgency aware", "Parts check"]
+      },
+      {
+        icon: "📑",
+        title: "Automated Ticket Classification",
+        description: "Automatically classify and route tickets to the right team or specialist, reducing manual work.",
+        rating: 4.7,
+        benefits: ["Auto-classification", "Smart routing", "Less manual work"]
       }
     ],
     management: [
@@ -59,6 +73,13 @@ const BenefitsSection = () => {
         description: "Integrate with your current service order and inventory systems for a unified workflow.",
         rating: 4.8,
         benefits: ["API integration", "Inventory sync", "Workflow automation"]
+      },
+      {
+        icon: "📊",
+        title: "Performance Analytics",
+        description: "Monitor team performance and service KPIs with real-time analytics and custom reports.",
+        rating: 4.7,
+        benefits: ["Team analytics", "KPI tracking", "Custom reports"]
       }
     ],
     automation: [
@@ -75,6 +96,13 @@ const BenefitsSection = () => {
         description: "Create complex automations with dynamic conditions and personalized actions for support routines.",
         rating: 4.8,
         benefits: ["Dynamic workflows", "Personalized actions", "Routine automation"]
+      },
+      {
+        icon: "🛠️",
+        title: "Self-Service Tools",
+        description: "Empower customers with self-service options for common issues, reducing support workload.",
+        rating: 4.7,
+        benefits: ["Self-service", "Fewer tickets", "Customer autonomy"]
       }
     ]
   };
@@ -108,7 +136,7 @@ const BenefitsSection = () => {
         </div>
 
         {/* Tab Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {tabContent[activeTab].map((item, index) => (
             <div key={index} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
               <div className="text-4xl mb-4">{item.icon}</div>

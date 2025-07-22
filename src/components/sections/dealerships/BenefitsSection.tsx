@@ -110,7 +110,7 @@ const BenefitsSection = () => {
   return (
     <section id="benefits-section" className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
           Benefits for Dealerships and Vehicle Resellers
         </h2>
 
@@ -136,18 +136,18 @@ const BenefitsSection = () => {
         </div>
 
         {/* Tab Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {tabContent[activeTab].map((item, index) => (
-            <div key={index} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
+            <div key={index} className="bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 border border-purple-100 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
               <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">{item.description}</p>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">{item.title}</h3>
+              <p className="text-gray-700 mb-4 leading-relaxed">{item.description}</p>
               
               {/* Rating */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
+                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-purple-400 fill-current' : 'text-gray-300'}`} />
                   ))}
                 </div>
                 <span className="text-sm font-medium text-gray-700">{item.rating}/5.0</span>
@@ -156,7 +156,7 @@ const BenefitsSection = () => {
               {/* Benefits */}
               <div className="flex flex-wrap gap-2">
                 {item.benefits.map((benefit, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">
+                  <span key={idx} className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full">
                     {benefit}
                   </span>
                 ))}

@@ -1,11 +1,17 @@
 
 const Footer = () => {
-  const companyLinks = ["About Us", "Blog", "Careers", "Contact"];
+  const companyLinks = [
+    { label: "About Us", href: "/about" },
+    { label: "Contact", href: "/contact-us" }
+  ];
   const featureLinks = ["Natural Language", "24/7 Availability", "Multi-platform", "Analytics"];
-  const menuLinks = ["FAQ", "Login", "Support", "Documentation"];
+  const menuLinks = [
+    { label: "FAQ", href: "/faq" },
+    { label: "Login", href: "/auth" }
+  ];
 
   return (
-    <footer className="bg-gray-900 text-white py-16 px-6">
+    <footer className="bg-gray-900 text-white py-16 px-6 mt-auto">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-4 gap-8 mb-12">
           {/* Logo and Description */}
@@ -24,8 +30,8 @@ const Footer = () => {
             <ul className="space-y-2">
               {companyLinks.map((link, index) => (
                 <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {link}
+                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -37,10 +43,8 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Features</h4>
             <ul className="space-y-2">
               {featureLinks.map((link, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {link}
-                  </a>
+                <li key={index} className="text-gray-400">
+                  {link}
                 </li>
               ))}
             </ul>
@@ -52,8 +56,8 @@ const Footer = () => {
             <ul className="space-y-2">
               {menuLinks.map((link, index) => (
                 <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {link}
+                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors">
+                    {link.label}
                   </a>
                 </li>
               ))}

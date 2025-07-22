@@ -26,6 +26,13 @@ const BenefitsSection = () => {
         description: "Strengthen your connection with the electorate through empathetic and consistent communication.",
         rating: 4.8,
         benefits: ["Empathy", "Consistency", "Trust"]
+      },
+      {
+        icon: "📈",
+        title: "Engagement Growth",
+        description: "Boost participation in campaigns and events with interactive messages and gamification.",
+        rating: 4.7,
+        benefits: ["More participation", "Interactive messages", "Gamification"]
       }
     ],
     audience: [
@@ -42,6 +49,13 @@ const BenefitsSection = () => {
         description: "Send messages and updates to specific groups, maximizing campaign effectiveness.",
         rating: 4.7,
         benefits: ["Custom groups", "Relevant updates", "Higher engagement"]
+      },
+      {
+        icon: "🧑‍🤝‍🧑",
+        title: "Community Insights",
+        description: "Discover trends and preferences within your audience to refine your strategies.",
+        rating: 4.7,
+        benefits: ["Trend discovery", "Preference analysis", "Better targeting"]
       }
     ],
     communication: [
@@ -58,6 +72,13 @@ const BenefitsSection = () => {
         description: "Automatically remind your base about events, meetings, and important dates.",
         rating: 4.8,
         benefits: ["Event reminders", "Meeting notifications", "No-shows reduced"]
+      },
+      {
+        icon: "🗨️",
+        title: "Instant Broadcasts",
+        description: "Send urgent communications to your entire base instantly, ensuring everyone is informed.",
+        rating: 4.7,
+        benefits: ["Urgent alerts", "Mass communication", "Quick reach"]
       }
     ],
     analytics: [
@@ -74,6 +95,13 @@ const BenefitsSection = () => {
         description: "Organize and analyze all suggestions, complaints, and compliments from voters.",
         rating: 4.7,
         benefits: ["Centralized demands", "Easy analysis", "Better service"]
+      },
+      {
+        icon: "📉",
+        title: "Sentiment Analysis",
+        description: "Analyze voter sentiment and feedback to improve communication and campaign strategies.",
+        rating: 4.7,
+        benefits: ["Sentiment tracking", "Feedback analysis", "Strategy improvement"]
       }
     ]
   };

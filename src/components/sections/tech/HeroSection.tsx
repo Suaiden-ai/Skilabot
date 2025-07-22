@@ -57,9 +57,9 @@ const HeroSection = () => {
           <div className="relative">
             <div className="relative bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl p-8 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop"
+                src="/Imagens/techsupport-hero.png"
                 alt="Technician with AI"
-                className="w-full h-80 object-cover rounded-2xl"
+                className="w-full h-96 object-cover object-center rounded-2xl"
               />
               
               {/* Floating Elements */}

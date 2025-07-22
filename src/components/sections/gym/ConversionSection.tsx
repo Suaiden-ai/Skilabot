@@ -7,23 +7,14 @@ const ConversionSection = () => {
     <section className="py-20 bg-green-500">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left - Video Thumbnail */}
+          {/* Left - Dashboard Image */}
           <div className="relative">
             <div className="relative bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600&h=400&fit=crop"
-                alt="WhatsApp AI Tutorial Video"
+                src="/Imagens/test.png"
+                alt="Dashboard Skilabot para academias"
                 className="w-full h-80 object-cover"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform duration-300 cursor-pointer">
-                  <Play className="w-8 h-8 text-green-500 ml-1" />
-                </div>
-              </div>
-            </div>
-            <div className="absolute -bottom-4 left-4 bg-white p-4 rounded-xl shadow-lg">
-              <p className="text-sm font-bold text-gray-900">Learn ARTIFICIAL INTELLIGENCE ON WHATSAPP</p>
-              <p className="text-xs text-gray-600">15 min of exclusive content</p>
             </div>
           </div>
 

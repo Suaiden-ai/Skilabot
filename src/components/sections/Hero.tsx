@@ -43,7 +43,7 @@ const Hero = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Check className="w-4 h-4 text-green-500" />
-                <span>Free 14-day trial</span>
+                <span>Free 7-day trial</span>
               </div>
             </div>
 
@@ -62,8 +62,8 @@ const Hero = () => {
           <div className="relative animate-fade-in delay-300">
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=600&fit=crop&crop=center"
-                alt="AI Robot"
+                src="/Imagens/herosection.png"
+                alt="Skilabot Hero"
                 className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
               />
               

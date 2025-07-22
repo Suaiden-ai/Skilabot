@@ -89,8 +89,7 @@ const Contact = () => {
                   <h4 className="font-semibold text-white/80 uppercase text-sm tracking-wider">ADDRESS</h4>
                 </div>
                 <p className="text-white text-xl">
-                  034 Erling Knolls, Lake Kenn<br />
-                  North Dakota 8902
+                Los Angeles, CA, USA<br />
                 </p>
               </div>
             </div>

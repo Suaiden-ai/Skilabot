@@ -57,9 +57,9 @@ const HeroSection = () => {
           <div className="relative">
             <div className="relative bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl p-8 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop"
+                src="/Imagens/marketing-hero.png"
                 alt="Marketing Analytics Dashboard"
-                className="w-full h-80 object-cover rounded-2xl"
+                className="w-full h-96 object-cover object-center rounded-2xl"
               />
               
               {/* Floating Elements */}

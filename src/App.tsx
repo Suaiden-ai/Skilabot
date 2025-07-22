@@ -44,6 +44,10 @@ import ProfessionalServices from "./pages/ProfessionalServices";
 import CondominiumsAdministrators from "./pages/CondominiumsAdministrators";
 import CleaningPools from "./pages/CleaningPools";
 import ResetPassword from "./pages/ResetPassword";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import FAQ from "./pages/FAQ";
+import DashboardSettings from "./pages/DashboardSettings";
 
 const App = () => (
   <AuthProvider>
@@ -62,8 +66,12 @@ const App = () => (
           <Route path="/professional-services" element={<ProfessionalServices />} />
           <Route path="/condominiums-administrators" element={<CondominiumsAdministrators />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<KnowledgeBase />} />
+            <Route path="/dashboard/settings" element={<DashboardSettings />} />
             <Route path="/agents" element={<Agents />} />
             <Route path="/whatsapp-connections" element={<WhatsappConnections />} />
             <Route path="/chatwoot-panel" element={<ChatwootPanel />} />

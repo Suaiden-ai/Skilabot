@@ -24,8 +24,10 @@ import FAQSection from "@/components/sections/political/FAQSection";
 import TestimonialsSection from "@/components/sections/political/TestimonialsSection";
 import BenefitsSection from "@/components/sections/political/BenefitsSection";
 import MetricsSection from "@/components/sections/political/MetricsSection";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const PoliticalAgents = () => {
+  usePageTitle("Political Agents | Skilabot");
   const features = [
     "AI with natural language",
     "Integration with WhatsApp, Instagram and Facebook",
@@ -69,30 +71,27 @@ const PoliticalAgents = () => {
               </div>
             </div>
             
-            <div className="relative">
-              <div className="bg-gradient-to-br from-indigo-100 to-pink-100 rounded-3xl p-8 shadow-xl">
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center">
-                      <MessageCircle className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-800">Political Chatbot</p>
-                      <p className="text-sm text-green-500">● Online</p>
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="bg-gray-100 rounded-lg p-3 text-sm">
-                      "Hello! How can I help with your questions about the proposals?"
-                    </div>
-                    <div className="bg-indigo-500 text-white rounded-lg p-3 text-sm ml-8">
-                      "I'd like to know about healthcare"
-                    </div>
-                    <div className="bg-gray-100 rounded-lg p-3 text-sm">
-                      "Great question! Our healthcare proposal includes..."
-                    </div>
-                  </div>
+            <div className="relative flex justify-center items-center">
+              <img 
+                src="/Imagens/political-hero.png"
+                alt="Political Agent Hero"
+                className="rounded-2xl shadow-2xl w-full max-w-md object-cover"
+              />
+              {/* Floating Cards */}
+              <div className="absolute -top-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-indigo-100 animate-bounce flex items-center gap-2">
+                <span className="text-pink-600 text-lg">🎯</span>
+                <div>
+                  <p className="font-bold text-gray-900">New supporter registered!</p>
+                  <p className="text-sm text-gray-600">Welcome to the campaign</p>
                 </div>
+              </div>
+              <div className="absolute top-1/2 -right-8 bg-indigo-600 text-white p-3 rounded-xl shadow-lg flex items-center gap-2 animate-pulse">
+                <span className="text-lg">📈</span>
+                <span>120 new messages</span>
+              </div>
+              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-green-500 text-white p-4 rounded-2xl shadow-xl flex items-center gap-2 animate-bounce">
+                <CheckCircle className="w-5 h-5" />
+                <span>Proposal sent successfully!</span>
               </div>
             </div>
           </div>
