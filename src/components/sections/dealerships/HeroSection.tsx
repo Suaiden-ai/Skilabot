@@ -18,16 +18,15 @@ const HeroSection = () => {
           {/* Left Content */}
           <div className="space-y-8 w-full max-w-md mx-auto">
             <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#23272F] leading-tight">
                 Serve and Negotiate with Your Customers on WhatsApp{" "}
                 <span className="relative">
-                  <span className="bg-gradient-to-r from-purple-500 to-blue-400 bg-clip-text text-transparent">
+                  <span className="text-[#22306e]">
                     using AI
                   </span>
-                  <div className="absolute -bottom-2 left-0 w-full h-3 bg-yellow-300 opacity-30 rounded-full"></div>
                 </span>
               </h1>
-              <p className="text-xl text-gray-700 leading-relaxed">
+              <p className="text-xl text-[#23272F] leading-relaxed">
                 Meet the complete system that speeds up lead follow-up, schedules test drives and accelerates negotiations, all automated and personalized!
               </p>
             </div>
@@ -40,17 +39,17 @@ const HeroSection = () => {
                 "24/7 Customer Service"
               ].map((feature, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-purple-400 rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-[#22306e] rounded-full flex items-center justify-center">
                     <Check className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-gray-800 font-medium">{feature}</span>
+                  <span className="text-[#23272F] font-medium">{feature}</span>
                 </div>
               ))}
             </div>
 
             {/* CTAs */}
             <Button
-              className="h-14 px-8 bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105"
+              className="h-14 px-8 bg-[#22306e] hover:bg-[#1A237E] text-white font-bold text-lg rounded-lg transition-all duration-300"
               onClick={scrollToPlans}
             >
               Try Free
@@ -67,19 +66,19 @@ const HeroSection = () => {
               style={{ objectPosition: 'center top' }}
             />
             {/* Floating Cards - padronizado */}
-            <div className="absolute -top-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-purple-100 animate-bounce flex items-center gap-2">
-              <span className="text-purple-400 text-lg">🚗</span>
+            <div className="absolute -top-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-[#E3E6F0] flex items-center gap-2">
+              <span className="text-[#22306e] text-lg">🚗</span>
               <div>
-                <p className="font-bold text-gray-900">New lead converted!</p>
-                <p className="text-sm text-gray-600">Ready for follow-up</p>
+                <p className="font-bold text-[#23272F]">New lead converted!</p>
+                <p className="text-sm text-[#343A40]">Ready for follow-up</p>
               </div>
             </div>
-            <div className="absolute top-1/2 -right-8 bg-blue-400 text-white p-3 rounded-xl shadow-lg flex items-center gap-2 animate-pulse">
+            <div className="absolute top-1/2 -right-8 bg-[#22306e] text-white p-3 rounded-xl shadow-lg flex items-center gap-2">
               <span className="text-lg">💬</span>
               <span>50 new signups</span>
             </div>
-            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-blue-400 text-white p-4 rounded-2xl shadow-xl flex items-center gap-2 animate-bounce">
-              <Check className="w-5 h-5" />
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#FFC107] text-[#23272F] p-4 rounded-2xl shadow-xl flex items-center gap-2">
+              <Check className="w-5 h-5 text-[#22306e]" />
               <span>Test drive scheduled!</span>
             </div>
           </div>

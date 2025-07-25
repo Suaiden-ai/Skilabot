@@ -6,17 +6,15 @@ const ExpertiseSectionAesthetic = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Image with Floating Elements */}
-          <div className="relative w-full max-w-md mx-auto overflow-visible">
-            <div className="relative">
-              <div className="w-80 sm:w-96 h-80 sm:h-96 mx-auto bg-gradient-to-br from-pink-100 to-rose-100 rounded-full flex items-center justify-center relative overflow-hidden max-w-full">
-                <img 
-                  src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&h=600&fit=crop"
-                  alt="Aesthetic Clinic illustration"
-                  className="w-60 sm:w-72 h-60 sm:h-72 object-contain rounded-full mx-auto drop-shadow-lg max-w-full"
-                />
-              </div>
+          <div className="relative w-full flex justify-center overflow-visible">
+            <div className="w-[40rem] h-[40rem] flex items-center justify-center relative overflow-visible">
+              <img 
+                src="Imagens/aesthetic-expertisesection.png"
+                alt="Aesthetic Clinic illustration"
+                className="w-[38rem] h-[38rem] object-contain mx-auto drop-shadow-lg"
+              />
               {/* Floating Metric Cards */}
-              <div className="absolute left-0 right-auto sm:-left-8 -top-4 bg-white rounded-2xl p-4 shadow-xl border border-pink-100 animate-pulse max-w-[160px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
+              <div className="absolute left-0 right-auto sm:-left-2 -top-2 bg-white rounded-2xl p-4 shadow-xl border border-pink-100 animate-pulse max-w-[160px] w-full sm:w-auto mt-20" style={{maxWidth:'90vw'}}>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center">
                     <TrendingUp className="w-5 h-5 text-white" />
@@ -27,7 +25,7 @@ const ExpertiseSectionAesthetic = () => {
                   </div>
                 </div>
               </div>
-              <div className="absolute -top-8 -right-4 bg-white rounded-2xl p-4 shadow-xl border border-rose-100">
+              <div className="absolute left-0 right-auto sm:left-80 top-12 bg-white rounded-2xl p-4 shadow-xl border border-rose-100 max-w-[140px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
                 <div className="text-xs text-gray-600 mb-2">Client Satisfaction</div>
                 <div className="text-rose-600 font-semibold text-sm mb-2">+95%</div>
                 <div className="flex items-end gap-1 h-8">
@@ -40,7 +38,7 @@ const ExpertiseSectionAesthetic = () => {
                   ))}
                 </div>
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl p-4 shadow-xl border border-pink-100">
+              <div className="absolute left-0 right-auto sm:-left-2 -bottom-2 bg-white rounded-2xl p-4 shadow-xl border border-pink-100 animate-pulse max-w-[160px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-white" />

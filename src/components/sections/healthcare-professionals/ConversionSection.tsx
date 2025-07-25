@@ -1,39 +1,16 @@
-import React from "react";
+import { Button } from "@/components/ui/button";
 
-const ConversionSection: React.FC = () => (
-  <section
-    style={{
-      background: "linear-gradient(90deg, #e0f7fa 0%, #b2f7ef 100%)",
-      padding: "3rem 1rem",
-      borderRadius: "1.5rem",
-      textAlign: "center",
-      margin: "2rem 0"
-    }}
-  >
-    <h2 style={{ color: "#1976d2", fontSize: "2.5rem", fontWeight: 700, marginBottom: "1rem" }}>
+const ConversionSection = () => (
+  <section className="py-16 bg-white rounded-3xl text-center my-8">
+    <h2 className="text-4xl font-bold text-[#1565C0] mb-4">
       Transform Your Healthcare Practice Today!
     </h2>
-    <p style={{ color: "#333", fontSize: "1.25rem", marginBottom: "2rem" }}>
+    <p className="text-xl text-[#23272F] mb-8">
       Attract more patients and streamline your clinic with our intelligent automation and patient engagement tools.
     </p>
-    <button
-      style={{
-        background: "linear-gradient(90deg, #43e97b 0%, #1976d2 100%)",
-        color: "#fff",
-        fontWeight: 600,
-        fontSize: "1.15rem",
-        padding: "0.85rem 2.5rem",
-        border: "none",
-        borderRadius: "2rem",
-        boxShadow: "0 2px 8px rgba(67, 233, 123, 0.15)",
-        cursor: "pointer",
-        transition: "background 0.3s"
-      }}
-      onMouseOver={e => (e.currentTarget.style.background = "linear-gradient(90deg, #1976d2 0%, #43e97b 100%)")}
-      onMouseOut={e => (e.currentTarget.style.background = "linear-gradient(90deg, #43e97b 0%, #1976d2 100%)")}
-    >
+    <Button className="h-14 px-10 bg-[#1565C0] text-white font-bold text-lg rounded-2xl transition-all duration-300 hover:bg-[#43A047] border border-[#1565C0]">
       Get Started Now
-    </button>
+    </Button>
   </section>
 );
 

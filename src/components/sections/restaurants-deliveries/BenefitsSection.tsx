@@ -109,7 +109,7 @@ const BenefitsSection = () => {
   return (
     <section id="benefits-section" className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
+        <h2 className="text-4xl font-bold text-center mb-12" style={{ color: '#C62828' }}>
           Benefits for Restaurants & Deliveries
         </h2>
         {/* Tabs */}
@@ -122,8 +122,8 @@ const BenefitsSection = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                   activeTab === tab.id
-                    ? "bg-gradient-to-r from-red-400 to-yellow-300 text-white shadow-lg"
-                    : "bg-gray-100 text-gray-700 hover:bg-yellow-100"
+                    ? 'bg-[#C62828] text-white shadow-lg'
+                    : 'bg-[#FFECB3] text-[#C62828] hover:bg-[#FFF5E1]'
                 }`}
               >
                 <IconComponent className="w-5 h-5" />
@@ -135,23 +135,23 @@ const BenefitsSection = () => {
         {/* Tab Content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {tabContent[activeTab].map((item, index) => (
-            <div key={index} className="bg-white border border-yellow-100 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
+            <div key={index} className="bg-white border border-[#FFECB3] rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
               <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">{item.description}</p>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#C62828' }}>{item.title}</h3>
+              <p className="mb-4 leading-relaxed" style={{ color: '#23272F' }}>{item.description}</p>
               {/* Rating */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
+                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-[#FFECB3] fill-current' : 'text-gray-300'}`} />
                   ))}
                 </div>
-                <span className="text-sm font-medium text-gray-700">{item.rating}/5.0</span>
+                <span className="text-sm font-medium" style={{ color: '#23272F' }}>{item.rating}/5.0</span>
               </div>
               {/* Benefits */}
               <div className="flex flex-wrap gap-2">
                 {item.benefits.map((benefit, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-yellow-50 text-red-700 text-xs font-medium rounded-full">
+                  <span key={idx} className="px-3 py-1 bg-[#FFECB3] text-[#C62828] text-xs font-medium rounded-full">
                     {benefit}
                   </span>
                 ))}

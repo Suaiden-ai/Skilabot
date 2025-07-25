@@ -20,16 +20,16 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      question: "How does Skilabot help MEI entrepreneurs?",
-      answer: "Skilabot automates tax filings, sends deadline reminders, and provides real-time compliance tracking, making accounting easy and stress-free."
+      question: "How does Skilabot help small businesses with accounting?",
+      answer: "Skilabot automates invoicing, tax calculation, and financial reporting, making accounting easy and stress-free for small businesses."
     },
     {
       question: "Can I manage all my tax obligations in one place?",
-      answer: "Yes! Our platform lets you generate, file, and track all MEI tax documents and deadlines from a single dashboard."
+      answer: "Yes! Our platform lets you calculate, file, and track all your tax documents and deadlines from a single dashboard."
     },
     {
-      question: "Does Skilabot integrate with government and banking systems?",
-      answer: "Absolutely. Skilabot integrates with official systems and offers an API for custom connections."
+      question: "Does Skilabot integrate with payment and banking systems?",
+      answer: "Absolutely. Skilabot integrates with major payment processors and banks, and offers an API for custom connections."
     },
     {
       question: "Is my data secure?",
@@ -41,7 +41,7 @@ const FAQSection = () => {
     },
     {
       question: "How do I analyze my business performance?",
-      answer: "Our dashboard provides real-time analytics on compliance, filings, and business growth to help you make informed decisions."
+      answer: "Our dashboard provides real-time analytics on revenue, expenses, and business growth to help you make informed decisions."
     }
   ];
 
@@ -80,23 +80,21 @@ const FAQSection = () => {
     <section id="faq-section" className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-blue-400 via-green-400 to-gray-400 bg-clip-text text-transparent">
-              Frequently Asked
-            </span> Questions
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#23272F]">
+            Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600">
-            Get answers to common questions about our platform for MEI accounting services
+          <p className="text-xl mb-8 text-[#343A40]">
+            Get answers to common questions about our digital accounting platform for small businesses
           </p>
         </div>
 
         <Accordion type="single" collapsible className="w-full space-y-4">
           {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`} className="border border-blue-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+            <AccordionItem key={index} value={`item-${index}`} className="border border-[#D1D5DB] rounded-lg px-6">
+              <AccordionTrigger className="text-left font-semibold text-[#23272F]">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 leading-relaxed">
+              <AccordionContent className="text-[#343A40]">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -104,11 +102,11 @@ const FAQSection = () => {
         </Accordion>
       </div>
       <div className="text-center mt-12">
-        <p className="text-gray-600 mb-6">Still have questions? Contact us!</p>
+        <p className="mb-6 text-[#343A40]">Still have questions? Contact us!</p>
         <div className="flex gap-4 justify-center">
           <a 
-            href="https://wa.me/5511999999999" 
-            className="inline-flex items-center px-6 py-3 bg-blue-400 text-white font-semibold rounded-lg hover:bg-green-400 transition-colors duration-300"
+            href="https://wa.me/15555555555" 
+            className="inline-flex items-center px-6 py-3 bg-[#23272F] text-white font-semibold rounded-lg hover:bg-[#343A40] transition-colors duration-300"
             target="_blank" 
             rel="noopener noreferrer"
           >
@@ -117,7 +115,7 @@ const FAQSection = () => {
           {isDesktop ? (
             <button
               type="button"
-              className="inline-flex items-center px-6 py-3 border-2 border-blue-400 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 border-2 border-[#23272F] text-[#23272F] font-semibold rounded-lg hover:bg-[#F1F3F4] transition-colors duration-300"
               onClick={() => setShowEmailModal(true)}
             >
               Email
@@ -125,7 +123,7 @@ const FAQSection = () => {
           ) : (
             <a 
               href="mailto:contact@skilabot.com" 
-              className="inline-flex items-center px-6 py-3 border-2 border-blue-400 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 border-2 border-[#23272F] text-[#23272F] font-semibold rounded-lg hover:bg-[#F1F3F4] transition-colors duration-300"
             >
               Email
             </a>
@@ -171,7 +169,7 @@ const FAQSection = () => {
               onChange={handleChange}
               required
             />
-            <Button type="submit" className="w-full bg-blue-400 text-white hover:bg-green-400" disabled={loading}>
+            <Button type="submit" className="w-full bg-[#1565C0] text-white hover:bg-[#43A047]" disabled={loading}>
               {loading ? "Sending..." : "Send Email"}
             </Button>
           </form>

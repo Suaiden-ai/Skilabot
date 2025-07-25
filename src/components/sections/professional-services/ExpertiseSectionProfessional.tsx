@@ -8,7 +8,7 @@ const ExpertiseSectionProfessional = () => {
           {/* Left Column - Image with Floating Elements */}
           <div className="relative">
             <div className="relative">
-              <div className="w-96 h-96 mx-auto bg-gradient-to-br from-blue-100 via-green-100 to-gray-100 rounded-full flex items-center justify-center relative overflow-hidden">
+              <div className="w-96 h-96 mx-auto bg-[#F1F3F4] rounded-full flex items-center justify-center relative overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&h=600&fit=crop"
                   alt="Professional services illustration"
@@ -16,38 +16,38 @@ const ExpertiseSectionProfessional = () => {
                 />
               </div>
               {/* Floating Metric Cards */}
-              <div className="absolute -top-4 -left-8 bg-white rounded-2xl p-4 shadow-xl border border-blue-100 animate-pulse">
+              <div className="absolute -top-4 -left-8 bg-white rounded-2xl p-4 shadow-xl border border-[#0D47A1] animate-pulse">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-900 to-green-400 rounded-lg flex items-center justify-center">
+                  <div className="w-10 h-10 bg-[#0D47A1] rounded-lg flex items-center justify-center">
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-gray-900">98%</div>
-                    <div className="text-sm text-gray-600">Client Satisfaction</div>
+                    <div className="text-2xl font-bold" style={{ color: '#0D47A1' }}>98%</div>
+                    <div className="text-sm" style={{ color: '#23272F' }}>Client Satisfaction</div>
                   </div>
                 </div>
               </div>
-              <div className="absolute -top-8 -right-4 bg-white rounded-2xl p-4 shadow-xl border border-green-100">
-                <div className="text-xs text-gray-600 mb-2">Projects Managed</div>
-                <div className="text-green-600 font-semibold text-sm mb-2">3,000+</div>
+              <div className="absolute -top-8 -right-4 bg-white rounded-2xl p-4 shadow-xl border border-[#43A047]">
+                <div className="text-xs mb-2" style={{ color: '#23272F' }}>Projects Managed</div>
+                <div className="font-semibold text-sm mb-2" style={{ color: '#43A047' }}>3,000+</div>
                 <div className="flex items-end gap-1 h-8">
                   {[2, 4, 5, 7, 6, 8, 9].map((height, index) => (
                     <div 
                       key={index}
-                      className="w-2 bg-gradient-to-t from-green-400 to-blue-900 rounded-sm"
-                      style={{ height: `${height * 4}px` }}
+                      className="w-2 rounded-sm"
+                      style={{ height: `${height * 4}px`, background: '#43A047' }}
                     />
                   ))}
                 </div>
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl p-4 shadow-xl border border-gray-100">
+              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl p-4 shadow-xl border border-[#23272F]">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-blue-900 rounded-lg flex items-center justify-center">
+                  <div className="w-10 h-10 bg-[#23272F] rounded-lg flex items-center justify-center">
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-gray-900">4.9/5</div>
-                    <div className="text-sm text-gray-600">Service Rating</div>
+                    <div className="text-2xl font-bold" style={{ color: '#23272F' }}>4.9/5</div>
+                    <div className="text-sm" style={{ color: '#0D47A1' }}>Service Rating</div>
                   </div>
                 </div>
               </div>
@@ -56,10 +56,10 @@ const ExpertiseSectionProfessional = () => {
           {/* Right Column - Content */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 break-words leading-tight w-full max-w-full overflow-hidden text-left">
-                <span className="bg-gradient-to-r from-blue-900 via-green-400 to-gray-400 bg-clip-text text-transparent w-full max-w-full block text-balance">Expertise for Professional Services</span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 break-words leading-tight w-full max-w-full overflow-hidden text-left" style={{ color: '#0D47A1' }}>
+                Expertise for Professional Services
               </h2>
-              <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 break-words w-full max-w-full text-left">
+              <p className="text-base md:text-lg mb-6 md:mb-8 break-words w-full max-w-full text-left" style={{ color: '#23272F' }}>
                 From secure document management to automated scheduling and analytics, our platform empowers professionals to deliver exceptional service and grow their business.
               </p>
             </div>

@@ -8,11 +8,12 @@ const ExpertiseSectionGym = () => {
           {/* Left Column - Image with Floating Elements */}
           <div className="relative w-full max-w-md mx-auto overflow-visible">
             <div className="relative">
-              <div className="w-80 sm:w-96 h-80 sm:h-96 mx-auto bg-gradient-to-br from-green-100 to-blue-100 rounded-full flex items-center justify-center relative overflow-hidden max-w-full">
+              {/* Removido o gradiente de fundo */}
+              <div className="w-96 sm:w-[32rem] h-96 sm:h-[32rem] mx-auto flex items-center justify-center relative overflow-visible max-w-full">
                 <img 
-                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=600&fit=crop"
+                  src="Imagens/gym-expertisesection.png"
                   alt="Fitness illustration"
-                  className="w-60 sm:w-72 h-60 sm:h-72 object-contain rounded-full mx-auto drop-shadow-lg max-w-full"
+                  className="w-96 sm:w-[32rem] h-96 sm:h-[32rem] object-contain mx-auto drop-shadow-lg max-w-full"
                 />
               </div>
               {/* Floating Metric Cards */}

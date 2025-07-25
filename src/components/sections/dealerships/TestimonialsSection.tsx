@@ -38,62 +38,62 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50 overflow-x-hidden">
+    <section className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
+        <h2 className="text-4xl font-bold text-center text-[#23272F] mb-4">
           What dealerships say about Skilabot
         </h2>
-        <p className="text-xl text-gray-600 text-center mb-12">
+        <p className="text-xl text-[#343A40] text-center mb-12">
           More than 1000 dealerships have already transformed their sales
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 flex flex-col gap-3 max-w-xs mx-auto">
+            <div key={index} className="bg-white rounded-xl border border-[#E3E6F0] shadow-sm p-5 flex flex-col gap-3 max-w-xs mx-auto">
               {/* Header */}
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <img src={testimonial.image} alt={testimonial.name} className="w-10 h-10 rounded-full object-cover" />
                   <div>
-                    <div className="font-bold text-gray-900">{testimonial.name}</div>
-                    <div className="text-xs text-gray-500">3 hours ago</div>
+                    <div className="font-bold text-[#23272F]">{testimonial.name}</div>
+                    <div className="text-xs text-[#343A40]">3 hours ago</div>
                   </div>
                 </div>
                 {/* Trustpilot star SVG */}
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6"><path d="M12 2L14.4721 8.30558L21.3137 8.76336L15.6569 13.1944L17.4721 20.2366L12 16.3056L6.52786 20.2366L8.34315 13.1944L2.68629 8.76336L9.52786 8.30558L12 2Z" fill="#00B67A"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6"><path d="M12 2L14.4721 8.30558L21.3137 8.76336L15.6569 13.1944L17.4721 20.2366L12 16.3056L6.52786 20.2366L8.34315 13.1944L2.68629 8.76336L9.52786 8.30558L12 2Z" fill="#FFC107"/></svg>
               </div>
               {/* Stars */}
               <div className="flex gap-1">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star key={i} className="w-5 h-5 text-[#FFC107] fill-current" />
                 ))}
               </div>
               {/* Review text */}
-              <div className="text-gray-700 text-sm line-clamp-3">
+              <div className="text-[#343A40] text-sm line-clamp-3">
                 {testimonial.text}
               </div>
               {/* Read more */}
-              <div className="font-bold text-sm text-gray-900 cursor-pointer">Read more</div>
+              <div className="font-bold text-sm text-[#23272F] cursor-pointer">Read more</div>
             </div>
           ))}
         </div>
 
         {/* Overall Rating Card */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 flex flex-col gap-3 max-w-xs mx-auto mb-8">
+        <div className="bg-white rounded-xl border border-[#E3E6F0] shadow-sm p-5 flex flex-col gap-3 max-w-xs mx-auto mb-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-2">
-            <div className="font-bold text-gray-900 text-lg">Trustpilot</div>
+            <div className="font-bold text-[#23272F] text-lg">Trustpilot</div>
             {/* Trustpilot star SVG */}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6"><path d="M12 2L14.4721 8.30558L21.3137 8.76336L15.6569 13.1944L17.4721 20.2366L12 16.3056L6.52786 20.2366L8.34315 13.1944L2.68629 8.76336L9.52786 8.30558L12 2Z" fill="#00B67A"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6"><path d="M12 2L14.4721 8.30558L21.3137 8.76336L15.6569 13.1944L17.4721 20.2366L12 16.3056L6.52786 20.2366L8.34315 13.1944L2.68629 8.76336L9.52786 8.30558L12 2Z" fill="#FFC107"/></svg>
           </div>
-          <div className="text-4xl font-bold text-gray-900 mb-2">4.7/5.0</div>
+          <div className="text-4xl font-bold text-[#23272F] mb-2">4.7/5.0</div>
           <div className="flex justify-center mb-2 gap-1">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
+              <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-[#FFC107] fill-current' : 'text-[#E3E6F0]'}`} />
             ))}
           </div>
-          <p className="text-gray-600 mb-1 text-center text-sm">Based on 2,847 reviews</p>
-          <p className="text-xs text-gray-500 text-center">from verified <span className="font-bold">Trustpilot</span> users</p>
+          <p className="text-[#343A40] mb-1 text-center text-sm">Based on 2,847 reviews</p>
+          <p className="text-xs text-[#343A40] text-center">from verified <span className="font-bold">Trustpilot</span> users</p>
         </div>
       </div>
     </section>

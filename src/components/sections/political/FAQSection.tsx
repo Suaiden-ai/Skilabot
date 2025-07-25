@@ -71,31 +71,31 @@ function FAQSection() {
     <section id="faq-section" className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-pink-500 to-indigo-500 bg-clip-text text-transparent">Frequently Asked</span> Questions
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-black">
+            Frequently Asked <span className="text-[#C62828]">Questions</span>
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-black">
             Get answers to the main questions about our platform for political agents
           </p>
         </div>
         <Accordion type="single" collapsible className="w-full space-y-4">
           {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`} className="border border-gray-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-pink-600 transition-colors">
+            <AccordionItem key={index} value={`item-${index}`} className="border border-[#E3E6F0] rounded-lg px-6">
+              <AccordionTrigger className="text-left font-semibold text-black hover:text-[#C62828] transition-colors">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 leading-relaxed">
+              <AccordionContent className="text-black leading-relaxed">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
         <div className="text-center mt-12">
-          <p className="text-gray-600 mb-6">Still have questions? Contact us!</p>
+          <p className="text-black mb-6">Still have questions? Contact us!</p>
           <div className="flex gap-4 justify-center">
             <a 
               href="https://wa.me/5511999999999" 
-              className="inline-flex items-center px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 bg-[#C62828] text-white font-semibold rounded-lg hover:bg-[#a61b1b] transition-colors duration-300"
               target="_blank" 
               rel="noopener noreferrer"
             >
@@ -104,7 +104,7 @@ function FAQSection() {
             {isDesktop ? (
               <button
                 type="button"
-                className="inline-flex items-center px-6 py-3 border-2 border-green-500 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-colors duration-300"
+                className="inline-flex items-center px-6 py-3 border-2 border-[#C62828] text-[#C62828] font-semibold rounded-lg hover:bg-[#f8d7da] transition-colors duration-300"
                 onClick={() => setShowEmailModal(true)}
               >
                 Email
@@ -112,7 +112,7 @@ function FAQSection() {
             ) : (
               <a 
                 href="mailto:contact@smartchat.com" 
-                className="inline-flex items-center px-6 py-3 border-2 border-green-500 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-colors duration-300"
+                className="inline-flex items-center px-6 py-3 border-2 border-[#C62828] text-[#C62828] font-semibold rounded-lg hover:bg-[#f8d7da] transition-colors duration-300"
               >
                 Email
               </a>

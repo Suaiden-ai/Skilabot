@@ -141,11 +141,11 @@ const BusinessCards = () => {
       link: "/beauty-salons-barber-shops"
     },
     {
-      title: "Accounting & MEI Services",
+      title: "Digital Accounting for Small Businesses",
       description: "Simplify queries and consultancy through AI.",
       icon: Calculator,
       gradient: "from-green-600 to-emerald-600",
-      link: "/accounting-mei-services"
+      link: "/accounting"
     },
     {
       title: "Professional Services",

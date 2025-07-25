@@ -76,30 +76,30 @@ const FAQSection = () => {
   return (
     <section id="faq-section" className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
+        <h2 className="text-4xl font-bold text-center text-[#23272F] mb-4">
           Frequently Asked Questions
         </h2>
-        <p className="text-xl text-gray-600 text-center mb-12">
+        <p className="text-xl text-[#343A40] text-center mb-12">
           Answers to the main questions about dealership automation
         </p>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+            <div key={index} className="border border-[#E3E6F0] rounded-lg overflow-hidden">
               <button
                 onClick={() => setOpenFAQ(openFAQ === index ? -1 : index)}
-                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-[#E3E6F0] transition-colors duration-200"
               >
-                <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
+                <span className="font-semibold text-[#23272F] pr-4">{faq.question}</span>
                 {openFAQ === index ? (
-                  <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                  <ChevronUp className="w-5 h-5 text-[#22306e] flex-shrink-0" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                  <ChevronDown className="w-5 h-5 text-[#22306e] flex-shrink-0" />
                 )}
               </button>
               {openFAQ === index && (
                 <div className="px-6 pb-4">
-                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                  <p className="text-[#343A40] leading-relaxed">{faq.answer}</p>
                 </div>
               )}
             </div>
@@ -107,11 +107,11 @@ const FAQSection = () => {
         </div>
       </div>
       <div className="text-center mt-12">
-        <p className="text-gray-600 mb-6">Still have questions? Contact us!</p>
+        <p className="text-[#343A40] mb-6">Still have questions? Contact us!</p>
         <div className="flex gap-4 justify-center">
           <a 
             href="https://wa.me/5511999999999" 
-            className="inline-flex items-center px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 bg-[#22306e] text-white font-semibold rounded-lg hover:bg-[#1A237E] transition-colors duration-300"
             target="_blank" 
             rel="noopener noreferrer"
           >
@@ -120,7 +120,7 @@ const FAQSection = () => {
           {isDesktop ? (
             <button
               type="button"
-              className="inline-flex items-center px-6 py-3 border-2 border-green-500 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 border-2 border-[#22306e] text-[#22306e] font-semibold rounded-lg hover:bg-[#E3E6F0] transition-colors duration-300"
               onClick={() => setShowEmailModal(true)}
             >
               Email
@@ -128,7 +128,7 @@ const FAQSection = () => {
           ) : (
             <a 
               href="mailto:contact@smartchat.com" 
-              className="inline-flex items-center px-6 py-3 border-2 border-green-500 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 border-2 border-[#22306e] text-[#22306e] font-semibold rounded-lg hover:bg-[#E3E6F0] transition-colors duration-300"
             >
               Email
             </a>

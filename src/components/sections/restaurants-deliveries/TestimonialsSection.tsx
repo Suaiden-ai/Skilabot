@@ -4,19 +4,16 @@ import React from "react";
 
 const TestimonialsSection: React.FC = () => {
   return (
-    <section className="py-20 bg-yellow-50 overflow-x-hidden">
+    <section className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-            What restaurant & delivery owners say about {" "}
-            <span className="bg-gradient-to-r from-red-400 via-yellow-400 to-orange-400 bg-clip-text text-transparent">
-              Skilabot
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#C62828' }}>
+            What restaurant & delivery owners say about <span style={{ color: '#FFECB3' }}>Skilabot</span>
           </h2>
         </div>
         {/* Trustpilot Card */}
         <div className="text-center mb-12">
-          <Card className="inline-block p-8 bg-white shadow-xl border-0">
+          <Card className="inline-block p-8 bg-white shadow-xl border border-[#FFECB3]">
             <CardContent className="p-0">
               <div className="flex items-center justify-center gap-2 text-lg font-semibold text-gray-800 mb-2">
                 <span>Trustpilot</span>
@@ -26,7 +23,7 @@ const TestimonialsSection: React.FC = () => {
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star 
                     key={star} 
-                    className="w-6 h-6 text-yellow-400 fill-current" 
+                    className="w-6 h-6 text-[#FFECB3] fill-current" 
                   />
                 ))}
               </div>
@@ -64,7 +61,7 @@ const TestimonialsSection: React.FC = () => {
               quote: "Skilabot makes it easy to manage orders and keep our customers coming back!"
             }
           ].map((testimonial, index) => (
-            <Card key={index} className="p-6 bg-white shadow-lg border-0 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card key={index} className="p-6 bg-white shadow-lg border border-[#FFECB3] hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-0">
                 <div className="flex items-start gap-4">
                   <img 
@@ -77,14 +74,16 @@ const TestimonialsSection: React.FC = () => {
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star 
                           key={star} 
-                          className="w-4 h-4 text-yellow-400 fill-current" 
+                          className="w-4 h-4 text-[#FFECB3] fill-current" 
                         />
                       ))}
                     </div>
-                    <p className="text-gray-800 mb-4 italic">"{testimonial.quote}"</p>
+                    <p className="mb-4 italic" style={{ color: '#23272F' }}>
+                      "{testimonial.quote}"
+                    </p>
                     <div>
-                      <div className="font-bold text-gray-900">{testimonial.name}</div>
-                      <div className="text-sm text-gray-600">{testimonial.role}</div>
+                      <div className="font-bold" style={{ color: '#23272F' }}>{testimonial.name}</div>
+                      <div className="text-sm" style={{ color: '#C62828' }}>{testimonial.role}</div>
                     </div>
                   </div>
                 </div>

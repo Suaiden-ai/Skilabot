@@ -41,7 +41,7 @@ export const agentTypeOptions = [
   "Psychologists & Therapists",
   "Restaurants and Deliveries",
   "Beauty Salons & Barber Shops",
-  "Accounting & MEI Services",
+  "Digital Accounting for Small Businesses",
   "Professional Services",
   "Condominiums & Administrators",
   "Cleaning & Pools"

@@ -81,22 +81,20 @@ const FAQSection = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-yellow-400 bg-clip-text text-transparent">
-              Frequently Asked
-            </span> Questions
+            <span style={{ color: '#343A40' }}>Frequently Asked</span> <span style={{ color: '#FFD700' }}>Questions</span>
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl mb-8" style={{ color: '#18181B' }}>
             Get answers to common questions about our platform for beauty salons and barber shops
           </p>
         </div>
 
         <Accordion type="single" collapsible className="w-full space-y-4">
           {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`} className="border border-pink-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-pink-600 transition-colors">
+            <AccordionItem key={index} value={`item-${index}`} className="border border-[#F1F3F4] rounded-lg px-6">
+              <AccordionTrigger className="text-left font-semibold" style={{ color: '#343A40' }}>
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 leading-relaxed">
+              <AccordionContent style={{ color: '#18181B' }}>
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -104,11 +102,11 @@ const FAQSection = () => {
         </Accordion>
       </div>
       <div className="text-center mt-12">
-        <p className="text-gray-600 mb-6">Still have questions? Contact us!</p>
+        <p className="mb-6" style={{ color: '#18181B' }}>Still have questions? Contact us!</p>
         <div className="flex gap-4 justify-center">
           <a 
             href="https://wa.me/5511999999999" 
-            className="inline-flex items-center px-6 py-3 bg-pink-400 text-white font-semibold rounded-lg hover:bg-yellow-400 transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 bg-[#343A40] text-white font-semibold rounded-lg hover:bg-[#18181B] transition-colors duration-300"
             target="_blank" 
             rel="noopener noreferrer"
           >
@@ -117,7 +115,7 @@ const FAQSection = () => {
           {isDesktop ? (
             <button
               type="button"
-              className="inline-flex items-center px-6 py-3 border-2 border-pink-400 text-pink-600 font-semibold rounded-lg hover:bg-pink-50 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 border-2 border-[#343A40] text-[#343A40] font-semibold rounded-lg hover:bg-[#F1F3F4] transition-colors duration-300"
               onClick={() => setShowEmailModal(true)}
             >
               Email
@@ -125,7 +123,7 @@ const FAQSection = () => {
           ) : (
             <a 
               href="mailto:contact@skilabot.com" 
-              className="inline-flex items-center px-6 py-3 border-2 border-pink-400 text-pink-600 font-semibold rounded-lg hover:bg-pink-50 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 border-2 border-[#343A40] text-[#343A40] font-semibold rounded-lg hover:bg-[#F1F3F4] transition-colors duration-300"
             >
               Email
             </a>
@@ -171,7 +169,7 @@ const FAQSection = () => {
               onChange={handleChange}
               required
             />
-            <Button type="submit" className="w-full bg-pink-400 text-white hover:bg-yellow-400" disabled={loading}>
+            <Button type="submit" className="w-full bg-[#343A40] text-white hover:bg-[#FFD700]" disabled={loading}>
               {loading ? "Sending..." : "Send Email"}
             </Button>
           </form>

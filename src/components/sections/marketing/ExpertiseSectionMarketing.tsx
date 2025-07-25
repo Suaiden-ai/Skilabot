@@ -8,11 +8,11 @@ const ExpertiseSectionMarketing = () => {
           {/* Left Column - Image with Floating Elements */}
           <div className="relative w-full max-w-md mx-auto overflow-visible">
             <div className="relative">
-              <div className="w-80 sm:w-96 h-80 sm:h-96 mx-auto bg-gradient-to-br from-pink-100 to-purple-100 rounded-full flex items-center justify-center relative overflow-hidden max-w-full">
+              <div className="w-96 sm:w-[32rem] h-96 sm:h-[32rem] mx-auto flex items-center justify-center relative overflow-visible max-w-full">
                 <img 
-                  src="/Imagens/marketing-partner.jpg"
+                  src="/Imagens/marketing-expertiseSection.png"
                   alt="Equipe de marketing colaborando"
-                  className="w-60 sm:w-72 h-60 sm:h-72 object-cover rounded-full mx-auto drop-shadow-lg max-w-full"
+                  className="w-96 sm:w-[32rem] h-96 sm:h-[32rem] object-cover mx-auto drop-shadow-lg max-w-full"
                 />
               </div>
               {/* Floating Metric Cards */}
@@ -28,7 +28,7 @@ const ExpertiseSectionMarketing = () => {
                 </div>
               </div>
               <div className="absolute -top-8 -right-4 bg-white rounded-2xl p-4 shadow-xl border border-purple-100">
-                <div className="text-xs text-gray-600 mb-2">Lead Qualification</div>
+                <div className="mt-8 text-xs text-gray-600 mb-2">Lead Qualification</div>
                 <div className="text-purple-600 font-semibold text-sm mb-2">+85%</div>
                 <div className="flex items-end gap-1 h-8">
                   {[2, 4, 5, 7, 6, 8, 9].map((height, index) => (

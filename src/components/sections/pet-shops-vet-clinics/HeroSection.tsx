@@ -47,34 +47,21 @@ const HeroSection = () => {
             </div>
           </div>
           {/* Right Visual */}
-          <div className="relative bg-white rounded-3xl p-8 shadow-2xl w-full max-w-md mx-auto mt-8 lg:mt-0">
+          <div className="relative w-full max-w-md mx-auto mt-8 lg:mt-0 animate-fade-in delay-300">
             <img 
-              src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=600&h=400&fit=crop"
+              src="Imagens/petshop-hero.png"
               alt="Pet Shop and Vet Clinic Dashboard"
-              className="w-full h-60 sm:h-80 object-cover rounded-2xl"
+              className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
             />
-            {/* Floating Elements */}
-            <div className="absolute -top-6 -right-6 bg-white p-4 rounded-2xl shadow-xl animate-bounce border border-[#A7E9AF]">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-[#43BFA3] rounded-full flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="font-bold text-[#36454F]">New appointment!</p>
-                  <p className="text-sm text-[#36454F]">Check-up scheduled</p>
-                </div>
-              </div>
+            {/* Floating Chat Bubbles */}
+            <div className="absolute -top-4 -left-4 bg-white p-4 rounded-2xl shadow-lg max-w-48 animate-bounce border border-green-100">
+              <p className="text-sm text-gray-800 font-medium">🐾 New appointment booked!</p>
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-[#A7E9AF]">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-[#A7E9AF] rounded-full flex items-center justify-center">
-                  <Zap className="w-6 h-6 text-[#36454F]" />
-                </div>
-                <div>
-                  <p className="font-bold text-[#36454F]">Vaccine reminder</p>
-                  <p className="text-sm text-[#36454F]">Sent to pet owner</p>
-                </div>
-              </div>
+            <div className="absolute -bottom-4 -right-4 bg-green-500 text-white p-4 rounded-2xl shadow-lg max-w-52 animate-bounce delay-1000">
+              <p className="text-sm font-medium">💉 Vaccine reminder sent!</p>
+            </div>
+            <div className="absolute top-1/2 -right-8 bg-yellow-500 text-white p-3 rounded-xl shadow-lg animate-bounce delay-500">
+              <p className="text-xs font-medium">⭐ 98% client satisfaction</p>
             </div>
           </div>
         </div>

@@ -54,38 +54,21 @@ const HeroSection = () => {
           </div>
 
           {/* Right Visual */}
-          <div className="relative">
-            <div className="relative bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl p-8 shadow-2xl">
-              <img 
-                src="/Imagens/marketing-hero.png"
-                alt="Marketing Analytics Dashboard"
-                className="w-full h-96 object-cover object-center rounded-2xl"
-              />
-              
-              {/* Floating Elements */}
-              <div className="absolute -top-6 -right-6 bg-white p-4 rounded-2xl shadow-xl animate-bounce">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900">Lead Qualified!</p>
-                    <p className="text-sm text-gray-600">Ready for follow-up</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900">Campaign Active</p>
-                    <p className="text-sm text-gray-600">85% response rate</p>
-                  </div>
-                </div>
-              </div>
+          <div className="relative w-full max-w-md mx-auto mt-8 lg:mt-0 animate-fade-in delay-300">
+            <img 
+              src="/Imagens/marketing-hero.png"
+              alt="Marketing Analytics Dashboard"
+              className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
+            />
+            {/* Floating Chat Bubbles */}
+            <div className="absolute -top-4 -left-4 bg-white p-4 rounded-2xl shadow-lg max-w-48 animate-bounce border border-purple-100">
+              <p className="text-sm text-gray-800 font-medium">🚀 New lead qualified!</p>
+            </div>
+            <div className="absolute -bottom-4 -right-4 bg-purple-500 text-white p-4 rounded-2xl shadow-lg max-w-52 animate-bounce delay-1000">
+              <p className="text-sm font-medium">📈 Campaign active!</p>
+            </div>
+            <div className="absolute top-1/2 -right-8 bg-pink-500 text-white p-3 rounded-xl shadow-lg animate-bounce delay-500">
+              <p className="text-xs font-medium">💡 120% ROI Growth</p>
             </div>
           </div>
         </div>

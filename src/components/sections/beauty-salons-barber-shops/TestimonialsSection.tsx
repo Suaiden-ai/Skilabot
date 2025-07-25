@@ -4,35 +4,32 @@ import React from "react";
 
 const TestimonialsSection: React.FC = () => {
   return (
-    <section className="py-20 bg-pink-50 overflow-x-hidden">
+    <section className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-            What beauty professionals say about {" "}
-            <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-yellow-400 bg-clip-text text-transparent">
-              Skilabot
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#343A40' }}>
+            What beauty professionals say about <span style={{ color: '#FFD700' }}>Skilabot</span>
           </h2>
         </div>
         {/* Trustpilot Card */}
         <div className="text-center mb-12">
-          <Card className="inline-block p-8 bg-white shadow-xl border-0">
+          <Card className="inline-block p-8 bg-white shadow-xl border border-[#F1F3F4]">
             <CardContent className="p-0">
-              <div className="flex items-center justify-center gap-2 text-lg font-semibold text-gray-800 mb-2">
+              <div className="flex items-center justify-center gap-2 text-lg font-semibold mb-2" style={{ color: '#343A40' }}>
                 <span>Trustpilot</span>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.39 7.26H22l-6.19 4.5L17.82 22 12 17.27 6.18 22l1.99-8.24L2 9.26h7.61z" fill="#e879f9"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.39 7.26H22l-6.19 4.5L17.82 22 12 17.27 6.18 22l1.99-8.24L2 9.26h7.61z" fill="#FFD700"/></svg>
               </div>
               <div className="flex items-center justify-center gap-2 mb-4">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star 
                     key={star} 
-                    className="w-6 h-6 text-yellow-400 fill-current" 
+                    className="w-6 h-6 text-[#FFD700] fill-current" 
                   />
                 ))}
               </div>
-              <div className="text-4xl font-bold text-gray-900 mb-2">4.9/5.0</div>
-              <div className="text-gray-600 mb-1">Based on 2,980 reviews</div>
-              <div className="text-xs text-gray-400">from verified <span className="font-semibold">Trustpilot</span> users</div>
+              <div className="text-4xl font-bold mb-2" style={{ color: '#343A40' }}>4.9/5.0</div>
+              <div className="mb-1" style={{ color: '#18181B' }}>Based on 2,980 reviews</div>
+              <div className="text-xs" style={{ color: '#18181B' }}>from verified <span className="font-semibold">Trustpilot</span> users</div>
             </CardContent>
           </Card>
         </div>
@@ -64,7 +61,7 @@ const TestimonialsSection: React.FC = () => {
               quote: "Skilabot is a must-have for any modern salon or barbershop!"
             }
           ].map((testimonial, index) => (
-            <Card key={index} className="p-6 bg-white shadow-lg border-0 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card key={index} className="p-6 bg-white shadow-lg border border-[#F1F3F4] hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-0">
                 <div className="flex items-start gap-4">
                   <img 
@@ -81,10 +78,12 @@ const TestimonialsSection: React.FC = () => {
                         />
                       ))}
                     </div>
-                    <p className="text-gray-800 mb-4 italic">"{testimonial.quote}"</p>
+                    <p className="mb-4 italic" style={{ color: '#18181B' }}>
+                      "{testimonial.quote}"
+                    </p>
                     <div>
-                      <div className="font-bold text-gray-900">{testimonial.name}</div>
-                      <div className="text-sm text-gray-600">{testimonial.role}</div>
+                      <div className="font-bold" style={{ color: '#343A40' }}>{testimonial.name}</div>
+                      <div className="text-sm" style={{ color: '#18181B' }}>{testimonial.role}</div>
                     </div>
                   </div>
                 </div>

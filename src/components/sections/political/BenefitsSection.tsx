@@ -109,7 +109,7 @@ const BenefitsSection = () => {
   return (
     <section id="benefits-section" className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
+        <h2 className="text-4xl font-bold text-center text-black mb-12">
           Benefits for Political Agents
         </h2>
 
@@ -123,11 +123,11 @@ const BenefitsSection = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                   activeTab === tab.id
-                    ? "bg-pink-600 text-white shadow-lg"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "bg-[#C62828] text-white shadow-lg"
+                    : "bg-white text-black border border-[#C62828] hover:bg-[#f8d7da]"
                 }`}
               >
-                <IconComponent className="w-5 h-5" />
+                <IconComponent className="w-5 h-5 text-[#183153]" />
                 {tab.label}
               </button>
             );
@@ -137,23 +137,23 @@ const BenefitsSection = () => {
         {/* Tab Content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {tabContent[activeTab].map((item, index) => (
-            <div key={index} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
+            <div key={index} className="bg-white border border-[#E3E6F0] rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
               <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">{item.description}</p>
+              <h3 className="text-xl font-bold text-black mb-3">{item.title}</h3>
+              <p className="text-black mb-4 leading-relaxed">{item.description}</p>
               {/* Rating */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
+                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-[#FFC107] fill-current' : 'text-[#E3E6F0]'}`} />
                   ))}
                 </div>
-                <span className="text-sm font-medium text-gray-700">{item.rating}/5.0</span>
+                <span className="text-sm font-medium text-black">{item.rating}/5.0</span>
               </div>
               {/* Benefits */}
               <div className="flex flex-wrap gap-2">
                 {item.benefits.map((benefit, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-pink-50 text-pink-700 text-xs font-medium rounded-full">
+                  <span key={idx} className="px-3 py-1 bg-[#C62828] text-white text-xs font-medium rounded-full">
                     {benefit}
                   </span>
                 ))}
