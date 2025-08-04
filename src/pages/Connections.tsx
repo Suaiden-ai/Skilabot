@@ -6,13 +6,12 @@ import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Trash2, WifiOff, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
-import { QrCodeDialog } from "../components/dashboard/KnowledgeBase/QrCodeDialog";
-import { generateChatwootPassword } from "../utils/chatwootHelpers";
+import QrCodeDialog from "../components/dashboard/KnowledgeBase/QrCodeDialog";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "../components/ui/alert-dialog";
 
-export default function WhatsappConnections() {
-  usePageTitle("WhatsApp Connections | Skilabot");
+export default function Connections() {
+  usePageTitle("Connections | Skilabot");
   const { user, profile } = useAuth();
   const [connections, setConnections] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +24,7 @@ export default function WhatsappConnections() {
   const [currentInstanceName, setCurrentInstanceName] = useState<string | null>(null);
   const [deleteConnectionId, setDeleteConnectionId] = useState<string | null>(null);
   const [deleteInstanceName, setDeleteInstanceName] = useState<string | null>(null);
-  // Adicionar estado para controle do modal de desconexão
+  const [validationInterval, setValidationInterval] = useState<NodeJS.Timeout | null>(null);
   const [disconnectConnectionId, setDisconnectConnectionId] = useState<string | null>(null);
   const [disconnectInstanceName, setDisconnectInstanceName] = useState<string | null>(null);
 
@@ -159,137 +158,116 @@ export default function WhatsappConnections() {
 
   const handleReconnect = async (id: string, instanceName: string) => {
     setActionLoading(id);
-    setCurrentConnectionId(id);
-    setCurrentInstanceName(instanceName);
-    setQrLoading(true);
-    setQrError(null);
-    setShowQrModal(true);
     
     try {
       if (!user) throw new Error('User not authenticated');
-      
-      // Get user's agent count
-      const { count: agentsCount } = await supabase
-        .from('ai_configurations')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
 
-      // Update status to connecting
-      const { error } = await supabase
-        .from("whatsapp_connections")
-        .update({
-          connection_status: "connecting",
-          disconnected_at: null,
-        })
-        .eq("id", id);
+      // Atualizar o estado antes de processar o QR Code
+      setCurrentConnectionId(id);
+      setCurrentInstanceName(instanceName);
+      setShowQrModal(true);
+      setQrLoading(true);
 
-      if (error) throw error;
-
-      // Generate password: email+phone in base64 (first 10 characters)
-      const userEmail = user.email || "";
-      const userPhone = user.phone || "";
-      const passwordBase = generateChatwootPassword(userEmail, userPhone);
-
-      // 1. Call chatwoot webhook first
-      const chatwootPayload = {
-        user_name: user.user_metadata?.name || user.email || "Unknown User",
+      // Call webhook to generate QR Code
+      const payload = {
         user_id: user.id,
-        agent_id: id,
-        instance_name: instanceName,
-        email: userEmail,
-        password: passwordBase,
-        plan: profile?.plan || null,
-        agents_count: agentsCount || 0
+        user_name: user.user_metadata?.name || user.email || "Unknown User",
+        email: user.email || "",
+        plan: profile?.plan || "basic",
+        instance_name: instanceName
       };
-      
-      console.log('Payload sent to chatwoot webhook:', chatwootPayload);
-      
-      const chatwootResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/chatwoot`, {
+
+      // 1. Chamar webhook atualizar-qrcode
+      const response = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/atualizar-qrcode`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(chatwootPayload),
+        body: JSON.stringify(payload),
       });
-      
-      if (!chatwootResponse.ok) throw new Error("Error integrating with Chatwoot");
-      
-      const chatwootData = await chatwootResponse.json();
-      console.log('Chatwoot webhook response:', chatwootData);
-      
-      // Buscar qualquer linha do usuário que tenha id_chatwoot preenchido
-      let id_chatwoot = null;
-      let user_id_chatwoot = null;
-      const { data: allAccounts } = await supabase
-        .from('chatwoot_accounts')
-        .select('*')
-        .eq('user_id', user.id);
-      console.log('Linhas chatwoot_accounts encontradas:', allAccounts);
-      if (allAccounts && allAccounts.length > 0) {
-        const withIdChatwoot = allAccounts.find(acc => !!acc.id_chatwoot);
-        if (withIdChatwoot) {
-          id_chatwoot = withIdChatwoot.id_chatwoot;
-          user_id_chatwoot = withIdChatwoot.user_id_chatwoot;
-        }
+
+      if (!response.ok) {
+        throw new Error(`Error reconnecting: ${response.status}`);
       }
-      console.log('id_chatwoot selecionado:', id_chatwoot);
 
-      // 2. Then call webhook to generate QR Code
-      const chatwootPayloadWithId = {
-        user_name: user.user_metadata?.name || user.email || "Unknown User",
-        user_id: user.id,
-        agent_id: id,
-        instance_name: instanceName,
-        email: userEmail,
-        password: passwordBase,
-        id_chatwoot,
-        user_id_chatwoot
+      const responseText = await response.text();
+      console.log('atualizar-qrcode response:', responseText);
+
+      // Iniciar a validação periódica
+      if (validationInterval) {
+        clearInterval(validationInterval);
+      }
+
+      const validateConnection = async () => {
+        try {
+          const validateResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/validar-qrcode-connections`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ instance_name: instanceName }),
+          });
+
+          if (!validateResponse.ok) {
+            console.error('Error calling validar-qrcode-connections:', validateResponse.status);
+            return;
+          }
+
+          const validateText = await validateResponse.text();
+          console.log('validar-qrcode-connections response:', validateText);
+
+          try {
+            const validateData = JSON.parse(validateText);
+            if (validateData.state === 'open') {
+              // Conexão bem sucedida
+              if (validationInterval) {
+                clearInterval(validationInterval);
+                setValidationInterval(null);
+              }
+              
+              // Atualizar status e fechar modal
+              await handleWhatsAppConnectionSuccess();
+            }
+          } catch (parseError) {
+            console.error('Error parsing validation response:', parseError);
+          }
+        } catch (validateError) {
+          console.error('Error calling validar-qrcode-connections:', validateError);
+        }
       };
-      console.log('Payload FINAL enviado para validar-qrcode:', chatwootPayloadWithId);
-      const refreshResponse = await fetch(`${import.meta.env.VITE_NWH_BASE_URL}/webhook/validar-qrcode`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(chatwootPayloadWithId),
-      });
-      
-      if (!refreshResponse.ok) throw new Error("Error obtaining QR Code");
-      
-      const responseText = await refreshResponse.text();
-      console.log('Complete webhook response:', responseText);
-      
+
+      // Chamar imediatamente e configurar o intervalo
+      await validateConnection();
+      const interval = setInterval(validateConnection, 15000); // 15 segundos
+      setValidationInterval(interval);
+
+      // Processar resposta do QR Code
       let qrCodeData = null;
-      
       try {
         const parsedResponse = JSON.parse(responseText);
-        console.log('Response parsed as JSON:', parsedResponse);
-        qrCodeData = parsedResponse.qrCode || parsedResponse.base64;
+        qrCodeData = parsedResponse.qrCode || parsedResponse.base64 || parsedResponse.qr_code;
       } catch (jsonError) {
-        console.log('Response is not JSON, treating as base64 string');
         if (responseText && /^[A-Za-z0-9+/=]+$/.test(responseText) && responseText.length > 100) {
           qrCodeData = responseText;
         }
       }
-      
+
       if (qrCodeData && /^[A-Za-z0-9+/=]+$/.test(qrCodeData) && qrCodeData.length > 100) {
         setQrCodeUrl(qrCodeData);
+        setQrLoading(false);
       } else {
+        setQrError("QR Code not found or invalid in response");
+        setQrLoading(false);
         throw new Error("QR Code not found or invalid in response");
       }
-
-      setConnections((prev) =>
-        prev.map((c) =>
-          c.id === id ? { ...c, connection_status: "connecting", disconnected_at: null } : c
-        )
-      );
     } catch (error) {
       console.error("Error reconnecting:", error);
       toast.error("Reconnection failed. Please try again.");
-      setShowQrModal(false);
+      // Não fechar o modal em caso de erro, permitir que o usuário tente novamente
+      setQrError("Failed to get QR Code. Please try again.");
+      setQrLoading(false);
     } finally {
       setActionLoading(null);
-      setQrLoading(false);
     }
   };
 
@@ -300,18 +278,13 @@ export default function WhatsappConnections() {
     setQrError(null);
     
     try {
-      // Generate password: email+phone in base64 (first 10 characters)
-      const userEmail = user.email || "";
-      const userPhone = user.phone || "";
-      const passwordBase = generateChatwootPassword(userEmail, userPhone);
-
       const refreshPayload = {
         user_name: user.user_metadata?.name || user.email || "Unknown User",
         user_id: user.id,
         agent_id: currentConnectionId,
         instance_name: currentInstanceName,
-        email: userEmail,
-        password: passwordBase
+        email: user.email || "",
+        plan: profile?.plan || "basic"
       };
       
       console.log('Payload sent to update QR Code:', refreshPayload);
@@ -355,23 +328,43 @@ export default function WhatsappConnections() {
     }
   };
 
-  const handleWhatsAppConnectionSuccess = () => {
-    console.log('WhatsApp connection successful, updating local state...');
+  const handleWhatsAppConnectionSuccess = async () => {
+    console.log('WhatsApp connection successful, updating state...');
     
     if (currentConnectionId) {
-      setConnections((prev) =>
-        prev.map((c) =>
-          c.id === currentConnectionId ? { 
-            ...c, 
-            connection_status: "connected", 
+      try {
+        // Atualizar o status no banco para "connected"
+        const { error } = await supabase
+          .from("whatsapp_connections")
+          .update({
+            connection_status: "connected",
             connected_at: new Date().toISOString(),
-            disconnected_at: null
-          } : c
-        )
-      );
-      toast.success("WhatsApp connected successfully!");
+            disconnected_at: null,
+          })
+          .eq("id", currentConnectionId);
+
+        if (error) throw error;
+
+        // Atualizar o estado local
+        setConnections((prev) =>
+          prev.map((c) =>
+            c.id === currentConnectionId ? { 
+              ...c, 
+              connection_status: "connected", 
+              connected_at: new Date().toISOString(),
+              disconnected_at: null
+            } : c
+          )
+        );
+        
+        toast.success("WhatsApp connected successfully!");
+      } catch (error) {
+        console.error("Error updating connection status:", error);
+        toast.error("Connection status update failed. Please refresh the page.");
+      }
     }
     
+    // Limpar os estados do modal
     setShowQrModal(false);
     setCurrentConnectionId(null);
     setCurrentInstanceName(null);
@@ -393,118 +386,173 @@ export default function WhatsappConnections() {
 
   return (
     <div className="max-w-5xl mx-auto bg-white rounded-xl shadow p-8 mb-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-4">Connections</h1>
-      <div className="flex items-center justify-between">
-        <Badge variant="outline" className="text-sm">
-          {connections.length} connection{connections.length !== 1 ? 's' : ''}
-        </Badge>
-      </div>
-      
-      <div className="grid gap-6">
-        {loading ? (
-          <div className="text-center text-gray-500 py-8">Loading...</div>
-        ) : connections.length === 0 ? (
-          <Card className="p-8 text-center">
-            <div className="text-gray-500 mb-4">No connections found.</div>
-            <p className="text-sm text-gray-400">
-              Go to Dashboard and configure your first AI Agent to get started.
-            </p>
-          </Card>
-        ) : (
-          connections.map((conn) => (
-            <Card key={conn.id} className="p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  {getStatusBadge(conn.connection_status)}
-                  <span className="text-sm text-gray-500 font-mono">
-                    {conn.evolution_instance_id}
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  {conn.connection_status === 'connected' && (
+      <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent mb-6">
+        Connections
+      </h1>
+
+      {/* Seção de Conexões Existentes */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-gray-800">Existing Connections</h2>
+          <Badge variant="outline" className="text-sm">
+            {connections.length} connection{connections.length !== 1 ? 's' : ''}
+          </Badge>
+        </div>
+        
+        <div className="grid gap-6">
+          {loading ? (
+            <div className="text-center text-gray-500 py-8">Loading...</div>
+          ) : connections.length === 0 ? (
+            <Card className="p-8 text-center">
+              <div className="text-gray-500 mb-4">No connections found.</div>
+              <p className="text-sm text-gray-400">
+                Go to Dashboard and configure your first AI Agent to get started.
+              </p>
+            </Card>
+          ) : (
+            connections.map((conn) => (
+              <Card key={conn.id} className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    {getStatusBadge(conn.connection_status)}
+                    <span className="text-sm text-gray-500 font-mono">
+                      {conn.evolution_instance_id}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    {conn.connection_status === 'connected' && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDisconnect(conn.id, conn.evolution_instance_id)}
+                        disabled={actionLoading === conn.id}
+                        className="text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                      >
+                        <WifiOff className="h-4 w-4 mr-1" />
+                        {actionLoading === conn.id ? "Disconnecting..." : "Disconnect"}
+                      </Button>
+                    )}
+                    {conn.connection_status === 'disconnected' && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleReconnect(conn.id, conn.evolution_instance_id)}
+                        disabled={actionLoading === conn.id}
+                        className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                      >
+                        <RotateCcw className="h-4 w-4 mr-1" />
+                        {actionLoading === conn.id ? "Reconnecting..." : "Reconnect"}
+                      </Button>
+                    )}
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handleDisconnect(conn.id, conn.evolution_instance_id)}
+                      onClick={() => handleDelete(conn.id, conn.evolution_instance_id)}
                       disabled={actionLoading === conn.id}
-                      className="text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
                     >
-                      <WifiOff className="h-4 w-4 mr-1" />
-                      {actionLoading === conn.id ? "Disconnecting..." : "Disconnect"}
+                      <Trash2 className="h-4 w-4 mr-1" />
+                      {actionLoading === conn.id ? "Deleting..." : "Delete"}
                     </Button>
-                  )}
-                  {conn.connection_status === 'disconnected' && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleReconnect(conn.id, conn.evolution_instance_id)}
-                      disabled={actionLoading === conn.id}
-                      className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                    >
-                      <RotateCcw className="h-4 w-4 mr-1" />
-                      {actionLoading === conn.id ? "Reconnecting..." : "Reconnect"}
-                    </Button>
-                  )}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDelete(conn.id, conn.evolution_instance_id)}
-                    disabled={actionLoading === conn.id}
-                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                  >
-                    <Trash2 className="h-4 w-4 mr-1" />
-                    {actionLoading === conn.id ? "Deleting..." : "Delete"}
-                  </Button>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="font-medium text-gray-700">Number:</span>
-                  <div className="text-gray-600">
-                    {conn.phone_number || <span className="italic">Not provided</span>}
                   </div>
                 </div>
-                <div>
-                  <span className="font-medium text-gray-700">Agent ID:</span>
-                  <div className="text-gray-600 font-mono text-xs">
-                    {conn.ai_configuration_id}
-                  </div>
-                </div>
-                <div>
-                  <span className="font-medium text-gray-700">Connected at:</span>
-                  <div className="text-gray-600">
-                    {conn.connected_at 
-                      ? new Date(conn.connected_at).toLocaleString('en-US')
-                      : <span className="italic">-</span>
-                    }
-                  </div>
-                </div>
-                {conn.disconnected_at && (
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="font-medium text-gray-700">Disconnected at:</span>
+                    <span className="font-medium text-gray-700">Number:</span>
                     <div className="text-gray-600">
-                      {new Date(conn.disconnected_at).toLocaleString('en-US')}
+                      {conn.phone_number || <span className="italic">Not provided</span>}
                     </div>
                   </div>
-                )}
-              </div>
-            </Card>
-          ))
-        )}
+                  <div>
+                    <span className="font-medium text-gray-700">Agent ID:</span>
+                    <div className="text-gray-600 font-mono text-xs">
+                      {conn.ai_configuration_id}
+                    </div>
+                  </div>
+                  <div>
+                    <span className="font-medium text-gray-700">Connected at:</span>
+                    <div className="text-gray-600">
+                      {conn.connected_at 
+                        ? new Date(conn.connected_at).toLocaleString('en-US')
+                        : <span className="italic">-</span>
+                      }
+                    </div>
+                  </div>
+                  {conn.disconnected_at && (
+                    <div>
+                      <span className="font-medium text-gray-700">Disconnected at:</span>
+                      <div className="text-gray-600">
+                        {new Date(conn.disconnected_at).toLocaleString('en-US')}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            ))
+          )}
+        </div>
       </div>
 
       <QrCodeDialog
         showQrModal={showQrModal}
-        setShowQrModal={setShowQrModal}
-        qrCodeUrl={qrCodeUrl}
-        setQrCodeUrl={setQrCodeUrl}
-        qrLoading={qrLoading}
-        qrError={qrError}
+        setShowQrModal={(show) => {
+          if (!show) {
+            // Quando o modal é fechado, limpar os estados
+            setQrCodeUrl(null);
+            setQrError(null);
+            setQrLoading(false);
+            setShowQrModal(false);
+            
+            // Limpar o intervalo de validação
+            if (validationInterval) {
+              clearInterval(validationInterval);
+              setValidationInterval(null);
+            }
+            
+            // Não limpar currentConnectionId e currentInstanceName para manter o botão Reconnect
+          } else {
+            setShowQrModal(true);
+          }
+        }}
+        qrCodeData={qrCodeUrl ? `data:image/png;base64,${qrCodeUrl}` : ''}
+        setQrCodeData={setQrCodeUrl}
+        qrCodeLoading={qrLoading}
+        setQrCodeLoading={setQrLoading}
+        connectionStatus={qrError ? 'error' : qrLoading ? 'loading' : qrCodeUrl ? 'waiting' : 'initializing'}
+        setConnectionStatus={() => {}}
         onRefreshQrCode={handleRefreshQrCode}
-        configId={currentConnectionId || ''}
+        agent={{
+          id: currentConnectionId || '',
+          instance_name: currentInstanceName
+        }}
         onConnectionSuccess={handleWhatsAppConnectionSuccess}
-        instanceName={currentInstanceName || undefined}
+        generateWebhookData={async (agent) => {
+          // Verificar se o usuário já possui uma account_id na tabela chatwoot_accounts
+          let accountId = null;
+          try {
+            const { data: chatwootAccount } = await supabase
+              .from('chatwoot_accounts')
+              .select('id_chatwoot')
+              .eq('user_id', user?.id)
+              .single();
+            
+            accountId = chatwootAccount?.id_chatwoot || null;
+            console.log('🔍 Account ID encontrada:', accountId);
+          } catch (error) {
+            console.log('🔍 Usuário não possui account_id ainda');
+            accountId = null;
+          }
+
+          return {
+            user_name: user?.user_metadata?.name || user?.email || "Unknown User",
+            user_id: user?.id,
+            email: user?.email || "",
+            plan: profile?.plan || "basic",
+            instance_name: agent.instance_name,
+            account_id: accountId
+          };
+        }}
       />
       <AlertDialog open={!!deleteConnectionId} onOpenChange={open => !open && setDeleteConnectionId(null)}>
         <AlertDialogContent>

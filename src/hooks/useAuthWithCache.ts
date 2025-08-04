@@ -38,6 +38,7 @@ export const useAuthWithCache = () => {
         data,
         timestamp: Date.now()
       }));
+      console.log(`useAuthWithCache - Saved to cache: ${key}`, data);
     } catch (error) {
       console.warn('Erro ao salvar no cache:', error);
     }
@@ -54,9 +55,11 @@ export const useAuthWithCache = () => {
       // Verifica se o cache não expirou
       if (Date.now() - timestamp > CACHE_DURATION) {
         localStorage.removeItem(key);
+        console.log(`useAuthWithCache - Cache expired for: ${key}`);
         return null;
       }
 
+      console.log(`useAuthWithCache - Retrieved from cache: ${key}`, data);
       return data;
     } catch (error) {
       console.warn('Erro ao recuperar do cache:', error);
@@ -69,6 +72,7 @@ export const useAuthWithCache = () => {
     Object.values(CACHE_KEYS).forEach(key => {
       localStorage.removeItem(key);
     });
+    console.log('useAuthWithCache - Cache cleared');
   };
 
   // Função para validar se a sessão ainda é válida
@@ -79,22 +83,29 @@ export const useAuthWithCache = () => {
       // Verifica se o token ainda não expirou
       const payload = JSON.parse(atob(session.access_token.split('.')[1]));
       const now = Math.floor(Date.now() / 1000);
-      return payload.exp > now;
+      const isValid = payload.exp > now;
+      console.log('useAuthWithCache - Session validation:', { isValid, exp: payload.exp, now });
+      return isValid;
     } catch {
+      console.log('useAuthWithCache - Session validation failed');
       return false;
     }
   };
 
   // Função para carregar perfil do usuário
   const loadProfile = async (userId: string) => {
+    console.log('useAuthWithCache - Loading profile for user:', userId);
+    
     // Primeiro tenta do cache
     const cachedProfile = getFromCache(CACHE_KEYS.PROFILE);
     if (cachedProfile && cachedProfile.id === userId) {
+      console.log('useAuthWithCache - Using cached profile');
       setProfile(cachedProfile);
       return cachedProfile;
     }
 
     try {
+      console.log('useAuthWithCache - Fetching profile from database');
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -108,6 +119,7 @@ export const useAuthWithCache = () => {
 
       if (data) {
         const profileData = data as UserProfile;
+        console.log('useAuthWithCache - Profile loaded from database:', profileData);
         setProfile(profileData);
         saveToCache(CACHE_KEYS.PROFILE, profileData);
         return profileData;
@@ -120,7 +132,7 @@ export const useAuthWithCache = () => {
 
   // Função para atualizar estado de autenticação
   const updateAuthState = async (newSession: Session | null) => {
-    console.log('Atualizando estado de autenticação:', newSession?.user?.id);
+    console.log('useAuthWithCache - Updating auth state:', newSession?.user?.id);
     
     setSession(newSession);
     setUser(newSession?.user ?? null);
@@ -130,6 +142,7 @@ export const useAuthWithCache = () => {
       saveToCache(CACHE_KEYS.USER, newSession.user);
       await loadProfile(newSession.user.id);
     } else {
+      console.log('useAuthWithCache - Clearing profile (no valid session)');
       setProfile(null);
       clearCache();
     }
@@ -139,9 +152,19 @@ export const useAuthWithCache = () => {
   useEffect(() => {
     let mounted = true;
     let authSubscription: any;
+    let timeoutId: NodeJS.Timeout;
 
     const initializeAuth = async () => {
-      console.log('Inicializando autenticação...');
+      console.log('useAuthWithCache - Initializing authentication...');
+      
+      // Timeout para evitar loading infinito
+      timeoutId = setTimeout(() => {
+        if (mounted && loading) {
+          console.log('useAuthWithCache - Loading timeout, forcing initialization');
+          setLoading(false);
+          setInitialized(true);
+        }
+      }, 10000); // 10 segundos de timeout
       
       // Primeiro, tenta carregar do cache
       const cachedSession = getFromCache(CACHE_KEYS.SESSION);
@@ -149,20 +172,22 @@ export const useAuthWithCache = () => {
       const cachedProfile = getFromCache(CACHE_KEYS.PROFILE);
 
       if (cachedSession && cachedUser && isSessionValid(cachedSession)) {
-        console.log('Carregando dados do cache...');
+        console.log('useAuthWithCache - Loading data from cache...');
         setSession(cachedSession);
         setUser(cachedUser);
         if (cachedProfile) {
           setProfile(cachedProfile);
         }
-        setLoading(false); // Para de carregar imediatamente quando há cache válido
+        setLoading(false);
+        setInitialized(true);
+        clearTimeout(timeoutId);
       }
 
       try {
         // Configura o listener de mudanças de autenticação
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
           async (event, session) => {
-            console.log('Auth state changed:', event, session?.user?.id);
+            console.log('useAuthWithCache - Auth state changed:', event, session?.user?.id);
             
             if (!mounted) return;
             
@@ -188,12 +213,13 @@ export const useAuthWithCache = () => {
         // Verifica a sessão atual do servidor apenas se não temos cache válido
         if (!cachedSession || !isSessionValid(cachedSession)) {
           const { data: { session }, error } = await supabase.auth.getSession();
-          console.log('Verificando sessão do servidor:', session?.user?.id, error);
+          console.log('useAuthWithCache - Checking server session:', session?.user?.id, error);
           
           if (mounted) {
             await updateAuthState(session);
             setLoading(false);
             setInitialized(true);
+            clearTimeout(timeoutId);
           }
         } else if (!initialized) {
           setInitialized(true);
@@ -204,6 +230,7 @@ export const useAuthWithCache = () => {
           clearCache();
           setLoading(false);
           setInitialized(true);
+          clearTimeout(timeoutId);
         }
       }
     };
@@ -216,6 +243,9 @@ export const useAuthWithCache = () => {
       if (authSubscription) {
         authSubscription.unsubscribe();
       }
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
   }, []);
 
@@ -224,13 +254,13 @@ export const useAuthWithCache = () => {
     const handleVisibilityChange = async () => {
       if (document.hidden || !initialized) return;
       
-      console.log('Página voltou ao foco, verificando sessão...');
+      console.log('useAuthWithCache - Page regained focus, checking session...');
       
       const cachedSession = getFromCache(CACHE_KEYS.SESSION);
       if (cachedSession && isSessionValid(cachedSession)) {
         // Se temos cache válido, usa ele
         if (!session || session.access_token !== cachedSession.access_token) {
-          console.log('Restaurando sessão do cache');
+          console.log('useAuthWithCache - Restoring session from cache');
           await updateAuthState(cachedSession);
         }
       } else {
@@ -238,10 +268,10 @@ export const useAuthWithCache = () => {
         try {
           const { data: { session: serverSession } } = await supabase.auth.getSession();
           if (serverSession && isSessionValid(serverSession)) {
-            console.log('Sessão atualizada do servidor');
+            console.log('useAuthWithCache - Session updated from server');
             await updateAuthState(serverSession);
           } else if (session) {
-            console.log('Sessão perdida, limpando estado');
+            console.log('useAuthWithCache - Session lost, clearing state');
             await updateAuthState(null);
           }
         } catch (error) {

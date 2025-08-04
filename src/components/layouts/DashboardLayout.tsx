@@ -18,10 +18,11 @@ export default function DashboardLayout() {
   React.useEffect(() => {
     console.log('DashboardLayout:', { loading, user, profile });
     if (!loading && !user) {
+      console.log('DashboardLayout - Redirecting to auth: no user found');
       navigate("/auth", { replace: true });
     }
     // Removido o else if que redirecionava admin para /admin-dashboard
-  }, [user, profile, loading, navigate]);
+  }, [user, loading, navigate]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -29,10 +30,10 @@ export default function DashboardLayout() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/20 min-h-screen w-full flex">
+    <div className="bg-white h-screen w-full flex overflow-hidden">
       {/* Sidebar */}
       <motion.div
-        initial={{ x: -280 }}
+        initial={{ x: -72 }}
         animate={{ x: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
@@ -40,16 +41,18 @@ export default function DashboardLayout() {
       </motion.div>
       {/* Main Content */}
       <motion.main 
-        className="flex-1 min-h-screen ml-64 overflow-hidden"
+        className="flex-1 lg:ml-18 h-full flex flex-col overflow-hidden"
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
         {/* Topbar com notificações e logout */}
-        <div className="flex items-center justify-end gap-4 px-8 py-4 border-b bg-white/80 sticky top-0 z-30">
-          <AdminNotificationsDropdown />
+        <div className="flex items-center justify-end gap-4 px-4 lg:px-8 py-4 z-30">
+          <div className="hidden lg:block">
+            <AdminNotificationsDropdown />
+          </div>
         </div>
-        <div className="h-full overflow-y-auto">
+        <div className="flex-1 overflow-y-auto">
           <Outlet />
         </div>
       </motion.main>

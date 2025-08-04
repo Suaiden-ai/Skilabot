@@ -15,10 +15,10 @@ import AestheticClinics from "./pages/AestheticClinics";
 import PoliticalAgents from "./pages/PoliticalAgents";
 import DealershipsResellers from "./pages/DealershipsResellers";
 import Agents from "./pages/Agents";
-import WhatsappConnections from "./pages/WhatsappConnections";
+import Connections from "./pages/Connections";
 import SpecializedConsultingPage from "./pages/SpecializedConsultingPage";
 import DashboardLayout from "./components/layouts/DashboardLayout";
-import KnowledgeBase from "./components/dashboard/KnowledgeBase";
+import DashboardOverview from "./components/dashboard/DashboardOverview";
 import ChatwootPanel from "./components/dashboard/ChatwootPanel";
 import ScrollToTop from "@/components/ScrollToTop";
 import DashboardKanban from "./pages/DashboardKanban";
@@ -26,6 +26,7 @@ import AdminDashboard from "./components/dashboard/admin/AdminDashboard";
 import AdminUsers from "./pages/admin-users";
 import AdminSettings from "./pages/AdminSettings";
 import AdminPayments from "./pages/AdminPayments";
+
 import ConfirmPlan from "./pages/ConfirmPlan";
 import Success from "./pages/Success";
 import Plans from "./pages/Plans";
@@ -70,17 +71,19 @@ const App = () => (
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/faq" element={<FAQ />} />
           <Route element={<DashboardLayout />}>
-            <Route path="/dashboard" element={<KnowledgeBase />} />
+            <Route path="/create-agent" element={<DashboardOverview />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/settings" element={<DashboardSettings />} />
             <Route path="/agents" element={<Agents />} />
-            <Route path="/whatsapp-connections" element={<WhatsappConnections />} />
-            <Route path="/chatwoot-panel" element={<ChatwootPanel />} />
+            <Route path="/connections" element={<Connections />} />
+            <Route path="/conversations" element={<ChatwootPanel />} />
             <Route path="/specialized-consulting" element={<SpecializedConsultingPage />} />
             <Route path="/dashboard-kanban" element={<DashboardKanban />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/admin-users" element={<AdminUsers />} />
             <Route path="/admin-settings" element={<AdminSettings />} />
             <Route path="/admin-payments" element={<AdminPayments />} />
+
           </Route>
           <Route path="/gyms-personal-trainers" element={<GymsPersonalTrainers />} />
           <Route path="/marketing-agencies" element={<MarketingAgencies />} />

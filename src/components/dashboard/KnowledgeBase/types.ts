@@ -7,6 +7,7 @@ export interface AIConfiguration {
   personality: string;
   agent_type: string;
   custom_prompt: string | null;
+  final_prompt: string | null;
   has_tested: boolean;
 }
 
@@ -44,7 +45,8 @@ export const agentTypeOptions = [
   "Digital Accounting for Small Businesses",
   "Professional Services",
   "Condominiums & Administrators",
-  "Cleaning & Pools"
+  "Cleaning & Pools",
+  "Other"
 ];
 
 export const personalityOptions = [
@@ -52,4 +54,18 @@ export const personalityOptions = [
   { value: "Professional", label: "Professional", icon: "Briefcase", description: "Formal and reliable" },
   { value: "Motivational", label: "Motivational", icon: "Zap", description: "Energetic and inspiring" },
   { value: "Polite", label: "Polite", icon: "GraduationCap", description: "Courteous and respectful" },
-]; 
+];
+
+export const sectorOptions = [
+  { value: "SDR", label: "SDR (Sales Development Representative)" },
+  { value: "HR", label: "HR (Human Resources)" },
+  { value: "Sales", label: "Sales" },
+  { value: "Support", label: "Support" },
+  { value: "Marketing", label: "Marketing" },
+  { value: "Finance", label: "Finance" },
+  { value: "Operations", label: "Operations" },
+  { value: "Technology", label: "Technology" },
+  { value: "Commercial", label: "Commercial" },
+  { value: "Customer Service", label: "Customer Service" },
+  { value: "Others", label: "Others" },
+];

@@ -55,6 +55,66 @@ export type Database = {
           },
         ]
       }
+      agent_documents: {
+        Row: {
+          id: string
+          agent_id: string
+          user_id: string
+          file_name: string
+          file_size: number
+          file_type: string
+          file_url: string
+          file_content: string | null
+          file_transcription: string | null
+          knowledge_base_id: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          agent_id: string
+          user_id: string
+          file_name: string
+          file_size: number
+          file_type: string
+          file_url: string
+          file_content?: string | null
+          file_transcription?: string | null
+          knowledge_base_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          agent_id?: string
+          user_id?: string
+          file_name?: string
+          file_size?: number
+          file_type?: string
+          file_url?: string
+          file_content?: string | null
+          file_transcription?: string | null
+          knowledge_base_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_documents_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "ai_configurations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agent_documents_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_configurations: {
         Row: {
           agent_type: string | null
@@ -62,9 +122,12 @@ export type Database = {
           company_name: string | null
           created_at: string | null
           custom_prompt: string | null
+          final_prompt: string | null
           has_tested: boolean | null
           id: string
           personality: string | null
+          sectors: string[] | null
+          support_email: string | null
           updated_at: string | null
           user_id: string
         }
@@ -74,9 +137,12 @@ export type Database = {
           company_name?: string | null
           created_at?: string | null
           custom_prompt?: string | null
+          final_prompt?: string | null
           has_tested?: boolean | null
           id?: string
           personality?: string | null
+          sectors?: string[] | null
+          support_email?: string | null
           updated_at?: string | null
           user_id: string
         }
@@ -86,9 +152,12 @@ export type Database = {
           company_name?: string | null
           created_at?: string | null
           custom_prompt?: string | null
+          final_prompt?: string | null
           has_tested?: boolean | null
           id?: string
           personality?: string | null
+          sectors?: string[] | null
+          support_email?: string | null
           updated_at?: string | null
           user_id?: string
         }

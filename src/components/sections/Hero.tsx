@@ -17,6 +17,13 @@ const Hero = () => {
     }
   };
 
+  const handleViewPlans = () => {
+    const section = document.getElementById('pricing');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center px-6 py-20 bg-gradient-to-br from-white to-gray-50">
       <div className="max-w-7xl w-full mx-auto">
@@ -48,12 +55,28 @@ const Hero = () => {
             </div>
 
             {/* Start Free Trial Button */}
-            <div className="flex justify-start mt-6">
+            <div className="flex justify-start mt-6 gap-4">
               <Button 
                 onClick={handleStartFreeTrial}
                 className="h-12 px-8 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg text-lg transition-all duration-300 hover:scale-105"
               >
                 Start Free Trial
+              </Button>
+              <Button 
+                variant="outline"
+                className="h-12 px-5 border border-gray-200 font-semibold rounded-lg text-lg flex items-center gap-2 hover:bg-gray-100 transition-all duration-300 shadow-md"
+                onClick={handleViewPlans}
+              >
+                 <span className="text-black">View plans</span>
+                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <defs>
+                     <linearGradient id="heart-gradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                       <stop stopColor="#ec4899" />
+                       <stop offset="1" stopColor="#f59e42" />
+                     </linearGradient>
+                   </defs>
+                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#heart-gradient)"/>
+                 </svg>
               </Button>
             </div>
           </div>
@@ -64,8 +87,9 @@ const Hero = () => {
               <img 
                 src="test.png"
                 alt="Skilabot Hero"
-                className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-1xl drop-shadow-2xl"
-                style={{ filter: 'drop-shadow(0 8px 40px rgba(0,0,0,0.18))' }}  
+                className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-1xl drop-shadow-2xl"
+                style={{ filter: 'drop-shadow(0 8px 40px rgba(0,0,0,0.18))',
+                borderRadius: '40px'}}
               />
               
               {/* Card 1: Learn from best instructors */}
@@ -89,6 +113,24 @@ const Hero = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        {/* Cards Estatísticos */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center transition-all duration-300 hover:shadow-2xl hover:scale-105">
+            <span className="text-[#343A40] mb-2">AI resolves up to</span>
+            <span className="text-5xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">93%</span>
+            <span className="text-[#343A40] mt-2">of customer inquiries</span>
+          </div>
+          <div className="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center transition-all duration-300 hover:shadow-2xl hover:scale-105">
+            <span className="text-[#343A40] mb-2">AI increases up to</span>
+            <span className="text-5xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">35%</span>
+            <span className="text-[#343A40] mt-2">conversion rates</span>
+          </div>
+          <div className="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center transition-all duration-300 hover:shadow-2xl hover:scale-105">
+            <span className="text-[#343A40] mb-2">AI saves up to</span>
+            <span className="text-5xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">72%</span>
+            <span className="text-[#343A40] mt-2">in operational costs</span>
           </div>
         </div>
       </div>

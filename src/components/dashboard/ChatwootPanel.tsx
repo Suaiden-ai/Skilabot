@@ -31,7 +31,7 @@ export default function ChatwootPanel() {
         if (error) throw error;
         
         if (!data) {
-          setError('Chatwoot account not found. You need to connect WhatsApp first.');
+          setError('Smart Chat account not found. You need to connect WhatsApp first.');
         } else {
           setChatwootData(data);
         }
@@ -85,10 +85,20 @@ export default function ChatwootPanel() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-96">
-        <div className="flex flex-col items-center space-y-4">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
-          <p className="text-gray-600">Loading Chatwoot panel...</p>
+      <div className="w-full h-full bg-white py-6 px-6 pl-20">
+        <div className="w-full max-w-none">
+          <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">SMART CHAT</h1>
+          
+          <div className="max-w-4xl mx-auto">
+            <Card className="shadow-lg border-0">
+              <CardContent className="p-12">
+                <div className="flex flex-col items-center space-y-4">
+                  <Loader2 className="h-12 w-12 animate-spin text-blue-500" />
+                  <p className="text-gray-600 text-lg">Loading Smart Chat...</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     );
@@ -96,89 +106,117 @@ export default function ChatwootPanel() {
 
   if (error || !chatwootData) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-orange-500" />
-            Chatwoot Panel
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Alert>
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              {error || 'Chatwoot data not found'}
-            </AlertDescription>
-          </Alert>
+      <div className="w-full h-full bg-white py-6 px-6 pl-20">
+        <div className="w-full max-w-none">
+          <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">SMART CHAT</h1>
           
-          <div className="text-center">
-            <p className="text-gray-600 mb-4">
-              To access the Chatwoot panel, you need to first connect your Agent to WhatsApp.
-            </p>
-            <Button 
-              onClick={() => window.location.href = '/dashboard'}
-              className="bg-blue-500 hover:bg-blue-600"
-            >
-              Go to Dashboard
-            </Button>
+          <div className="max-w-4xl mx-auto">
+            <Card className="shadow-lg border-0">
+              <CardHeader className="bg-gradient-to-r from-orange-50 to-red-50 border-b">
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <AlertCircle className="h-6 w-6 text-orange-500" />
+                  Smart Chat
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <Alert className="mb-6 border-orange-200 bg-orange-50">
+                  <AlertCircle className="h-4 w-4 text-orange-600" />
+                  <AlertDescription className="text-orange-800">
+                    {error || 'Chatwoot data not found'}
+                  </AlertDescription>
+                </Alert>
+                
+                <div className="text-center space-y-4">
+                  <p className="text-gray-600">
+                    To access the Smart Chat, you need to first connect your Agent to WhatsApp.
+                  </p>
+                  <Button 
+                    onClick={() => window.location.href = '/create-agent'}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2"
+                  >
+                    Go to Dashboard
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between w-full">
-            <CardTitle className="flex items-center gap-2">
-              Chatwoot Panel
-              <Badge variant="secondary" className="bg-green-100 text-green-800">
-                Connected
-              </Badge>
-            </CardTitle>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleSSOLogin}
-              className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
-            >
-              <ExternalLink className="h-4 w-4" />
-              Login SSO Chatwoot
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div>
-              <span className="text-sm font-medium text-gray-700">Email:</span>
-              <p className="text-sm text-gray-600">{chatwootData.chatwoot_email}</p>
-            </div>
-            <div>
-              <span className="text-sm font-medium text-gray-700">Username:</span>
-              <p className="text-sm text-gray-600">{chatwootData.chatwoot_user_name}</p>
-            </div>
-            <div>
-              <span className="text-sm font-medium text-gray-700">Account ID:</span>
-              <p className="text-sm text-gray-600 font-mono">{chatwootData.id_chatwoot}</p>
-            </div>
-          </div>
-          
-          <Alert className="mb-4">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              <strong>Login Instructions:</strong>
-              <br />
-              1. Click "Login SSO Chatwoot" to access Chatwoot
-              <br />
-              2. Use credentials: <strong>Email:</strong> {chatwootData.chatwoot_email} | <strong>Password:</strong> {chatwootData.chatwoot_password}
-              <br />
-              3. If needed, you can reset password directly in Chatwoot
-            </AlertDescription>
-          </Alert>
-        </CardContent>
-      </Card>
+    <div className="w-full h-full bg-white py-6 px-6 pl-20">
+      <div className="w-full max-w-none">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">SMART CHAT</h1>
+        
+        <div className="max-w-4xl mx-auto">
+          <Card className="shadow-lg border-0">
+            <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
+              <div className="flex items-center justify-between w-full">
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">C</span>
+                  </div>
+                  Smart Chat
+                  <Badge variant="secondary" className="bg-green-100 text-green-800 border-green-200">
+                    Connected
+                  </Badge>
+                </CardTitle>
+                <Button
+                  onClick={handleSSOLogin}
+                  className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700 shadow-md px-6 py-2"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Login SSO Smartchat
+                </Button>
+              </div>
+            </CardHeader>
+            
+            <CardContent className="p-6">
+              {/* Account Information Section */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  Account Information
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <span className="text-sm font-medium text-gray-600 block mb-1">Email:</span>
+                    <p className="text-sm text-gray-800 font-mono">{chatwootData.chatwoot_email}</p>
+                  </div>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <span className="text-sm font-medium text-gray-600 block mb-1">Username:</span>
+                    <p className="text-sm text-gray-800">{chatwootData.chatwoot_user_name}</p>
+                  </div>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <span className="text-sm font-medium text-gray-600 block mb-1">Account ID:</span>
+                    <p className="text-sm text-gray-800 font-mono">{chatwootData.id_chatwoot}</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Login Instructions Section */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  Login Instructions
+                </h3>
+                <Alert className="border-blue-200 bg-blue-50">
+                  <AlertCircle className="h-4 w-4 text-blue-600" />
+                  <AlertDescription className="text-blue-800">
+                    <div className="space-y-2">
+                      <p><strong>1.</strong> Click "Login SSO Smartchat" button above to access Smartchat</p>
+                      <p><strong>2.</strong> Use credentials: <strong>Email:</strong> {chatwootData.chatwoot_email} | <strong>Password:</strong> {chatwootData.chatwoot_password}</p>
+                      <p><strong>3.</strong> If needed, you can reset password directly in Smartchat</p>
+                    </div>
+                  </AlertDescription>
+                </Alert>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }

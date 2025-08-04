@@ -111,7 +111,7 @@ export default function Plans() {
               >
                 <h3 className="text-2xl font-bold mb-2 text-gray-900 text-center">{plan.name}</h3>
                 <div className="text-center mb-4">
-                  <span className={`text-4xl font-bold ${plan.highlight ? 'text-blue-600' : 'text-gray-900'}`}>{plan.price}</span>
+                <span className={`text-4xl font-bold ${plan.highlight ? 'text-blue-600' : 'text-gray-900'}`}>{plan.price}</span>
                 </div>
                 <p className="text-gray-600 text-center mb-6">{plan.description}</p>
                 <ul className="space-y-3 mb-4">

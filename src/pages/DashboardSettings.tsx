@@ -127,8 +127,8 @@ export default function DashboardSettings() {
   // Cores do plano
   const planColors = {
     Basic: "bg-gray-200 text-gray-800",
-    Intermediate: "bg-blue-100 text-blue-800",
-    Premium: "bg-yellow-100 text-yellow-900",
+    Intermediate: "bg-pink-100 text-pink-800",
+    Premium: "bg-orange-100 text-orange-900",
     default: "bg-gray-100 text-gray-700"
   };
   const planColor = planColors[planInfo.plan] || planColors.default;
@@ -174,7 +174,7 @@ export default function DashboardSettings() {
               <>
                 <span className="text-base font-semibold text-gray-800">{agents} / {maxAgents} agents</span>
                 <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden mt-1">
-                  <div className="h-2 rounded-full bg-blue-400 transition-all duration-500" style={{ width: `${agentsPercent}%` }} />
+                  <div className="h-2 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 transition-all duration-500" style={{ width: `${agentsPercent}%` }} />
                 </div>
               </>
             )}

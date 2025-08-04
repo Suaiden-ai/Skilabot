@@ -10,6 +10,7 @@ import News from "@/components/sections/News";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import BusinessCards from "@/components/sections/BusinessCards";
+import ChatBot from "@/components/ChatBot";
 import FadeInUp from "@/components/FadeInUp";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useEffect, useState } from "react";
@@ -54,6 +55,7 @@ export default function Index() {
         </div>
         <Footer />
       </div>
+      <ChatBot />
     </div>
   );
 }

@@ -202,7 +202,7 @@ const AdminUsers = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">User Management</h1>
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">User Management</h1>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
             <Button>
@@ -271,7 +271,7 @@ const AdminUsers = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <Button onClick={handleAddUser} className="w-full">
+              <Button onClick={handleAddUser} className="w-full bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600">
                 Add User
               </Button>
             </div>

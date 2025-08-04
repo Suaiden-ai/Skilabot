@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -17,9 +17,35 @@ export const usePlanLimits = () => {
 
   useEffect(() => {
     const fetchPlanLimits = async () => {
-      const plan = profile?.plan || 'Basic';
-      console.log('Buscando limites para o plano:', plan);
-      const searchPlan = plan === 'Intermediate' ? 'Intermediate' : plan;
+      // Se não há profile, usar Basic como padrão
+      if (!profile) {
+        console.log('usePlanLimits - No profile available, using Basic plan');
+        setPlanLimits({
+          id: 'fallback',
+          plan_name: 'Basic',
+          max_agents: 1,
+          max_whatsapp_connections: 1,
+          has_specialized_consulting: false
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      const plan = profile.plan || 'Basic';
+      console.log('usePlanLimits - Profile:', profile);
+      console.log('usePlanLimits - Plan from profile:', plan);
+      
+      // Normalizar o nome do plano
+      let searchPlan = plan;
+      if (plan === 'Intermediate' || plan === 'Intermediario') {
+        searchPlan = 'Intermediate';
+      } else if (plan === 'Premium') {
+        searchPlan = 'Premium';
+      } else {
+        searchPlan = 'Basic';
+      }
+      
+      console.log('usePlanLimits - Searching for plan:', searchPlan);
       
       try {
         const { data, error } = await supabase
@@ -30,30 +56,19 @@ export const usePlanLimits = () => {
 
         if (error) {
           console.error('Erro ao buscar limites do plano:', error);
+          // Fallback para Basic em caso de erro
+          const fallbackResult = await supabase
+            .from('plan_limits')
+            .select('*')
+            .eq('plan_name', 'Basic')
+            .maybeSingle();
           
-          // If not found and original plan was "Intermediario", fallback to Basic
-          if (plan === 'Intermediario') {
-            console.warn('Plano Intermediario não encontrado, usando limites do Basic como fallback');
-            const fallbackResult = await supabase
-              .from('plan_limits')
-              .select('*')
-              .eq('plan_name', 'Basic')
-              .maybeSingle();
-            
-            setPlanLimits(fallbackResult.data as PlanLimits);
-            return;
-          }
-          
-          throw error;
+          setPlanLimits(fallbackResult.data as PlanLimits);
+          return;
         }
 
         if (!data) {
-          if (plan === 'Intermediate') {
-            console.error('Plan Intermediate not found in plan_limits!');
-            setPlanLimits(null);
-            return;
-          }
-          console.warn('Plano não encontrado, usando limites do Basic como fallback');
+          console.warn(`Plano ${searchPlan} não encontrado, usando Basic como fallback`);
           // Fallback para Basic se não encontrar o plano
           const fallbackResult = await supabase
             .from('plan_limits')
@@ -64,17 +79,25 @@ export const usePlanLimits = () => {
           return;
         }
 
-        console.log('Limites encontrados:', data);
+        console.log('usePlanLimits - Limites encontrados:', data);
         setPlanLimits(data as PlanLimits);
       } catch (error) {
         console.error('Error fetching plan limits:', error);
+        // Em caso de erro, usar valores padrão
+        setPlanLimits({
+          id: 'fallback',
+          plan_name: 'Basic',
+          max_agents: 1,
+          max_whatsapp_connections: 1,
+          has_specialized_consulting: false
+        });
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchPlanLimits();
-  }, [profile?.plan]);
+  }, [profile]);
 
   return {
     planLimits,
@@ -86,25 +109,38 @@ export const usePlanLimits = () => {
 export const useCurrentUsage = () => {
   const { profile } = useAuth();
 
-  const getCurrentUsage = async () => {
-    if (!profile?.id) return { agents: 0, connections: 0 };
+  const getCurrentUsage = useCallback(async () => {
+    if (!profile?.id) {
+      console.log('useCurrentUsage - No profile ID found');
+      return { agents: 0, connections: 0 };
+    }
 
-    const [agentsResult, connectionsResult] = await Promise.all([
-      supabase
-        .from('ai_configurations')
-        .select('id')
-        .eq('user_id', profile.id),
-      supabase
-        .from('whatsapp_connections')
-        .select('id')
-        .eq('user_id', profile.id)
-    ]);
+    console.log('useCurrentUsage - Fetching usage for user:', profile.id);
 
-    return {
-      agents: agentsResult.data?.length || 0,
-      connections: connectionsResult.data?.length || 0,
-    };
-  };
+    try {
+      const [agentsResult, connectionsResult] = await Promise.all([
+        supabase
+          .from('ai_configurations')
+          .select('id')
+          .eq('user_id', profile.id),
+        supabase
+          .from('whatsapp_connections')
+          .select('id')
+          .eq('user_id', profile.id)
+      ]);
+
+      const usage = {
+        agents: agentsResult.data?.length || 0,
+        connections: connectionsResult.data?.length || 0,
+      };
+
+      console.log('useCurrentUsage - Usage data:', usage);
+      return usage;
+    } catch (error) {
+      console.error('useCurrentUsage - Error fetching usage:', error);
+      return { agents: 0, connections: 0 };
+    }
+  }, [profile?.id]);
 
   return {
     getCurrentUsage,

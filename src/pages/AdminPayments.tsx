@@ -99,9 +99,9 @@ export default function AdminPayments() {
     refunded: 'bg-blue-100 text-blue-800',
   };
   const methodIcons: Record<string, JSX.Element> = {
-    credit_card: <CreditCard className="inline w-4 h-4 mr-1 text-blue-500" />, 
-    boleto: <FileText className="inline w-4 h-4 mr-1 text-purple-500" />, 
-    pix: <DollarSign className="inline w-4 h-4 mr-1 text-green-500" />
+    credit_card: <CreditCard className="inline w-4 h-4 mr-1 text-pink-500" />, 
+    boleto: <FileText className="inline w-4 h-4 mr-1 text-orange-500" />, 
+    pix: <DollarSign className="inline w-4 h-4 mr-1 text-pink-500" />
   };
   function formatAmount(amount: number, currency: string) {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency?.toUpperCase() || 'USD' }).format(amount || 0);
@@ -122,16 +122,16 @@ export default function AdminPayments() {
           <span className="text-xl font-bold text-green-900">{formatAmount(totalReceived, 'usd')}</span>
           <span className="text-xs text-green-700 mt-1">{totalCount} payments</span>
         </div>
-        <div className="bg-blue-50 border border-blue-200 rounded-lg px-6 py-3 flex flex-col items-start min-w-[180px]">
-          <span className="text-xs text-blue-700 font-medium mb-1">Received this month</span>
-          <span className="text-xl font-bold text-blue-900">{formatAmount(monthReceived, 'usd')}</span>
-          <span className="text-xs text-blue-700 mt-1">{monthCount} payments</span>
+        <div className="bg-pink-50 border border-pink-200 rounded-lg px-6 py-3 flex flex-col items-start min-w-[180px]">
+          <span className="text-xs text-pink-700 font-medium mb-1">Received this month</span>
+          <span className="text-xl font-bold text-pink-900">{formatAmount(monthReceived, 'usd')}</span>
+          <span className="text-xs text-pink-700 mt-1">{monthCount} payments</span>
         </div>
       </div>
       {/* Filtros melhorados */}
       <div className="bg-white rounded-xl shadow-md p-6 mb-8 border max-w-full">
         <div className="flex items-center gap-2 mb-4">
-          <Filter className="w-5 h-5 text-blue-500" />
+          <Filter className="w-5 h-5 text-pink-500" />
           <span className="font-semibold text-lg">Filter payments</span>
         </div>
         <div className="flex flex-wrap md:flex-nowrap gap-4 md:gap-6 items-center">

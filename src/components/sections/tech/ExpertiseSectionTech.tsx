@@ -8,45 +8,47 @@ const ExpertiseSectionTech = () => {
           {/* Left Column - Image with Floating Elements */}
           <div className="relative w-full flex justify-center overflow-visible">
             <div className="relative">
-              <div className="w-[40rem] h-[40rem] flex items-center justify-center relative overflow-visible">
+              <div className="w-full max-w-[28rem] sm:w-[40rem] sm:max-w-[40rem] h-auto sm:h-[40rem] flex items-center justify-center relative overflow-visible ml-0 sm:ml-0">
                 <img 
                   src="Imagens/techsupport-expertisesection.png"
                   alt="Tech Support illustration"
-                  className="w-[38rem] h-[38rem] object-contain mx-auto drop-shadow-lg"
+                  className="w-full max-w-[28rem] sm:w-[38rem] sm:max-w-[38rem] h-auto sm:h-[38rem] object-contain mx-auto drop-shadow-lg"
                 />
-                {/* Floating Metric Cards */}
-                <div className="absolute left-0 right-auto sm:-left-2 -top-2 bg-white rounded-2xl p-4 shadow-xl border border-blue-100 animate-pulse max-w-[160px] w-full sm:w-auto mt-20" style={{maxWidth:'90vw'}}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">+90%</div>
-                      <div className="text-sm text-gray-600">Faster Service</div>
+                {/* Floating Metric Cards - só no desktop */}
+                <div className="hidden sm:block">
+                  <div className="absolute left-0 right-auto sm:-left-2 -top-2 bg-white rounded-2xl p-4 shadow-xl border border-blue-100 animate-pulse max-w-[160px] w-full sm:w-auto mt-20" style={{maxWidth:'90vw'}}>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                        <TrendingUp className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-gray-900">+90%</div>
+                        <div className="text-sm text-gray-600">Faster Service</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="absolute left-0 right-auto sm:left-80 top-12 bg-white rounded-2xl p-4 shadow-xl border border-purple-100 max-w-[140px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
-                  <div className="text-xs text-gray-600 mb-2">Customer Satisfaction</div>
-                  <div className="text-purple-600 font-semibold text-sm mb-2">+95%</div>
-                  <div className="flex items-end gap-1 h-8">
-                    {[2, 4, 5, 7, 6, 8, 9].map((height, index) => (
-                      <div 
-                        key={index}
-                        className="w-2 bg-gradient-to-t from-purple-400 to-blue-500 rounded-sm"
-                        style={{ height: `${height * 4}px` }}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <div className="absolute left-0 right-auto sm:-left-2 -bottom-2 bg-white rounded-2xl p-4 shadow-xl border border-blue-100 animate-pulse max-w-[160px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-white" />
+                  <div className="absolute left-0 right-auto sm:left-80 top-12 bg-white rounded-2xl p-4 shadow-xl border border-purple-100 max-w-[140px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
+                    <div className="text-xs text-gray-600 mb-2">Customer Satisfaction</div>
+                    <div className="text-purple-600 font-semibold text-sm mb-2">+95%</div>
+                    <div className="flex items-end gap-1 h-8">
+                      {[2, 4, 5, 7, 6, 8, 9].map((height, index) => (
+                        <div 
+                          key={index}
+                          className="w-2 bg-gradient-to-t from-purple-400 to-blue-500 rounded-sm"
+                          style={{ height: `${height * 4}px` }}
+                        />
+                      ))}
                     </div>
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">99%</div>
-                      <div className="text-sm text-gray-600">Automated Updates</div>
+                  </div>
+                  <div className="absolute left-0 right-auto sm:-left-2 -bottom-2 bg-white rounded-2xl p-4 shadow-xl border border-blue-100 animate-pulse max-w-[160px] w-full sm:w-auto" style={{maxWidth:'90vw'}}>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                        <Sparkles className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-gray-900">99%</div>
+                        <div className="text-sm text-gray-600">Automated Updates</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -56,10 +58,10 @@ const ExpertiseSectionTech = () => {
           {/* Right Column - Content */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 break-words leading-tight w-full max-w-full overflow-hidden text-left">
-                <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent w-full max-w-full block text-balance">Your AI Partner for Tech Support</span>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 break-words leading-tight w-full max-w-full text-left">
+                <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Your AI Partner for Tech Support</span>
               </h2>
-              <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 break-words w-full max-w-full text-left">
+              <p className="text-lg md:text-lg text-gray-600 mb-6 md:mb-8 break-words w-full text-left">
                 From automated updates to smart triage, our AI-driven platform is designed to boost efficiency and customer satisfaction for technical support teams.
               </p>
             </div>
@@ -79,30 +81,30 @@ const ExpertiseSectionTech = () => {
                 }
               ].map((feature, index) => (
                 <div key={index} className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-blue-100 hover:shadow-lg transition-all duration-300 w-full break-words">
-                  <div className="w-7 h-7 md:w-8 md:h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <CheckCircle className="w-5 h-5 text-white" />
+                  <div className="w-8 h-8 md:w-8 md:h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <CheckCircle className="w-6 h-6 md:w-5 md:h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1 break-words text-left">
+                    <h3 className="text-lg md:text-lg font-semibold text-gray-900 mb-1 break-words text-left">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 text-xs md:text-sm leading-relaxed break-words text-left">
+                    <p className="text-base md:text-sm leading-relaxed break-words text-left text-gray-600">
                       {feature.description}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="p-4 md:p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl border border-blue-200 backdrop-blur-sm w-full text-left">
+            <div className="p-3 md:p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl border border-blue-200 backdrop-blur-sm w-full text-left">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Wrench className="w-6 h-6 text-white" />
+                  <Wrench className="w-7 h-7 md:w-6 md:h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-base md:text-xl font-bold text-gray-900 mb-2 break-words text-left">
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 break-words text-left">
                     More than automation, real results
                   </h3>
-                  <p className="text-gray-700 text-xs md:text-base leading-relaxed break-words text-left">
+                  <p className="text-base md:text-base leading-relaxed break-words text-left text-gray-700">
                     Our AI empowers your support team to deliver faster service, optimize processes, and delight customers.
                   </p>
                 </div>

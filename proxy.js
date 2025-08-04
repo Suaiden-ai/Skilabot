@@ -5,7 +5,7 @@ const app = express();
 
 app.use(
   '/',
-  proxy(process.env.SMARTCHAT_BASE_URL || 'https://smartchat.suaiden.com', {
+  proxy(process.env.SMARTCHAT_BASE_URL || process.env.VITE_SMARTCHAT_BASE_URL || 'https://smartchat.suaiden.com', {
     proxyReqPathResolver: req => req.originalUrl.replace(/^\/chatwoot/, ''),
     userResHeaderDecorator(headers) {
       delete headers['x-frame-options'];

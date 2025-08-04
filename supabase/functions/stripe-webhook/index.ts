@@ -48,8 +48,8 @@ serve(async (req) => {
           stripe_customer_id: customerId,
           plan_type: plan,
           status: "active",
-          amount: session.amount_total ? session.amount_total / 100 : null,
-          currency: session.currency,
+          amount: session.amount_total ? session.amount_total / 100 : 0,
+          currency: session.currency || 'usd',
           stripe_session_id: session.id,
           created_at: new Date().toISOString(),
         },
@@ -61,6 +61,50 @@ serve(async (req) => {
       }
     } else {
       console.error("Dados insuficientes para salvar pagamento:", { userId, plan, customerId });
+    }
+  }
+
+  // TRATAR COBRANÇAS RECORRENTES APÓS PERÍODO DE TESTE
+  if (event.type === "invoice.payment_succeeded") {
+    const invoice = event.data.object as Stripe.Invoice;
+    console.log("Processando invoice.payment_succeeded para invoice:", invoice.id);
+    
+    if (invoice.subscription && invoice.customer) {
+      const supabase = createClient(
+        Deno.env.get("SUPABASE_URL")!,
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+      );
+
+      // Buscar o user_id pelo customerId na tabela profiles
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("id, plan")
+        .eq("stripe_customer_id", invoice.customer)
+        .single();
+
+      if (profile) {
+        // Salva histórico de pagamento recorrente
+        const { error } = await supabase.from("payment_history").insert([
+          {
+            user_id: profile.id,
+            stripe_customer_id: invoice.customer as string,
+            plan_type: profile.plan,
+            status: "active",
+            amount: invoice.amount_paid ? invoice.amount_paid / 100 : 0,
+            currency: invoice.currency || 'usd',
+            stripe_payment_intent_id: invoice.payment_intent as string,
+            created_at: new Date().toISOString(),
+          },
+        ]);
+        
+        if (error) {
+          console.error("Erro ao inserir payment_history para cobrança recorrente:", error);
+        } else {
+          console.log("Cobrança recorrente salva com sucesso!");
+        }
+      } else {
+        console.error("Não foi possível encontrar o perfil para customerId:", invoice.customer);
+      }
     }
   }
 

@@ -42,6 +42,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Remover isAdmin do destructuring para evitar conflito
   const { user, session, profile, loading, initialized, clearCache, setProfile } = useAuthWithCache();
 
+  // Debug logs
+  useEffect(() => {
+    console.log('AuthContext - User:', user);
+    console.log('AuthContext - Profile:', profile);
+    console.log('AuthContext - Loading:', loading);
+    console.log('AuthContext - Initialized:', initialized);
+  }, [user, profile, loading, initialized]);
+
   // Sincroniza sessão entre abas: recarrega se a sessão do Supabase mudar
   useEffect(() => {
     const handler = (event: StorageEvent) => {
@@ -55,6 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const loadProfile = async (userId: string) => {
     try {
+      console.log('AuthContext - Loading profile for user:', userId);
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -66,6 +75,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
 
+      console.log('AuthContext - Profile loaded:', data);
       setProfile(data);
     } catch (error) {
       console.error('Error loading profile:', error);
@@ -98,22 +108,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = async () => {
     await supabase.auth.signOut();
-    setProfile(null);
+    clearCache();
   };
 
   const isAdmin = profile?.role === 'admin';
 
-  const value = {
-    user,
-    session,
-    profile,
-    loading,
-    signIn,
-    signUp,
-    signOut,
-    loadProfile,
-    isAdmin, // Expor isAdmin para uso externo
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        session,
+        profile,
+        loading,
+        signIn,
+        signUp,
+        signOut,
+        loadProfile,
+        isAdmin,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
