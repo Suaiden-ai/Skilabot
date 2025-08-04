@@ -35,7 +35,7 @@ export const AgentCard = ({
           onClick={() => onDisconnect(agent)}
           size={size}
           variant="outline"
-          className={size === "sm" ? "border-red-200 text-red-600 hover:bg-red-50" : "border-red-200 text-red-600 hover:bg-red-50"}
+          className={size === "sm" ? "flex-1 border-red-200 text-red-600 hover:bg-red-50" : "flex-1 border-red-200 text-red-600 hover:bg-red-50"}
         >
           <FontAwesomeIcon icon={faWhatsapp} className="mr-1" />
           Disconnect
