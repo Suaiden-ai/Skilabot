@@ -359,7 +359,7 @@
     showTyping(messages);
 
     try {
-                        const response = await fetch(`${window.location.origin}/webhook/chatbot-dashboard`, {
+                        const response = await fetch(`https://nwh.suaiden.com/webhook/chatbot-dashboard`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -382,7 +382,7 @@
             user_id: config.userId,
             final_prompt: null
           },
-                                webhookUrl: `${window.location.origin}/webhook/chatbot-dashboard`,
+                                webhookUrl: `https://nwh.suaiden.com/webhook/chatbot-dashboard`,
           executionMode: "production"
         }])
       });
